@@ -22,5 +22,5 @@
   padding: 10px;
   width: 100%;
   border-radius: var(--pp-border-radius);
-  border: 1px solid red;
+  border: 1px solid var(--pp-input-border);
 }
