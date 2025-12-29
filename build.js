@@ -16,6 +16,7 @@ fs.writeFileSync("dist/pp-ui-core.min.css", css);
 
 // Build JS
 const js =
+  fs.readFileSync("dist/default.js", "utf8") +
   fs.readFileSync("src/components/button.js", "utf8") +
   fs.readFileSync("src/components/input.js", "utf8") +
   fs.readFileSync("src/core/init.js", "utf8");

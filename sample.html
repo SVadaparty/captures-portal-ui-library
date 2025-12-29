@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Sample Page Test</title>
+  <link rel="stylesheet" href="./dist/pp-ui-core.min.css">
+</head>
+<body>
+  <h2>This is another testing page</h2>
+
+  <!-- INPUTS -->
+  <input
+    data-pp-input
+    data-placeholder="Email"
+    data-type="email"
+  />
+
+  <br /><br />
+
+  <input
+    data-pp-input
+    data-placeholder="Phone Number"
+    data-type="tel"
+  />
+
+  <br /><br />
+
+  <!-- BUTTONS -->
+  <button
+    data-pp-button
+    data-label="Save"
+    data-type="primary">
+  </button>
+
+  <button
+    data-pp-button
+    data-label="Cancel"
+    data-type="secondary"  data-onclick="handleSave">
+  </button>
+
+  <script type="module" src="./dist/pp-ui-core.min.js"></script>
+  <script>
+    function handleSave() {
+      alert('Cancel button clicked!');
+    } 
+    </script>
+</body>
+</html>

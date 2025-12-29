@@ -1,5 +1,5 @@
 :root {
-  --pp-primary: #0060a9;
+  --pp-primary: #b83809;
   --pp-primary-hover: #004b85;
   --pp-border-radius: 6px;
   --pp-font-family: "Segoe UI", Arial, sans-serif;
@@ -22,5 +22,5 @@
   padding: 10px;
   width: 100%;
   border-radius: var(--pp-border-radius);
-  border: 1px solid var(--pp-input-border);
+  border: 1px solid red;
 }
