@@ -10,5 +10,19 @@ export const DEFAULTS = {
     height: "44px",
     padding: "8px 16px",
     borderRadius: "6px",
-    cursor: "pointer"
+    cursor: "pointer",
+    /* ========= INPUT DEFAULTS (appended) ========= */
+    inputType: "text",
+    inputPlaceholder: "",
+    inputTextColor: "#000",
+    inputBgColor: "#fff",
+    inputBorderColor: "#ccc",
+    inputFocusBorderColor: "#06f",
+    inputHeight: "44px",
+    inputPadding: "8px 12px",
+    inputBorderRadius: "6px",
+    inputWidth: "100%",
+    inputFontFamily: "HelveticaNeueLTStd-Bd, Helvetica, Arial, sans-serif",
+    inputFontSize: "16px",
+    inputFontWeight: "400"
 };
