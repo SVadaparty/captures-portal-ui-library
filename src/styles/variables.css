@@ -1,0 +1,8 @@
+:root {
+  --pp-primary: #0060a9;
+  --pp-primary-hover: #004b85;
+  --pp-border-radius: 6px;
+  --pp-font-family: "Segoe UI", Arial, sans-serif;
+  --pp-input-border: #ccc;
+  --pp-input-focus: #0060a9;
+}
