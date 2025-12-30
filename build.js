@@ -19,6 +19,7 @@ const js =
   fs.readFileSync("src/consts/default.js", "utf8") +
   fs.readFileSync("src/components/button.js", "utf8") +
   fs.readFileSync("src/components/input.js", "utf8") +
+  fs.readFileSync("src/components/dropdown.js", "utf8") +
   fs.readFileSync("src/core/init.js", "utf8");
 
 fs.writeFileSync("dist/pp-ui-core.min.js", js);
