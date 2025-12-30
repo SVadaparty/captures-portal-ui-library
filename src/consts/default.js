@@ -1,4 +1,34 @@
 export const DEFAULTS = {
+    /* ========= INPUT DEFAULTS (appended) ========= */
+  inputType: "text",
+  inputPlaceholder: "",
+  inputTextColor: "#000",
+  inputBgColor: "#fff",
+  inputBorderColor: "#ccc",
+  inputFocusBorderColor: "#06f",
+  inputHeight: "44px",
+  inputPadding: "8px 12px",
+  inputBorderRadius: "6px",
+  inputWidth: "100%",
+  inputFontFamily: "HelveticaNeueLTStd-Bd, Helvetica, Arial, sans-serif",
+  inputFontSize: "16px",
+  inputFontWeight: "400",
+
+  /* ========= DROPDOWN DEFAULTS (APPENDED ONLY) ========= */
+  dropdownTextColor: "#000",
+  dropdownBgColor: "#fff",
+  dropdownBorderColor: "#ccc",
+  dropdownFocusBorderColor: "#06f",
+  dropdownHeight: "44px",
+  dropdownPadding: "8px 12px",
+  dropdownBorderRadius: "6px",
+  dropdownWidth: "100%",
+  dropdownFontFamily: "HelveticaNeueLTStd-Bd, Helvetica, Arial, sans-serif",
+  dropdownFontSize: "16px",
+  dropdownFontWeight: "400",
+  dropdownCursor: "pointer",
+
+
   /* ========= BUTTON DEFAULTS ========= */
   type: "primary",
   label: "Button",

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 
+
 <head>
   <title>Sample Page Test</title>
   <link rel="stylesheet" href="./dist/pp-ui-core.min.css">
@@ -14,16 +15,25 @@
 
   <br /><br />
 
+
+  <input data-pp-input data-placeholder="Phone Number" data-type="tel" />
   <input data-pp-input data-placeholder="Phone Number" data-type="tel" />
 
   <br /><br />
-
+  <select data-pp-dropdown data-options='["Select Program","A","B","C"]' data-onchange="onProgramChange">
+  </select>
+  <br /><br />
   <!-- BUTTONS -->
   <button data-pp-button data-label="Save" data-type="primary">
   </button>
 
   <button data-pp-button data-label="Cancel" data-type="secondary" data-onclick="handleSave">
   </button>
+  <script>
+    function onProgramChange(value) {
+      alert("Selected: " + value);
+    }
+  </script>
 
   <div data-pp-table data-datasource="usersData" data-search="true" data-filter="true" data-search-placeholder="Search"
     data-filter-placeholder="Select column" data-width="100%" data-font-family="sans-serif" data-font-size="14px"
@@ -38,7 +48,9 @@
   <script>
     function handleSave() {
       alert('Cancel button clicked!');
-    }
+    } 
+
+    
     window.usersData = [
       {
         "id": 168,
