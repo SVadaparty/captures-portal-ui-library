@@ -1,47 +1,87 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <title>Sample Page Test</title>
   <link rel="stylesheet" href="./dist/pp-ui-core.min.css">
 </head>
+
 <body>
   <h2>This is another testing page</h2>
 
   <!-- INPUTS -->
-  <input
-    data-pp-input
-    data-placeholder="Email"
-    data-type="email"
-  />
+  <input data-pp-input data-placeholder="Email" data-type="email" />
 
   <br /><br />
 
-  <input
-    data-pp-input
-    data-placeholder="Phone Number"
-    data-type="tel"
-  />
+  <input data-pp-input data-placeholder="Phone Number" data-type="tel" />
 
   <br /><br />
 
   <!-- BUTTONS -->
-  <button
-    data-pp-button
-    data-label="Save"
-    data-type="primary">
+  <button data-pp-button data-label="Save" data-type="primary">
   </button>
 
-  <button
-    data-pp-button
-    data-label="Cancel"
-    data-type="secondary"  data-onclick="handleSave">
+  <button data-pp-button data-label="Cancel" data-type="secondary" data-onclick="handleSave">
   </button>
+
+  <div data-pp-table data-datasource="usersData" data-search="true" data-filter="true" data-search-placeholder="Search"
+    data-filter-placeholder="Select column" data-width="100%" data-font-family="sans-serif" data-font-size="14px"
+    data-border-color="#000" data-header-bg="#b7c9e6" data-header-text-color="#03025f" data-row-hover-bg="#fafafa"
+    data-text-color="#000" data-page-size="5" data-sticky-header="true" data-column-toggle="true">
+  </div>
+
+
+
 
   <script type="module" src="./dist/pp-ui-core.min.js"></script>
   <script>
     function handleSave() {
       alert('Cancel button clicked!');
-    } 
-    </script>
+    }
+    window.usersData = [
+      {
+        "id": 168,
+        "title": "Charger SXT RWD",
+        "price": 32999.99,
+        "quantity": 3,
+        "total": 98999.97,
+        "discountPercentage": 13.39,
+        "discountedTotal": 85743.87,
+        "thumbnail": "https://cdn.dummyjson.com/products/images/vehicle/Charger%20SXT%20RWD/thumbnail.png"
+      },
+      {
+        "id": 78,
+        "title": "Apple MacBook Pro 14 Inch Space Grey",
+        "price": 1999.99,
+        "quantity": 2,
+        "total": 3999.98,
+        "discountPercentage": 18.52,
+        "discountedTotal": 3259.18,
+        "thumbnail": "https://cdn.dummyjson.com/products/images/laptops/Apple%20MacBook%20Pro%2014%20Inch%20Space%20Grey/thumbnail.png"
+      },
+      {
+        "id": 183,
+        "title": "Green Oval Earring",
+        "price": 24.99,
+        "quantity": 5,
+        "total": 124.94999999999999,
+        "discountPercentage": 6.28,
+        "discountedTotal": 117.1,
+        "thumbnail": "https://cdn.dummyjson.com/products/images/womens-jewellery/Green%20Oval%20Earring/thumbnail.png"
+      },
+      {
+        "id": 100,
+        "title": "Apple Airpods",
+        "price": 129.99,
+        "quantity": 5,
+        "total": 649.95,
+        "discountPercentage": 12.84,
+        "discountedTotal": 566.5,
+        "thumbnail": "https://cdn.dummyjson.com/products/images/mobile-accessories/Apple%20Airpods/thumbnail.png"
+      }
+    ];
+  </script>
 </body>
+
 </html>
