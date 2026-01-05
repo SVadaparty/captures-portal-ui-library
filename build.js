@@ -20,6 +20,9 @@ const js =
   fs.readFileSync("src/components/button.js", "utf8") +
   fs.readFileSync("src/components/input.js", "utf8") +
   fs.readFileSync("src/components/dropdown.js", "utf8") +
+  fs.readFileSync("src/components/radio.js", "utf8") +
+  fs.readFileSync("src/components/checkbox.js", "utf8") +
+  fs.readFileSync("src/components/datepicker", "utf8") +
   fs.readFileSync("src/components/view_table.js")+
   fs.readFileSync("src/core/init.js", "utf8");
 
