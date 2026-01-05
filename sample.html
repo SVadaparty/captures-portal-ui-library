@@ -17,6 +17,27 @@
   <select data-pp-dropdown data-options='["Select Program","A","B","C"]' data-onchange="onProgramChange">
   </select>
   <br /><br />
+ <div
+  data-pp-radio-group
+  data-name="subscription"
+  data-layout="row"
+  data-options='["Monthly","Quarterly","Yearly"]'
+  data-onchange="onGenderChange">
+</div>
+  </div>
+  <br /><br />
+  <div data-pp-checkbox-group data-options='["Email Alerts","SMS Alerts","Push Notifications"]'
+    data-onchange="onPreferenceChange">
+  </div>
+  <br /><br />
+  <input
+  data-pp-datepicker
+  data-onchange="onDateChange"
+/>
+ <br /><br />
+  <!-- BUTTONS -->
+  <button data-pp-button data-label="Save" data-type="primary">
+  </button>
 
   <button data-pp-button data-label="Cancel" data-type="secondary" data-onclick="handleSave">
   </button>
@@ -25,11 +46,22 @@
       alert("Selected: " + value);
     }
   </script>
+  <script>
+    function onGenderChange(value) {
+      alert("Selected Gender: " + value);
+    }
+
+  </script>
+  <script>
+    function onPreferenceChange(selectedOptions) {
+      alert("Selected Preferences: " + selectedOptions.join(", "));
+    }
+  </script>
 
   <div data-pp-table data-datasource="usersData" data-search="true" data-filter="true" data-search-placeholder="Search"
     data-filter-placeholder="Select column" data-width="100%" data-font-family="sans-serif" data-font-size="14px"
     data-border-color="#000" data-header-bg="#b7c9e6" data-header-text-color="#03025f" data-row-hover-bg="#fafafa"
-    data-text-color="#000" data-page-size="5" data-sticky-header="true" data-column-toggle="true">
+    data-text-color="#000" data-page-size="2" data-sticky-header="true" data-column-toggle="true">
   </div>
 
 
@@ -39,9 +71,9 @@
   <script>
     function handleSave() {
       alert('Cancel button clicked!');
-    } 
+    }
 
-    
+
     window.usersData = [
       {
         "id": 168,

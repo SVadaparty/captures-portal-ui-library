@@ -1,0 +1,58 @@
+function initDatepicker() {
+  document.querySelectorAll("[data-pp-datepicker]").forEach(input => {
+    const onChangeFn = input.dataset.onchange;
+
+    /* =========================
+       ATTRIBUTES
+    ========================= */
+    input.type = DEFAULTS.dateInputType;
+
+    // Disable previous dates
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    const mm = String(today.getMonth() + 1).padStart(2, "0");
+    const dd = String(today.getDate()).padStart(2, "0");
+
+    input.min = `${yyyy}-${mm}-${dd}`;
+
+    /* =========================
+       STYLES (FROM DEFAULTS ONLY)
+    ========================= */
+    input.style.width = DEFAULTS.dateWidth;
+    input.style.height = DEFAULTS.dateHeight;
+    input.style.padding = DEFAULTS.datePadding;
+    input.style.fontFamily = DEFAULTS.dateFontFamily;
+    input.style.fontSize = DEFAULTS.dateFontSize;
+    input.style.fontWeight = DEFAULTS.dateFontWeight;
+    input.style.color = input.dataset.color || DEFAULTS.dateTextColor;
+    input.style.backgroundColor =
+      input.dataset.bgcolor || DEFAULTS.dateBgColor;
+    input.style.border = `1px solid ${
+      input.dataset.bordercolor || DEFAULTS.dateBorderColor
+    }`;
+    input.style.borderRadius = DEFAULTS.dateBorderRadius;
+    input.style.cursor = DEFAULTS.dateCursor;
+    input.style.outline = "none";
+
+    /* =========================
+       FOCUS HANDLING
+    ========================= */
+    input.addEventListener("focus", () => {
+      input.style.borderColor = DEFAULTS.dateFocusBorderColor;
+    });
+
+    input.addEventListener("blur", () => {
+      input.style.borderColor =
+        input.dataset.bordercolor || DEFAULTS.dateBorderColor;
+    });
+
+    /* =========================
+       onchange (CSP-safe)
+    ========================= */
+    if (onChangeFn && typeof window[onChangeFn] === "function") {
+      input.addEventListener("change", e =>
+        window[onChangeFn](e.target.value, e)
+      );
+    }
+  });
+}
