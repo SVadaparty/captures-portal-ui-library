@@ -15,11 +15,11 @@ function initDatepicker() {
 
     input.min = `${yyyy}-${mm}-${dd}`;
 
-    /* =========================
-       STYLES (FROM DEFAULTS ONLY)
-    ========================= */
-    input.style.width = DEFAULTS.dateWidth;
-    input.style.height = DEFAULTS.dateHeight;
+     /* =========================
+       STYLES (FROM DEFAULTS ONLY) - allow instance overrides
+     ========================= */
+     input.style.width = input.dataset.width || DEFAULTS.dateWidth;
+     input.style.height = input.dataset.height || DEFAULTS.dateHeight;
     input.style.padding = DEFAULTS.datePadding;
     input.style.fontFamily = DEFAULTS.dateFontFamily;
     input.style.fontSize = DEFAULTS.dateFontSize;

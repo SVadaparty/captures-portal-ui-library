@@ -10,9 +10,9 @@ function initInputs() {
     input.placeholder = placeholder;
   
 
-    // Styles (from DEFAULTS)
-    input.style.width = DEFAULTS.inputWidth;
-    input.style.height = DEFAULTS.inputHeight;
+    // Styles (from DEFAULTS) — allow per-instance override via data-width / data-height
+    input.style.width = input.dataset.width || DEFAULTS.inputWidth;
+    input.style.height = input.dataset.height || DEFAULTS.inputHeight;
     input.style.padding = DEFAULTS.inputPadding;
     input.style.fontFamily = DEFAULTS.inputFontFamily;
     input.style.fontSize = DEFAULTS.inputFontSize;
