@@ -112,7 +112,23 @@ export const DEFAULTS = {
     dateBorderColor: "#ccc",
     dateFocusBorderColor: "#06f",
     dateBorderRadius: "6px",
-    dateCursor: "pointer"
+    dateCursor: "pointer",
+    /* ========= FILE UPLOAD DEFAULTS (APPENDED ONLY) ========= */
+fileInputWidth: "100%",
+fileInputHeight: "44px",
+fileInputPadding: "8px 12px",
+fileInputBorderRadius: "6px",
+fileInputBorderColor: "#ccc",
+fileInputFocusBorderColor: "#06f",
+fileInputBgColor: "#fff",
+fileInputTextColor: "#000",
+fileInputFontFamily: "HelveticaNeueLTStd-Bd, Helvetica, Arial, sans-serif",
+fileInputFontSize: "14px",
+fileInputFontWeight: "400",
+fileInputCursor: "pointer",
+fileHintFontSize: "12px",
+fileHintTextColor: "#666",
+fileHintMarginTop: "6px"
 
 };
 

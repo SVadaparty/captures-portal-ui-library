@@ -11,10 +11,10 @@
   <h2>This is testing page</h2>
 
   <!-- INPUTS -->
-  <input data-pp-input data-placeholder="Email" data-type="email" />
+  <input  data-width="60%" data-pp-input data-placeholder="Email" data-type="email" />
 
   <br /><br />
-  <select data-pp-dropdown data-options='["Select Program","A","B","C"]' data-onchange="onProgramChange">
+  <select   data-width="60%" data-pp-dropdown data-options='["Select Program","A","B","C"]' data-onchange="onProgramChange">
   </select>
   <br /><br />
  <div
@@ -25,25 +25,32 @@
   data-onchange="onGenderChange">
 </div>
   <br /><br />
-  <div data-pp-checkbox-group data-options='["Email Alerts","SMS Alerts","Push Notifications"]'
-    data-onchange="onPreferenceChange">
-  </div>
-<div
-  data-pp-modal
-  data-id="myModal"
-  data-trigger-text="Open Modal"
-  data-trigger-bg="#FFA500"
-  data-trigger-padding="10px 20px"
-  data-trigger-fontsize="18px"
-  data-trigger-margin-top="30px"
-  data-title="Modal Title"
-  data-content="This is the modal content.hkjvgdfiugvuief This is the modal content.hkjvgdfiugvuief">
+ 
+  <div
+  data-pp-checkbox-group
+  data-layout="column"
+  data-options='["Option A","Option B","Option C"]'
+  data-onchange="onPreferenceChange">
 </div>
 
   <br /><br />
-  <input
+
+<input
   data-pp-datepicker
+  data-width="40%"
   data-onchange="onDateChange"
+/>
+ <br /><br />
+
+
+<input
+  data-pp-file
+  data-align="left"
+  data-width="40%"
+  data-max-size="5"
+  data-multiple="false"
+  data-accept=".pdf,.doc,.docx"
+  data-onchange="onFileUpload"
 />
  <br /><br />
   <!-- BUTTONS -->
@@ -67,6 +74,15 @@
     function onPreferenceChange(selectedOptions) {
       alert("Selected Preferences: " + selectedOptions.join(", "));
     }
+  </script>
+  <script>
+    function onFileUpload(files) {
+  for (let file of files) {
+    alert("File name: " + file.name);
+    alert("File size: " + file.size + " bytes");
+    alert("File type: " + file.type);
+  }
+}
   </script>
 
   <div data-pp-table data-datasource="usersData" data-search="true" data-filter="true" data-search-placeholder="Search"

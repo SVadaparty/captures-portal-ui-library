@@ -2,11 +2,15 @@ function initCheckboxes() {
   document.querySelectorAll("[data-pp-checkbox-group]").forEach(group => {
     const optionsRaw = group.dataset.options;
     const onChangeFn = group.dataset.onchange;
+    const layout = group.dataset.layout || "column"; // NEW
 
-    // GROUP LAYOUT (FROM DEFAULTS)
+    /* =========================
+       GROUP LAYOUT
+    ========================= */
     group.style.display = "flex";
-    group.style.flexDirection = "column";
-    group.style.rowGap = DEFAULTS.checkboxGroupGap;
+    group.style.flexDirection = layout === "row" ? "row" : "column";
+    group.style.flexWrap = layout === "row" ? "wrap" : "nowrap";
+    group.style.gap = DEFAULTS.checkboxGroupGap;
 
     // Reset (safe re-init)
     group.innerHTML = "";
@@ -40,13 +44,19 @@ function initCheckboxes() {
       wrapper.style.fontWeight = DEFAULTS.checkboxFontWeight;
       wrapper.style.color = DEFAULTS.checkboxTextColor;
 
+      // spacing between options when row layout
+      wrapper.style.marginRight =
+        layout === "row" ? DEFAULTS.checkboxGroupGap : "0";
+
       const checkbox = document.createElement("input");
       checkbox.type = "checkbox";
       checkbox.value = opt;
       checkbox.style.marginRight = DEFAULTS.checkboxGap;
       checkbox.style.cursor = DEFAULTS.checkboxCursor;
 
-      // onchange (CSP-safe)
+      /* =========================
+         onchange (CSP-safe)
+      ========================= */
       if (onChangeFn && typeof window[onChangeFn] === "function") {
         checkbox.addEventListener("change", e => {
           const checkedValues = Array.from(
