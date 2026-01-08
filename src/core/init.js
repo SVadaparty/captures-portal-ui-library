@@ -7,6 +7,7 @@ window.PP_UI = {
     if (typeof initCheckboxes === "function") initCheckboxes();
     if (typeof initDatepicker === "function") initDatepicker();
     if (typeof initFileUpload === "function") initFileUpload();
+    if (typeof initSelectMenus === "function") initSelectMenus();
     if(typeof initTables==="function") initTables();
     if (typeof initModal === "function") initModal();
   }
