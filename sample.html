@@ -11,67 +11,74 @@
   <h2>This is testing page</h2>
 
   <!-- INPUTS -->
-  <input  data-width="60%" data-pp-input data-placeholder="Email" data-type="email" />
+  <input data-width="60%" data-pp-input data-placeholder="Email" data-type="email" />
 
   <br /><br />
-  <select   data-width="60%" data-pp-dropdown data-options='["Select Program","A","B","C"]' data-onchange="onProgramChange">
+  <select data-width="60%" data-pp-dropdown data-options='["Select Program","A","B","C"]'
+    data-onchange="onProgramChange">
   </select>
   <br /><br />
-  <div
-  data-pp-select data-placeholder="Choose fruits"
-  data-options='["Apple","Orange","Banana","Grapes","a","b","c","d","e","f","g","h","i","j","k"]'
-  data-multiple="false"
-  data-search="true"
-  data-width="60%"
-  data-onchange="onMultiSelect">
-</div>
+  <div data-pp-select data-placeholder="Choose fruits"
+    data-options='["Apple","Orange","Banana","Grapes","a","b","c","d","e","f","g","h","i","j","k"]' data-multiple="true"
+    data-search="true" data-width="60%" data-onchange="onMultiSelect">
+  </div>
 
- <br /><br />
- <div
+  <br /><br />
+  <div data-pp-radio-group data-name="subscription" data-layout="row" data-options='["Monthly","Quarterly","Yearly"]'
+    data-onchange="onGenderChange">
+  </div>
+  <br /><br />
+
+  <div data-pp-checkbox-group data-layout="column" data-options='["Option A","Option B","Option C"]'
+    data-onchange="onPreferenceChange">
+  </div>
+
+  <br /><br />
+  <div data-pp-modal data-id="myModal" data-trigger-text="Open Modal" data-title="Modal Title"
+    data-content="This is the modal content. This is body of modal .we can publish any information here.">
+  </div>
+
+  <br /><br />
+
+
+   <div style="
+    display: flex;
+    width: 100%;
+  ">
+  <div>
+
+  <input  data-pp-datepicker data-width="80%" data-format="MM/DD/YYYY" data-onchange="onDateChange" />
+  </div>
+  <div
   data-pp-radio-group
-  data-name="subscription"
   data-layout="row"
-  data-options='["Monthly","Quarterly","Yearly"]'
-  data-onchange="onGenderChange">
+  data-options='["Minimum date","Maximum date"]'
+  data-onchange="onFileModeChange" 
+>
 </div>
-  <br /><br />
- 
-  <div
-  data-pp-checkbox-group
-  data-layout="column"
-  data-options='["Option A","Option B","Option C"]'
-  data-onchange="onPreferenceChange">
+  </div>
+<br /><br />
+
+
+  <div style="
+    display: flex;
+    width: 100%;
+  ">
+  <div>
+    <!-- FILE INPUT -->
+    <input data-pp-file data-align="left" data-width="100%" data-max-size="5" data-multiple="false"
+      data-accept=".pdf,.doc,.docx" data-onchange="onFileUpload"/>
 </div>
-
-  <br /><br />
-  <div
-  data-pp-modal
-  data-id="myModal"
-  data-trigger-text="Open Modal"
-  data-title="Modal Title"
-  data-content="This is the modal content. This is body of modal .we can publish any information here.">
+    <!-- RADIO GROUP -->
+   <div
+  data-pp-radio-group
+  data-layout="row"
+  data-options='["Allowed Multiple files","Single file"]'
+  data-onchange="onFileModeChange" 
+>
 </div>
-
+  </div>
   <br /><br />
-
-<input
-  data-pp-datepicker
-  data-width="40%"
-  data-onchange="onDateChange"
-/>
- <br /><br />
-
-
-<input
-  data-pp-file
-  data-align="left"
-  data-width="40%"
-  data-max-size="5"
-  data-multiple="false"
-  data-accept=".pdf,.doc,.docx"
-  data-onchange="onFileUpload"
-/>
- <br /><br />
   <!-- BUTTONS -->
   <button data-pp-button data-label="Save" data-type="primary">
   </button>
@@ -81,6 +88,19 @@
   <script>
     function onProgramChange(value) {
       alert("Selected: " + value);
+    }
+  </script>
+  <script>
+    function onFileModeChange(selectedOptions) {
+      const fileInput = document.querySelector("[data-pp-file]");
+      if (!fileInput) return;
+
+      // If "Allowed Multiple files" is selected → enable multiple
+      if (selectedOptions.includes("Allowed Multiple files")) {
+        fileInput.multiple = true;
+      } else {
+        fileInput.multiple = false;
+      }
     }
   </script>
   <script>
@@ -96,12 +116,12 @@
   </script>
   <script>
     function onFileUpload(files) {
-  for (let file of files) {
-    alert("File name: " + file.name);
-    alert("File size: " + file.size + " bytes");
-    alert("File type: " + file.type);
-  }
-}
+      for (let file of files) {
+        alert("File name: " + file.name);
+        alert("File size: " + file.size + " bytes");
+        alert("File type: " + file.type);
+      }
+    }
   </script>
 
   <div data-pp-table data-datasource="usersData" data-search="true" data-filter="true" data-search-placeholder="Search"
