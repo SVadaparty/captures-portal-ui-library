@@ -4,6 +4,7 @@
 
 <head>
   <title>Sample Page Test</title>
+  <script src="/pp-validation.js"></script>
   <link rel="stylesheet" href="./dist/pp-ui-core.min.css">
 </head>
 
@@ -11,8 +12,19 @@
   <h2>This is testing page</h2>
 
   <!-- INPUTS -->
-  <input data-width="60%" data-pp-input data-placeholder="Email" data-type="email" />
+   <input data-width="60%" data-pp-input data-placeholder="Email" data-type="email" data-required="true"  />
+<div data-pp-validation data-for="email"></div>
 
+
+  <br /><br />
+    <input data-pp-input data-field="password" data-type="password" data-placeholder="Password"  data-required="true" />
+<div data-pp-validation data-for="password"></div>
+  <br /><br />
+  <input data-pp-input data-field="pincode" data-type="pincode" data-placeholder="Pincode" data-required="true" />
+<div data-pp-validation data-for="pincode"></div>
+  <br /><br />
+  <input data-pp-input data-field="mobileNumber" data-type="mobile" data-placeholder="Mobile Number"  data-required="true" />
+<div data-pp-validation data-for="mobileNumber"></div>
   <br /><br />
   <select data-width="60%" data-pp-dropdown data-options='["Select Program","A","B","C"]'
     data-onchange="onProgramChange">
@@ -103,6 +115,16 @@
       }
     }
   </script>
+  <script>
+  document.addEventListener("DOMContentLoaded", function () {
+    if (window.PPValidation) {
+      PPValidation.init();
+    } else {
+      console.error("PPValidation not loaded");
+    }
+  });
+</script>
+
   <script>
     function onGenderChange(value) {
       alert("Selected Gender: " + value);
