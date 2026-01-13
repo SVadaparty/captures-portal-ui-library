@@ -13,6 +13,11 @@ window.PP_UI = {
   }
 };
 
+// Expose key functions to window for external calls
+if (typeof initSelectMenus === "function") {
+  window.initSelectMenus = initSelectMenus;
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   window.PP_UI.init();
 });
