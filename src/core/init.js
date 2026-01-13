@@ -10,6 +10,7 @@ window.PP_UI = {
     if (typeof initSelectMenus === "function") initSelectMenus();
     if(typeof initTables==="function") initTables();
     if (typeof initModal === "function") initModal();
+    if (typeof initToasts === "function") initToasts();
   }
 };
 
