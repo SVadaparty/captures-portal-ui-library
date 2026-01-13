@@ -58,6 +58,12 @@
         const h2 = document.createElement("h2");
         h2.textContent = title;
         modalContent.appendChild(h2);
+
+        const hr = document.createElement("hr");
+  hr.style.margin = "10px 0";
+  hr.style.border = "none";
+  hr.style.borderTop = "1px solid #ddd";
+  modalContent.appendChild(hr);
       }
 
       if (contentText) {
