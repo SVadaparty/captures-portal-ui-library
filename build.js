@@ -28,6 +28,9 @@ const js =
   fs.readFileSync("src/components/multiDropdown.js", "utf8") +
   fs.readFileSync("src/components/view_table.js", "utf8") +
   fs.readFileSync("src/components/toast.js", "utf8") +
+  fs.readFileSync("src/components/view_table.js", "utf8") +
+  fs.readFileSync("src/components/model.js", "utf8") +
+  fs.readFileSync("src/components/multiDropdown.js", "utf8") +
   fs.readFileSync("src/core/init.js", "utf8");
 
 fs.writeFileSync("dist/pp-ui-core.min.js", js);
