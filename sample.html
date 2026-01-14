@@ -182,32 +182,32 @@
     }
   </script>
   <script>
-  function onDropdownChangeSelect(selectedOption) {
-    const selectContainer = document.querySelector("[data-pp-select]");
-    if (!selectContainer) return;
+    function onDropdownChangeSelect(selectedOption) {
+      const selectContainer = document.querySelector("[data-pp-select]");
+      if (!selectContainer) return;
 
-    // Normalize value (radio group usually sends string)
-    const value = Array.isArray(selectedOption)
-      ? selectedOption[0]
-      : selectedOption;
+      // Normalize value (radio group usually sends string)
+      const value = Array.isArray(selectedOption)
+        ? selectedOption[0]
+        : selectedOption;
 
-    if (value === "multiple select") {
-      // Enable multi select
-      selectContainer.dataset.multiple = "true";
-    } else {
-      // Enable single select
-      selectContainer.dataset.multiple = "false";
+      if (value === "multiple select") {
+        // Enable multi select
+        selectContainer.dataset.multiple = "true";
+      } else {
+        // Enable single select
+        selectContainer.dataset.multiple = "false";
+      }
+
+      // Clear previous selection
+      selectContainer.innerHTML = "";
+
+      // Reinitialize select component
+      if (typeof initSelectMenus === "function") {
+        initSelectMenus();
+      }
     }
-
-    // Clear previous selection
-    selectContainer.innerHTML = "";
-
-    // Reinitialize select component
-    if (typeof initSelectMenus === "function") {
-      initSelectMenus();
-    }
-  }
-</script>
+  </script>
 
   <script>
     function onFileModeChange(selectedOptions) {
@@ -258,6 +258,42 @@
     data-border-color="#000" data-header-bg="#b7c9e6" data-header-text-color="#03025f" data-row-hover-bg="#fafafa"
     data-text-color="#000" data-page-size="2" data-sticky-header="true" data-column-toggle="true">
   </div>
+  <div style="position:relative; display:inline-block; margin-top:20px;">
+
+    <button type="button" onclick="
+      const menu = this.nextElementSibling;
+      menu.style.display =
+        menu.style.display === 'block' ? 'none' : 'block';
+    ">
+      Export ▾
+    </button>
+
+    <div style="
+      display:none;
+      top:100%;
+      right:0;
+      background:#fff;
+      border:1px solid #ccc;
+      min-width:120px;
+      z-index:1000;
+    ">
+      <div onclick="PPTableExport.export('csv')" style="padding:6px; cursor:pointer;">
+        Export CSV
+      </div>
+
+      <div onclick="PPTableExport.export('excel')" style="padding:6px; cursor:pointer;">
+        Export Excel
+      </div>
+
+      <div onclick="PPTableExport.export('pdf')" style="padding:6px; cursor:pointer;">
+        Export PDF
+      </div>
+    </div>
+
+  </div>
+
+
+
 
 
 
