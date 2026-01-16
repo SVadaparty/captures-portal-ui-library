@@ -36,6 +36,16 @@
     from { opacity: 0; transform: translateY(-8px); }
     to   { opacity: 1; transform: translateY(0); }
   }
+  .pp-toast-warning {
+  background: #f59e0b; /* amber */
+}
+
+.pp-toast-info {
+  background: #2563eb; /* blue (optional) */
+}
+.pp-toast-error   { background: #dc2626; }
+
+
 </style>
 <body>
   <h2>This is testing page</h2>
@@ -314,6 +324,7 @@
 
 
   <script type="module" src="./dist/pp-ui-core.min.js"></script>
+
   <script>
     function handleSave() {
       alert('Cancel button clicked!');
