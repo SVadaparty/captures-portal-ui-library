@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Power Pages UI Framework – Tables</title>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<link rel="stylesheet" href="../../dist/pp-ui-core.min.css"/>
+<script src="../../dist/pp-ui-core.min.js"></script>
+
+<style>
+body {
+  margin: 0;
+  font-family: Segoe UI, system-ui, sans-serif;
+  background: #f3f4f6;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 380px 1fr;
+  height: 100vh;
+}
+
+.controls {
+  background: #020617;
+  color: white;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.controls h2 {
+  color: #38bdf8;
+}
+
+.controls label {
+  display: block;
+  margin-top: 12px;
+  font-size: 13px;
+  color: #cbd5f5;
+}
+
+.controls input,
+.controls select {
+  width: 100%;
+  padding: 8px;
+  border-radius: 6px;
+  border: none;
+  margin-top: 4px;
+}
+
+.preview {
+  padding: 40px;
+  overflow-y: auto;
+}
+
+.preview-box {
+  background: white;
+  padding: 32px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,.05);
+  margin-bottom: 24px;
+}
+
+.playbook-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #2563eb;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+code, pre {
+  background: #020617;
+  color: #38bdf8;
+  padding: 14px;
+  border-radius: 8px;
+  display: block;
+  overflow-x: auto;
+}
+</style>
+</head>
+
+<body>
+
+<div class="layout">
+
+  <!-- SIDEBAR CONTROLS -->
+  <div class="controls">
+    <h2>Table Settings</h2>
+
+    <label>Page Size</label>
+    <input id="pb-pageSize" value="2"/>
+
+    <label>Search</label>
+    <select id="pb-search"><option>true</option><option>false</option></select>
+
+    <label>Filter</label>
+    <select id="pb-filter"><option>true</option><option>false</option></select>
+
+    <label>Search Placeholder</label>
+    <input id="pb-searchPlaceholder" value="Search"/>
+
+    <label>Filter Placeholder</label>
+    <input id="pb-filterPlaceholder" value="Select column"/>
+
+    <label>Width</label>
+    <input id="pb-width" value="100%"/>
+
+    <label>Font Family</label>
+    <input id="pb-fontFamily" value="sans-serif"/>
+
+    <label>Font Size</label>
+    <input id="pb-fontSize" value="14px"/>
+
+    <label>Text Color</label>
+    <input id="pb-textColor" type="color" value="#000000"/>
+
+    <label>Border Color</label>
+    <input id="pb-borderColor" type="color" value="#000000"/>
+
+    <label>Header Background</label>
+    <input id="pb-headerBg" type="color" value="#b7c9e6"/>
+
+    <label>Header Text Color</label>
+    <input id="pb-headerTextColor" type="color" value="#03025f"/>
+
+    <label>Row Hover Background</label>
+    <input id="pb-rowHoverBg" type="color" value="#fafafa"/>
+
+    <label>Sticky Header</label>
+    <select id="pb-stickyHeader"><option>true</option><option>false</option></select>
+
+    <label>Column Toggle</label>
+    <select id="pb-columnToggle"><option>true</option><option>false</option></select>
+  </div>
+
+  <!-- PREVIEW -->
+  <div class="preview">
+
+    <a href="../index.html" class="playbook-back">← Back to Playbook</a>
+
+    <h1>Power Pages Table</h1>
+
+    <div class="preview-box">
+      <div
+        id="tableHost"
+        data-pp-table
+        data-datasource="usersData"
+        data-search="true"
+        data-filter="true"
+        data-search-placeholder="Search"
+        data-filter-placeholder="Select column"
+        data-width="100%"
+        data-font-family="sans-serif"
+        data-font-size="14px"
+        data-border-color="#000"
+        data-header-bg="#b7c9e6"
+        data-header-text-color="#03025f"
+        data-row-hover-bg="#fafafa"
+        data-text-color="#000"
+        data-page-size="2"
+        data-sticky-header="true"
+        data-column-toggle="true">
+      </div>
+    </div>
+
+    <!-- DOCUMENTATION -->
+    <div class="preview-box">
+      <h2>How to use this Table in Power Pages</h2>
+
+      <p>This component is rendered entirely through HTML attributes. No JavaScript is required in Power Pages.</p>
+
+      <h3>Basic Example</h3>
+      <pre>
+&lt;div
+  data-pp-table
+  data-datasource="usersData"&gt;
+&lt;/div&gt;
+      </pre>
+
+      <h3>With Search & Pagination</h3>
+      <pre>
+&lt;div
+  data-pp-table
+  data-datasource="usersData"
+  data-search="true"
+  data-page-size="10"&gt;
+&lt;/div&gt;
+      </pre>
+
+      <h3>Supported Attributes</h3>
+      <table style="width:100%;border-collapse:collapse;">
+        <tr><th align="left">Attribute</th><th align="left">Description</th></tr>
+        <tr><td>data-datasource</td><td>Global JS array name</td></tr>
+        <tr><td>data-search</td><td>Enable search box</td></tr>
+        <tr><td>data-filter</td><td>Enable column filter</td></tr>
+        <tr><td>data-search-placeholder</td><td>Search input placeholder</td></tr>
+        <tr><td>data-filter-placeholder</td><td>Filter dropdown placeholder</td></tr>
+        <tr><td>data-page-size</td><td>Rows per page</td></tr>
+        <tr><td>data-width</td><td>Table width</td></tr>
+        <tr><td>data-font-family</td><td>Font family</td></tr>
+        <tr><td>data-font-size</td><td>Font size</td></tr>
+        <tr><td>data-text-color</td><td>Text color</td></tr>
+        <tr><td>data-border-color</td><td>Border color</td></tr>
+        <tr><td>data-header-bg</td><td>Header background</td></tr>
+        <tr><td>data-header-text-color</td><td>Header text color</td></tr>
+        <tr><td>data-row-hover-bg</td><td>Row hover background</td></tr>
+        <tr><td>data-sticky-header</td><td>Sticky header</td></tr>
+        <tr><td>data-column-toggle</td><td>Show/hide columns</td></tr>
+      </table>
+
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+window.usersData = [
+  { name: "Surendra", role: "Developer", city: "Hyderabad", salary: 90000 },
+  { name: "Amit", role: "Tester", city: "Mumbai", salary: 60000 },
+  { name: "Priya", role: "Designer", city: "Pune", salary: 70000 },
+  { name: "John", role: "Manager", city: "Delhi", salary: 120000 },
+  { name: "Meera", role: "Support", city: "Chennai", salary: 50000 },
+  { name: "Rahul", role: "Developer", city: "Bangalore", salary: 85000 },
+  { name: "Sneha", role: "HR", city: "Kolkata", salary: 65000 }
+];
+
+function pb(id) { return document.getElementById(id).value; }
+
+function bindPlaybook() {
+  const table = document.getElementById("tableHost");
+
+  function sync() {
+    table.dataset.pageSize = pb("pb-pageSize");
+    table.dataset.search = pb("pb-search");
+    table.dataset.filter = pb("pb-filter");
+    table.dataset.searchPlaceholder = pb("pb-searchPlaceholder");
+    table.dataset.filterPlaceholder = pb("pb-filterPlaceholder");
+    table.dataset.width = pb("pb-width");
+    table.dataset.fontFamily = pb("pb-fontFamily");
+    table.dataset.fontSize = pb("pb-fontSize");
+    table.dataset.textColor = pb("pb-textColor");
+    table.dataset.borderColor = pb("pb-borderColor");
+    table.dataset.headerBg = pb("pb-headerBg");
+    table.dataset.headerTextColor = pb("pb-headerTextColor");
+    table.dataset.rowHoverBg = pb("pb-rowHoverBg");
+    table.dataset.stickyHeader = pb("pb-stickyHeader");
+    table.dataset.columnToggle = pb("pb-columnToggle");
+
+    window.initTables();
+  }
+
+  document.querySelectorAll(".controls input, .controls select")
+    .forEach(el => el.addEventListener("input", sync));
+
+  sync();
+}
+
+window.addEventListener("load", bindPlaybook);
+</script>
+
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">

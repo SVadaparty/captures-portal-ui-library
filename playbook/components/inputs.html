@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Power Pages UI Framework – Inputs</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link rel="stylesheet" href="../../dist/pp-ui-core.min.css" />
+    <script src="../../dist/pp-ui-core.min.js"></script>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Segoe UI, system-ui, sans-serif;
+            background: #f3f4f6;
+        }
+
+        .layout {
+            display: grid;
+            grid-template-columns: 320px 1fr;
+            height: 100vh;
+        }
+
+        .controls {
+            background: #020617;
+            color: white;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .controls h2 {
+            color: #38bdf8;
+            margin-bottom: 12px;
+        }
+
+        .controls label {
+            display: block;
+            margin-top: 12px;
+            font-size: 13px;
+            color: #cbd5f5;
+        }
+
+        .controls input,
+        .controls select {
+            width: 100%;
+            padding: 8px;
+            border-radius: 6px;
+            border: none;
+            margin-top: 4px;
+        }
+
+        .preview {
+            padding: 40px;
+            overflow-y: auto;
+        }
+
+        .preview-box {
+            background: white;
+            padding: 32px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, .05);
+            margin-bottom: 24px;
+        }
+
+
+
+        .playbook-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: #2563eb;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .playbook-back:hover {
+            text-decoration: underline;
+        }
+
+        code,
+        pre {
+            background: #020617;
+            color: #38bdf8;
+            padding: 12px;
+            border-radius: 8px;
+            display: block;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="layout">
+
+        <!-- PLAYBOOK PANEL -->
+        <div class="controls">
+            <h2>Input Settings</h2>
+
+            <label>Type</label>
+            <select id="pb-type">
+                <option value="text">Text</option>
+                <option value="email">Email</option>
+                <option value="password">Password</option>
+                <option value="number">Number</option>
+            </select>
+
+            <label>Placeholder</label>
+            <input id="pb-placeholder" value="Enter value" />
+
+            <label>Width</label>
+            <input id="pb-width" value="300px" />
+
+            <label>Height</label>
+            <input id="pb-height" value="40px" />
+
+            <label>Text Color</label>
+            <input id="pb-color" type="color" value="#111827" />
+
+            <label>Background</label>
+            <input id="pb-bgcolor" type="color" value="#ffffff" />
+
+            <label>Border Color</label>
+            <input id="pb-bordercolor" type="color" value="#d1d5db" />
+        </div>
+
+        <!-- COMPONENT PREVIEW -->
+        <div class="preview">
+
+            <a href="../index.html" class="playbook-back">← Back to Playbook</a>
+
+            <h1>Power Pages Input</h1>
+
+            <div class="preview-box">
+                <input data-pp-input />
+            </div>
+
+            <!-- Documentation -->
+            <div class="preview-box">
+                <h2>How to use this Input</h2>
+
+                <p>Inputs are rendered using HTML attributes and your CDN framework. No JavaScript is required in Power
+                    Pages.</p>
+
+                <h3>Basic Input</h3>
+                <pre>
+&lt;input data-pp-input data-placeholder="Enter name"&gt;
+      </pre>
+
+                <h3>Email Input</h3>
+                <pre>
+&lt;input
+  data-pp-input
+  data-type="email"
+  data-placeholder="Enter email"&gt;
+      </pre>
+
+                <h3>Custom Width & Color</h3>
+                <pre>
+&lt;input
+  data-pp-input
+  data-width="400px"
+  data-bgcolor="#f9fafb"
+  data-bordercolor="#3b82f6"&gt;
+      </pre>
+
+                <h3>Supported Attributes</h3>
+                <table style="width:100%;border-collapse:collapse;">
+                    <tr>
+                        <th align="left">Attribute</th>
+                        <th align="left">Description</th>
+                    </tr>
+                    <tr>
+                        <td>data-type</td>
+                        <td>text, email, password, number</td>
+                    </tr>
+                    <tr>
+                        <td>data-placeholder</td>
+                        <td>Placeholder text</td>
+                    </tr>
+                    <tr>
+                        <td>data-width</td>
+                        <td>Input width</td>
+                    </tr>
+                    <tr>
+                        <td>data-height</td>
+                        <td>Input height</td>
+                    </tr>
+                    <tr>
+                        <td>data-color</td>
+                        <td>Text color</td>
+                    </tr>
+                    <tr>
+                        <td>data-bgcolor</td>
+                        <td>Background color</td>
+                    </tr>
+                    <tr>
+                        <td>data-bordercolor</td>
+                        <td>Border color</td>
+                    </tr>
+                    <tr>
+                        <td>data-onchange</td>
+                        <td>JS function name for change</td>
+                    </tr>
+                </table>
+
+                <p style="margin-top:16px;color:#6b7280">
+                    All attributes are optional. Defaults are applied automatically by the CDN framework.
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+        function bindPlaybook() {
+            const input = document.querySelector("[data-pp-input]");
+
+            function sync() {
+                input.dataset.type = document.getElementById("pb-type").value;
+                input.dataset.placeholder = document.getElementById("pb-placeholder").value;
+                input.dataset.width = document.getElementById("pb-width").value;
+                input.dataset.height = document.getElementById("pb-height").value;
+                input.dataset.color = document.getElementById("pb-color").value;
+                input.dataset.bgcolor = document.getElementById("pb-bgcolor").value;
+                input.dataset.bordercolor = document.getElementById("pb-bordercolor").value;
+
+                window.initInputs();
+            }
+
+            document.querySelectorAll(".controls input, .controls select")
+                .forEach(el => el.addEventListener("input", sync));
+
+            sync();
+        }
+
+        window.addEventListener("load", bindPlaybook);
+    </script>
+
+</body>
+
+</html>

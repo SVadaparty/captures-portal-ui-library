@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Power Pages UI Framework – Dropdowns</title>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<link rel="stylesheet" href="../../dist/pp-ui-core.min.css"/>
+<script src="../../dist/pp-ui-core.min.js"></script>
+
+<style>
+body {
+  margin: 0;
+  font-family: Segoe UI, system-ui, sans-serif;
+  background: #f3f4f6;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  height: 100vh;
+}
+
+.controls {
+  background: #020617;
+  color: white;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.controls h2 {
+  color: #38bdf8;
+}
+
+.controls label {
+  display: block;
+  margin-top: 12px;
+  font-size: 13px;
+  color: #cbd5f5;
+}
+
+.controls input,
+.controls textarea,
+.controls select {
+  width: 100%;
+  padding: 8px;
+  border-radius: 6px;
+  border: none;
+  margin-top: 4px;
+}
+
+.preview {
+  padding: 40px;
+  overflow-y: auto;
+}
+
+.preview-box {
+  background: white;
+  padding: 32px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,.05);
+  margin-bottom: 24px;
+}
+
+.playbook-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #2563eb;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+code, pre {
+  background: #020617;
+  color: #38bdf8;
+  padding: 14px;
+  border-radius: 8px;
+  display: block;
+  overflow-x: auto;
+}
+</style>
+</head>
+
+<body>
+
+<div class="layout">
+
+  <!-- CONTROLS -->
+  <div class="controls">
+    <h2>Dropdown Settings</h2>
+
+    <label>Options (comma separated or JSON)</label>
+    <textarea id="pb-options">India, USA, UK</textarea>
+
+    <label>Width</label>
+    <input id="pb-width" value="240px"/>
+
+    <label>Height</label>
+    <input id="pb-height" value="40px"/>
+
+    <label>Padding</label>
+    <input id="pb-padding" value="8px"/>
+
+    <label>Font Size</label>
+    <input id="pb-fontsize" value="14px"/>
+
+    <label>Text Color</label>
+    <input id="pb-color" type="color" value="#111827"/>
+
+    <label>Background</label>
+    <input id="pb-bgcolor" type="color" value="#ffffff"/>
+
+    <label>Border Color</label>
+    <input id="pb-bordercolor" type="color" value="#d1d5db"/>
+
+    <label>Border Radius</label>
+    <input id="pb-borderradius" value="6px"/>
+
+    <label>On Change</label>
+    <select id="pb-onchange">
+      <option value="">None</option>
+      <option value="onCountryChange">onCountryChange()</option>
+    </select>
+  </div>
+
+  <!-- PREVIEW -->
+  <div class="preview">
+
+    <a href="../index.html" class="playbook-back">← Back to Playbook</a>
+
+    <h1>Power Pages Dropdown</h1>
+
+    <div class="preview-box">
+      <select
+        id="dropdownHost"
+        data-pp-dropdown
+        data-options="India, USA, UK"
+        data-width="240px"
+        data-height="40px"
+        data-padding="8px"
+        data-fontsize="14px"
+        data-color="#111827"
+        data-bgcolor="#ffffff"
+        data-bordercolor="#d1d5db"
+        data-borderradius="6px">
+      </select>
+    </div>
+
+    <!-- DOCUMENTATION -->
+    <div class="preview-box">
+      <h2>How to use this Dropdown</h2>
+
+      <pre>
+&lt;select
+  data-pp-dropdown
+  data-options="Low, Medium, High"
+  data-width="300px"
+  data-onchange="onPriorityChange"&gt;
+&lt;/select&gt;
+      </pre>
+
+      <h3>Supported Attributes</h3>
+      <table style="width:100%;border-collapse:collapse;">
+        <tr><th align="left">Attribute</th><th align="left">Description</th></tr>
+        <tr><td>data-options</td><td>Comma separated or JSON array</td></tr>
+        <tr><td>data-width</td><td>Dropdown width</td></tr>
+        <tr><td>data-height</td><td>Dropdown height</td></tr>
+        <tr><td>data-padding</td><td>Inner padding</td></tr>
+        <tr><td>data-fontsize</td><td>Font size</td></tr>
+        <tr><td>data-color</td><td>Text color</td></tr>
+        <tr><td>data-bgcolor</td><td>Background color</td></tr>
+        <tr><td>data-bordercolor</td><td>Border color</td></tr>
+        <tr><td>data-borderradius</td><td>Border radius</td></tr>
+        <tr><td>data-onchange</td><td>JS function name</td></tr>
+      </table>
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+function onCountryChange(val) {
+  alert("Selected: " + val);
+}
+
+function bindPlaybook() {
+  const dropdown = document.getElementById("dropdownHost");
+
+  function sync() {
+    dropdown.dataset.options = document.getElementById("pb-options").value;
+    dropdown.dataset.width = document.getElementById("pb-width").value;
+    dropdown.dataset.height = document.getElementById("pb-height").value;
+    dropdown.dataset.padding = document.getElementById("pb-padding").value;
+    dropdown.dataset.fontsize = document.getElementById("pb-fontsize").value;
+    dropdown.dataset.color = document.getElementById("pb-color").value;
+    dropdown.dataset.bgcolor = document.getElementById("pb-bgcolor").value;
+    dropdown.dataset.bordercolor = document.getElementById("pb-bordercolor").value;
+    dropdown.dataset.borderradius = document.getElementById("pb-borderradius").value;
+
+    const fn = document.getElementById("pb-onchange").value;
+    if (fn) dropdown.dataset.onchange = fn;
+    else delete dropdown.dataset.onchange;
+
+    window.initDropdowns();
+  }
+
+  document.querySelectorAll(".controls textarea, .controls input, .controls select")
+    .forEach(el => el.addEventListener("input", sync));
+
+  sync();
+}
+
+window.addEventListener("load", bindPlaybook);
+</script>
+
+</body>
+</html>

@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Power Pages UI Framework – Buttons</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- CDN Framework -->
+  <link rel="stylesheet" href="../../dist/pp-ui-core.min.css" />
+  <script src="../../dist/pp-ui-core.min.js"></script>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Segoe UI, system-ui, sans-serif;
+      background: #f3f4f6;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      height: 100vh;
+    }
+
+    .controls {
+      background: #020617;
+      color: white;
+      padding: 20px;
+      overflow-y: auto;
+    }
+
+    .controls h2 {
+      color: #38bdf8;
+      margin-bottom: 12px;
+    }
+
+    .controls label {
+      display: block;
+      margin-top: 12px;
+      font-size: 13px;
+      color: #cbd5f5;
+    }
+
+    .controls input,
+    .controls select {
+      width: 100%;
+      padding: 8px;
+      border-radius: 6px;
+      border: none;
+      margin-top: 4px;
+      font-size: 14px;
+    }
+
+    .preview {
+      padding: 40px;
+      overflow-y: auto;
+    }
+
+    .preview-box {
+      background: white;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, .05);
+      margin-top: 20px;
+    }
+
+    .playbook-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: #2563eb;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+
+    .playbook-back:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="layout">
+
+    <!-- PLAYBOOK PANEL -->
+    <div class="controls">
+      <h2>Button Settings</h2>
+
+      <label>Label</label>
+      <input id="pb-label" value="Submit" />
+
+
+      <label>Background</label>
+      <input id="pb-bgcolor" type="color" value="#2563eb" />
+
+      <label>Text Color</label>
+      <input id="pb-color" type="color" value="#ffffff" />
+
+      <label>Font Size</label>
+      <input id="pb-fontsize" value="14px" />
+
+      <label>Font Weight</label>
+      <select id="pb-fontweight">
+        <option>400</option>
+        <option>500</option>
+        <option>600</option>
+        <option>700</option>
+      </select>
+
+
+      <label>On Click</label>
+      <select id="pb-onclick">
+        <option value="">None</option>
+        <option value="demoSave">demoSave()</option>
+        <option value="demoCancel">demoCancel()</option>
+      </select>
+    </div>
+
+    <!-- COMPONENT PREVIEW -->
+    <div class="preview">
+
+      <a href="../index.html" class="playbook-back">← Back to Playbook</a>
+
+      <h1>Power Pages Button</h1>
+
+      <div class="preview-box">
+        <button data-pp-button></button>
+      </div>
+
+      <!-- Documentation -->
+      <div class="preview-box">
+        <h2>Button Attributes</h2>
+        <table style="width:100%;border-collapse:collapse;font-size:14px;">
+          <tr>
+            <th align="left">Attribute</th>
+            <th align="left">Description</th>
+          </tr>
+          <tr>
+            <td>data-label</td>
+            <td>Button text</td>
+          </tr>
+          <tr>
+            <td>data-bgcolor</td>
+            <td>Background color</td>
+          </tr>
+          <tr>
+            <td>data-color</td>
+            <td>Text color</td>
+          </tr>
+          <tr>
+            <td>data-fontsize</td>
+            <td>Font size</td>
+          </tr>
+          <tr>
+            <td>data-fontweight</td>
+            <td>Font weight</td>
+          </tr>
+          <tr>
+            <td>data-onclick</td>
+            <td>Global JS function</td>
+          </tr>
+        </table>
+
+        <h3>Example</h3>
+        <pre style="background:#020617;color:#38bdf8;padding:16px;border-radius:8px;">
+&lt;button
+  data-pp-button
+  data-label="Submit"
+  data-type="primary"
+  data-onclick="submitForm"&gt;
+&lt;/button&gt;
+      </pre>
+      </div>
+
+    </div>
+
+  </div>
+
+  <script>
+    function demoSave() { alert("Save clicked"); }
+    function demoCancel() { alert("Cancel clicked"); }
+
+    function bindPlaybook() {
+      const btn = document.querySelector("[data-pp-button]");
+
+      function sync() {
+        btn.dataset.label = document.getElementById("pb-label").value;
+        btn.dataset.bgcolor = document.getElementById("pb-bgcolor").value;
+        btn.dataset.color = document.getElementById("pb-color").value;
+        btn.dataset.fontsize = document.getElementById("pb-fontsize").value;
+        btn.dataset.fontweight = document.getElementById("pb-fontweight").value;
+      
+
+        const click = document.getElementById("pb-onclick").value;
+        if (click) btn.dataset.onclick = click;
+        else delete btn.dataset.onclick;
+
+        window.initButtons();
+      }
+
+      document.querySelectorAll(".controls input, .controls select")
+        .forEach(el => el.addEventListener("input", sync));
+
+      sync();
+    }
+
+    window.addEventListener("load", bindPlaybook);
+  </script>
+
+</body>
+
+</html>
