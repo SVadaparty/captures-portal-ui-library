@@ -85,41 +85,56 @@
   </div>
 
   <br /><br />
-  <div data-pp-modal data-id="myModal" data-trigger-text="Open Modal" data-title="Modal Title"
+  <!-- <div data-pp-modal data-id="myModal" data-trigger-text="Open Modal" data-title="Modal Title"
     data-content="This is the modal content. This is body of modal .we can publish any information here.">
-  </div>
+  </div> -->
 
  <!-- <div data-pp-modal data-id="myModal">
-
-  <h2>Choose <span style="color:orange">Plan</span></h2>
-  <hr>
-
-  <p>This is <strong>HTML content</strong></p>
 
   <div data-pp-table data-datasource="usersData" data-search="true" data-filter="true" data-search-placeholder="Search"
     data-filter-placeholder="Select column" data-width="100%" data-font-family="sans-serif" data-font-size="14px"
     data-border-color="#000" data-header-bg="#b7c9e6" data-header-text-color="#03025f" data-row-hover-bg="#fafafa"
     data-text-color="#000" data-page-size="2" data-sticky-header="true" data-column-toggle="true">
   </div>
+</div>
+
+<div data-pp-modal data-id="myModal">
+  <hr>
 </div> -->
 
-<!-- <div data-pp-modal data-id="myModal">
+<div data-pp-modal data-id="myModal">
 
-  
-  <h2>Choose <span style="color:orange">Plan</span></h2>
-  <hr>
-
-  
-  <p>This is <strong>HTML content</strong></p>
-
-  <div
-    data-pp-radio-group
-    data-name="subscription"
-    data-layout="row"
-    data-options='["Monthly","Quarterly","Yearly"]'>
+  <!-- MODAL BODY -->
+  <div data-pp-modal-body>
+    <div
+      data-pp-table
+      data-datasource="usersData"
+      data-search="true"
+      data-filter="true"
+      data-search-placeholder="Search"
+      data-filter-placeholder="Select column"
+      data-width="100%"
+      data-font-family="sans-serif"
+      data-font-size="14px"
+      data-border-color="#000"
+      data-header-bg="#b7c9e6"
+      data-header-text-color="#03025f"
+      data-row-hover-bg="#fafafa"
+      data-text-color="#000"
+      data-page-size="2"
+      data-sticky-header="true"
+      data-column-toggle="true">
+    </div>
   </div>
 
-</div> -->
+  <!-- MODAL FOOTER -->
+  <div data-pp-modal-footer>
+    <hr>
+    <h2>This is footer of modal component</h2>
+  </div>
+
+</div>
+
 
 
   
