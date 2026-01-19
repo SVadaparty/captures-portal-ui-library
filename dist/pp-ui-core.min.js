@@ -1,4 +1,4 @@
-export const DEFAULTS = {
+const DEFAULTS = {
     /* ========= INPUT DEFAULTS (appended) ========= */
     inputType: "text",
     inputPlaceholder: "",
