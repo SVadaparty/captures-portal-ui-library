@@ -128,7 +128,21 @@ fileInputFontWeight: "400",
 fileInputCursor: "pointer",
 fileHintFontSize: "12px",
 fileHintTextColor: "#666",
-fileHintMarginTop: "6px"
+fileHintMarginTop: "6px",
+/* ========= LOADER DEFAULTS (APPENDED ONLY) ========= */
+loaderSize: "40px",
+loaderBorderWidth: "4px",
+loaderColor: "#FFA500",
+loaderBgColor: "#e0e0e0",
+loaderBorderRadius: "50%",
+loaderAnimationDuration: "1s",
+loaderText: "Loading...",
+loaderTextColor: "#000",
+loaderFontFamily: "HelveticaNeueLTStd-Bd, Helvetica, Arial, sans-serif",
+loaderFontSize: "14px",
+loaderGap: "8px",
+loaderAlignment: "center"
+
 
 };
 

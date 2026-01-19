@@ -29,6 +29,7 @@ const js =
   fs.readFileSync("src/components/header.js", "utf8") +
   fs.readFileSync("src/components/multiDropdown.js", "utf8") +
   fs.readFileSync("src/components/footer.js", "utf8") +
+  fs.readFileSync("src/components/loader.js", "utf8") +
   fs.readFileSync("src/core/init.js", "utf8")+
   fs.readFileSync("src/components/tabs.js", "utf8");
 

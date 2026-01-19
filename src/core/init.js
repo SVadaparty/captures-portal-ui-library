@@ -13,6 +13,7 @@ window.PP_UI = {
     if (typeof initToasts === "function") initToasts();
     if(typeof initHeaders==="function") initHeaders();
     if(typeof initFooters==="function") initFooters();
+    if(typeof initLoader==="function") initLoader();
     if(typeof initTabs==="function") initTabs();
   }
 };

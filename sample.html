@@ -148,6 +148,16 @@
   <br /><br />
 
 
+  <!-- LOADER TEST -->
+  <div data-pp-loader data-text="Loading..." data-size="50px" data-color="#2563eb" data-bgcolor="#e0e7ff"
+    data-align="center"></div>
+  <!-- <div
+  data-pp-loader
+  data-color="#16a34a"
+  data-bgcolor="#dcfce7"
+  data-text="Processing...">
+</div> -->
+  <br /><br />
   <div style="
     display: flex;
     width: 100%;
@@ -223,6 +233,19 @@
 
   <button data-pp-button data-label="Cancel" data-type="secondary" data-onclick="handleSave">
   </button>
+  <div data-pp-loader data-text="Uploading files..." data-size="50px" data-color="#06f" data-align="center">
+  </div>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      initButtons();
+      initInputs();
+      initDropdowns();
+      initRadios();
+      initCheckboxes();
+      initDatepicker();
+      initLoader();
+    });
+  </script>
   <script>
 
     function onProgramChange(value) {
@@ -340,31 +363,22 @@
 
   </div>
 
-<div
-  data-pp-tabs
-  data-tabs="Details,Settings"
-  data-active="0"
-  data-text-color="#475569"
-  data-active-bg="#2563eb"
-  data-active-color="#fff"
-  data-hover-color="#1d4ed8"
-  data-onselect="onTabSelect"
-  data-active-bg-style="block"
->
-</div>
+  <div data-pp-tabs data-tabs="Details,Settings" data-active="0" data-text-color="#475569" data-active-bg="#2563eb"
+    data-active-color="#fff" data-hover-color="#1d4ed8" data-onselect="onTabSelect" data-active-bg-style="block">
+  </div>
 
 
 
 
-</div>
+  </div>
 
 
- <script>
-    function onTabSelect(index,label) {
+  <script>
+    function onTabSelect(index, label) {
       alert("Selected Tab Index: " + index + ", Label: " + label
       );
     }
- </script>
+  </script>
 
 
 
