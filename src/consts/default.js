@@ -162,7 +162,40 @@ typographyLineHeight: "1.5",
 
 /* Labels */
 typographyLabelSize: "14px",
-typographyLabelWeight: "500"
+typographyLabelWeight: "500",
+/* ========= ALERT DEFAULTS (APPENDED ONLY) ========= */
+alertPadding: "12px 16px",
+alertBorderRadius: "6px",
+alertFontFamily: "HelveticaNeueLTStd-Bd, Helvetica, Arial, sans-serif",
+alertFontSize: "14px",
+alertFontWeight: "400",
+alertMarginBottom: "12px",
+
+/* Alert Colors (Bootstrap-like) */
+alertPrimaryBg: "#cfe2ff",
+alertPrimaryText: "#084298",
+
+alertSecondaryBg: "#e2e3e5",
+alertSecondaryText: "#41464b",
+
+alertSuccessBg: "#d1e7dd",
+alertSuccessText: "#0f5132",
+
+alertDangerBg: "#f8d7da",
+alertDangerText: "#842029",
+
+alertWarningBg: "#fff3cd",
+alertWarningText: "#664d03",
+
+alertInfoBg: "#cff4fc",
+alertInfoText: "#055160",
+
+alertLightBg: "#fefefe",
+alertLightText: "#636464",
+
+alertDarkBg: "#d3d3d4",
+alertDarkText: "#141619"
+
 
 
 
