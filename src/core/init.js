@@ -14,6 +14,7 @@ window.PP_UI = {
     if(typeof initHeaders==="function") initHeaders();
     if(typeof initFooters==="function") initFooters();
     if(typeof initLoader==="function") initLoader();
+    if(typeof initAlerts==="function") initAlerts();
     if(typeof initTabs==="function") initTabs();
   }
 };

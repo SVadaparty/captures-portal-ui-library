@@ -74,44 +74,36 @@
   </select>
   <br /><br />
   <!-- TYPOGRAPHY COMPONENT DEMO -->
-<div style="margin: 24px 0;">
+  <div style="margin: 24px 0;">
 
-  <h1 data-pp-typography data-type="h1">
-    Typography – Heading 1
-  </h1>
+    <h1 data-pp-typography data-type="h1">
+      Typography – Heading 1
+    </h1>
 
-  <h2 data-pp-typography data-type="h2">
-    Typography – Heading 2
-  </h2>
+    <h2 data-pp-typography data-type="h2">
+      Typography – Heading 2
+    </h2>
 
-  <h3 data-pp-typography data-type="h3">
-    Typography – Heading 3
-  </h3>
+    <h3 data-pp-typography data-type="h3">
+      Typography – Heading 3
+    </h3>
 
-  <div data-pp-typography data-type="body" style="margin-top: 8px;">
-    This is body text rendered using the reusable typography component.
-    It follows the default font, size, and line height defined in DEFAULTS.
+    <div data-pp-typography data-type="body" style="margin-top: 8px;">
+      This is body text rendered using the reusable typography component.
+      It follows the default font, size, and line height defined in DEFAULTS.
+    </div>
+
+    <div style="margin-top: 12px;">
+      <span data-pp-typography data-type="label" style="text-transform: uppercase; letter-spacing: 0.4px;">
+        Email Address
+      </span>
+    </div>
+
+    <div data-pp-typography data-type="body" data-color="#2563eb" data-align="center" style="margin-top: 12px;">
+      Center aligned text with custom color
+    </div>
+
   </div>
-
-  <div style="margin-top: 12px;">
-    <span
-      data-pp-typography
-      data-type="label"
-      style="text-transform: uppercase; letter-spacing: 0.4px;">
-      Email Address
-    </span>
-  </div>
-
-  <div
-    data-pp-typography
-    data-type="body"
-    data-color="#2563eb"
-    data-align="center"
-    style="margin-top: 12px;">
-    Center aligned text with custom color
-  </div>
-
-</div>
 
 
 
@@ -199,6 +191,32 @@
   data-text="Processing...">
 </div> -->
   <br /><br />
+  <div data-pp-alert data-type="secondary">Secondary alert</div>
+  <div data-pp-alert data-type="warning">Warning alert</div>
+  <div data-pp-alert data-type="info">Info alert</div>
+
+  <!-- PRIMARY ALERT -->
+  <div data-pp-alert data-type="primary">
+    Primary alert — check it out!
+  </div>
+
+  <!-- SUCCESS ALERT -->
+  <div data-pp-alert data-type="success">
+    Success alert — operation completed!
+  </div>
+
+  <!-- LIGHT ALERT -->
+  <div data-pp-alert data-type="light">
+    Light alert
+  </div>
+
+  <!-- DARK ALERT (OVERRIDDEN BACKGROUND FOR TESTING) -->
+  <div data-pp-alert data-type="dark" style="
+    background-color:#18dd18;
+    color:#115598;
+  ">
+    Dark alert (custom overridden background)
+  </div>
   <div style="
     display: flex;
     width: 100%;
@@ -249,10 +267,6 @@
       <span>Built by Surendra</span>
     </div>
   </footer>
-
-
-
-
   <div style="
     display: flex;
     width: 100%;
@@ -274,8 +288,6 @@
 
   <button data-pp-button data-label="Cancel" data-type="secondary" data-onclick="handleSave">
   </button>
-  <div data-pp-loader data-text="Uploading files..." data-size="50px" data-color="#06f" data-align="center">
-  </div>
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       initButtons();
@@ -286,6 +298,7 @@
       initDatepicker();
       initLoader();
       initTypography();
+      initAlerts();
     });
   </script>
   <script>
