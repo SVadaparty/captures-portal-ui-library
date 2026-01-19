@@ -73,6 +73,47 @@
     data-onchange="onProgramChange">
   </select>
   <br /><br />
+  <!-- TYPOGRAPHY COMPONENT DEMO -->
+<div style="margin: 24px 0;">
+
+  <h1 data-pp-typography data-type="h1">
+    Typography – Heading 1
+  </h1>
+
+  <h2 data-pp-typography data-type="h2">
+    Typography – Heading 2
+  </h2>
+
+  <h3 data-pp-typography data-type="h3">
+    Typography – Heading 3
+  </h3>
+
+  <div data-pp-typography data-type="body" style="margin-top: 8px;">
+    This is body text rendered using the reusable typography component.
+    It follows the default font, size, and line height defined in DEFAULTS.
+  </div>
+
+  <div style="margin-top: 12px;">
+    <span
+      data-pp-typography
+      data-type="label"
+      style="text-transform: uppercase; letter-spacing: 0.4px;">
+      Email Address
+    </span>
+  </div>
+
+  <div
+    data-pp-typography
+    data-type="body"
+    data-color="#2563eb"
+    data-align="center"
+    style="margin-top: 12px;">
+    Center aligned text with custom color
+  </div>
+
+</div>
+
+
 
   <div style="
     display: flex;
@@ -244,6 +285,7 @@
       initCheckboxes();
       initDatepicker();
       initLoader();
+      initTypography();
     });
   </script>
   <script>

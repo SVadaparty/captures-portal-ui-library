@@ -141,7 +141,29 @@ loaderTextColor: "#000",
 loaderFontFamily: "HelveticaNeueLTStd-Bd, Helvetica, Arial, sans-serif",
 loaderFontSize: "14px",
 loaderGap: "8px",
-loaderAlignment: "center"
+loaderAlignment: "center",
+/* ========= TYPOGRAPHY DEFAULTS (APPENDED ONLY) ========= */
+typographyFontFamily: "HelveticaNeueLTStd-Bd, Helvetica, Arial, sans-serif",
+typographyTextColor: "#000",
+
+/* Headings */
+typographyH1Size: "32px",
+typographyH2Size: "24px",
+typographyH3Size: "20px",
+typographyH4Size: "18px",
+typographyH5Size: "16px",
+typographyH6Size: "14px",
+typographyHeadingWeight: "600",
+
+/* Body text */
+typographyBodySize: "14px",
+typographyBodyWeight: "400",
+typographyLineHeight: "1.5",
+
+/* Labels */
+typographyLabelSize: "14px",
+typographyLabelWeight: "500"
+
 
 
 };
