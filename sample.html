@@ -25,18 +25,31 @@
     border-radius: 6px;
     color: #fff;
     font-size: 14px;
-    box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
     animation: slideIn 0.25s ease-out;
   }
 
-  .pp-toast-success { background: #16a34a; }
-  .pp-toast-error   { background: #dc2626; }
+  .pp-toast-success {
+    background: #16a34a;
+  }
+
+  .pp-toast-error {
+    background: #dc2626;
+  }
 
   @keyframes slideIn {
-    from { opacity: 0; transform: translateY(-8px); }
-    to   { opacity: 1; transform: translateY(0); }
+    from {
+      opacity: 0;
+      transform: translateY(-8px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 </style>
+
 <body>
   <h2>This is testing page</h2>
 
@@ -88,8 +101,8 @@
   <div data-pp-modal data-id="myModal" data-trigger-text="Open Modal" data-title="Modal Title"
     data-content="This is the modal content. This is body of modal .we can publish any information here.">
   </div>
-
- <!-- <div data-pp-modal data-id="myModal">
+  <!-- 
+ <div data-pp-modal data-id="myModal">
 
   <h2>Choose <span style="color:orange">Plan</span></h2>
   <hr>
@@ -103,7 +116,7 @@
   </div>
 </div> -->
 
-<!-- <div data-pp-modal data-id="myModal">
+  <!-- <div data-pp-modal data-id="myModal">
 
   
   <h2>Choose <span style="color:orange">Plan</span></h2>
@@ -122,19 +135,15 @@
 </div> -->
 
 
-  
-<br /><br />
+
+  <br /><br />
   <div data-pp-toast-form>
-  <input
-    type="text"
-    data-pp-toast-input
-    placeholder="Checking for toast message"
-    style="padding:8px; font-size:14px; margin-right:6px;"
-  />
-  <button data-pp-toast-submit style="padding:8px 12px;">
-    Submit
-  </button>
-</div>
+    <input type="text" data-pp-toast-input placeholder="Checking for toast message"
+      style="padding:8px; font-size:14px; margin-right:6px;" />
+    <button data-pp-toast-submit style="padding:8px 12px;">
+      Submit
+    </button>
+  </div>
 
   <br /><br />
 
@@ -152,6 +161,45 @@
     </div>
   </div>
   <br /><br />
+
+  <header data-pp-header data-logo="SipNSee" data-sticky="true" data-cta-label="Get Started"
+    data-cta-onclick="onHeaderCtaClick">
+
+    <!-- LEFT / CENTER / RIGHT / ANY STRUCTURE -->
+    <div class="custom-left">
+      <span>Surendra</span>
+    </div>
+
+    <div class="custom-center">
+      <a data-pp-nav-item data-label="Services" data-href="#services"></a>
+      <a data-pp-nav-item data-label="Pricing" data-href="#pricing"></a>
+      <a data-pp-nav-item data-label="Contact" data-href="#contact"></a>
+    </div>
+
+    <div class="custom-right">
+      <button data-pp-button data-label="Login"></button>
+    </div>
+
+  </header>
+
+
+  <footer data-pp-footer data-bg="#7c3aed" data-textColor="#7c3aed">
+    <div class="footer-left">
+      <span>© 2026 SipNSee</span>
+    </div>
+
+    <div class="footer-center">
+      <a data-pp-footer-link data-href="#privacy">Privacy</a>
+      <a data-pp-footer-link data-href="#terms">Terms</a>
+      <a data-pp-footer-link data-href="#support">Support</a>
+    </div>
+
+    <div class="footer-right">
+      <span>Built by Surendra</span>
+    </div>
+  </footer>
+
+
 
 
   <div style="
@@ -292,9 +340,31 @@
 
   </div>
 
+<div
+  data-pp-tabs
+  data-tabs="Details,Settings"
+  data-active="0"
+  data-text-color="#475569"
+  data-active-bg="#2563eb"
+  data-active-color="#fff"
+  data-hover-color="#1d4ed8"
+  data-onselect="onTabSelect"
+  data-active-bg-style="block"
+>
+</div>
 
 
 
+
+</div>
+
+
+ <script>
+    function onTabSelect(index,label) {
+      alert("Selected Tab Index: " + index + ", Label: " + label
+      );
+    }
+ </script>
 
 
 

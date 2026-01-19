@@ -35,7 +35,7 @@
   border-radius: 6px;
   color: #fff;
   font-size: 14px;
-  box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
   animation: slideIn 0.25s ease-out;
   transition: opacity 0.3s ease-out;
 }
@@ -61,8 +61,204 @@
     opacity: 0;
     transform: translateY(-8px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+
+
+/* header styles */
+.pp-header {
+  min-height: 68px;
+  padding: 0 28px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  box-sizing: border-box;
+}
+
+/* Sticky */
+.pp-header-sticky {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+}
+
+/* Logo */
+.pp-header-logo {
+  font-size: 22px;
+  font-weight: 700;
+  text-decoration: none;
+  color: inherit;
+  margin-right: auto;
+}
+
+/* Nav items */
+.pp-header-link {
+  position: relative;
+  font-size: 14.5px;
+  text-decoration: none;
+  color: inherit;
+  opacity: 0.85;
+}
+
+.pp-header-link:hover {
+  opacity: 1;
+}
+
+/* Active */
+.pp-nav-active {
+  font-weight: 600;
+  opacity: 1;
+}
+
+.pp-nav-active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -8px;
+  width: 100%;
+  height: 3px;
+  background: currentColor;
+  border-radius: 3px;
+}
+
+/* CTA */
+.pp-header-cta {
+  margin-left: auto;
+  padding: 9px 18px;
+  border-radius: 999px;
+  border: none;
+  background: rgba(0, 0, 0, 0.08);
+  color: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+
+
+/* footer styles */
+
+
+/* ===== PAGE LAYOUT FIX ===== */
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Main content should expand */
+.pp-page-content {
+  flex: 1;
+}
+
+/* ===== FOOTER ===== */
+.pp-footer {
+  min-height: 64px;
+  padding: 16px 28px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  box-sizing: border-box;
+  flex-wrap: wrap;
+}
+
+/* Footer links */
+.pp-footer-link {
+  font-size: 14px;
+  text-decoration: none;
+  color: inherit;
+  opacity: 0.85;
+}
+
+.pp-footer-link:hover {
+  opacity: 1;
+}
+
+/* Optional spacing helpers */
+.pp-footer>* {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+/* ===== MOBILE ===== */
+@media (max-width: 768px) {
+  .pp-footer {
+    justify-content: center;
+    text-align: center;
+  }
+}
+
+
+
+/* tabs css  */
+
+
+
+/* ===== TABS ===== */
+/* ===== BASE TAB ===== */
+/* ===== CONTAINER ===== */
+.pp-tabs {
+  width: 100%;
+}
+
+/* ===== TAB LIST ===== */
+.pp-tabs-list {
+  display: flex;
+  gap: 24px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+/* ===== TAB ===== */
+.pp-tab {
+  padding: 12px 4px;
+  background: none;
+  border: none;
+  font-size: 14.5px;
+  font-weight: 500;
+  cursor: pointer;
+  color: var(--pp-tab-text);
+  position: relative;
+  transition: color 0.2s ease;
+}
+
+/* Hover (inactive only) */
+.pp-tab:not(.pp-tab-active):hover {
+  color: var(--pp-tab-hover-color);
+}
+
+/* ===== UNDERLINE STYLE (DEFAULT) ===== */
+.pp-tab-underline::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 2px;
+  background: var(--pp-tab-active-bg);
+  border-radius: 2px;
+}
+
+/* ===== BLOCK STYLE (OPTIONAL, PROFESSIONAL) ===== */
+.pp-tab-block {
+  background: var(--pp-tab-active-bg);
+  color: var(--pp-tab-active-color);
+  border-radius: 6px;
+  padding: 8px 12px;
+}
+
+/* Active text emphasis */
+.pp-tab-active {
+  color: var(--pp-tab-active-color);
+  font-weight: 600;
 }
