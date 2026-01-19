@@ -7,19 +7,43 @@ function initDatepicker() {
     ========================= */
     input.type = DEFAULTS.dateInputType;
 
-    // Disable previous dates
+    // Today (default minimum)
     const today = new Date();
     const yyyy = today.getFullYear();
     const mm = String(today.getMonth() + 1).padStart(2, "0");
     const dd = String(today.getDate()).padStart(2, "0");
 
-    input.min = `${yyyy}-${mm}-${dd}`;
+    /* =========================
+       DATE RANGE SUPPORT (NEW)
+    ========================= */
 
-     /* =========================
-       STYLES (FROM DEFAULTS ONLY) - allow instance overrides
+    // Utility: MM/DD/YYYY → YYYY-MM-DD
+    function toISO(val) {
+      if (!val) return null;
+      const [m, d, y] = val.split("/");
+      return `${y}-${m.padStart(2, "0")}-${d.padStart(2, "0")}`;
+    }
+
+    // Apply minimum date
+    if (input.dataset.minDate) {
+      input.min = toISO(input.dataset.minDate);
+    } else {
+      // default behavior: disable past dates
+      input.min = `${yyyy}-${mm}-${dd}`;
+    }
+
+    // Apply maximum date (if provided)
+    if (input.dataset.maxDate) {
+      input.max = toISO(input.dataset.maxDate);
+    } else {
+      input.removeAttribute("max");
+    }
+
+    /* =========================
+       STYLES (UNCHANGED)
      ========================= */
-     input.style.width = input.dataset.width || DEFAULTS.dateWidth;
-     input.style.height = input.dataset.height || DEFAULTS.dateHeight;
+    input.style.width = input.dataset.width || DEFAULTS.dateWidth;
+    input.style.height = input.dataset.height || DEFAULTS.dateHeight;
     input.style.padding = DEFAULTS.datePadding;
     input.style.fontFamily = DEFAULTS.dateFontFamily;
     input.style.fontSize = DEFAULTS.dateFontSize;
@@ -47,7 +71,7 @@ function initDatepicker() {
     });
 
     /* =========================
-       onchange (CSP-safe)
+       ONCHANGE (CSP-SAFE)
     ========================= */
     if (onChangeFn && typeof window[onChangeFn] === "function") {
       input.addEventListener("change", e =>

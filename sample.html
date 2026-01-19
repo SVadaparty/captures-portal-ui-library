@@ -138,19 +138,42 @@
 
   <br /><br />
 
+<div style="display:flex; align-items:center; gap:16px;">
 
-  <div style="
-    display: flex;
-    width: 100%;
-  ">
-    <div>
+  <!-- MAIN DATE INPUT -->
+  <input
+    id="mainDateInput"
+    data-pp-datepicker
+    data-width="80%"
+    data-format="MM/DD/YYYY"
+    data-onchange="onDateChange"
+  />
 
-      <input data-pp-datepicker data-width="80%" data-format="MM/DD/YYYY" data-onchange="onDateChange" />
-    </div>
-    <div data-pp-radio-group data-layout="row" data-options='["Minimum date","Maximum date"]'
-      data-onchange="onFileModeChange">
-    </div>
+  <!-- MIN RADIO -->
+  <label style="display:flex; align-items:center; gap:6px;">
+    <input type="radio" name="range" onclick="openRangePicker('min')" />
+    Minimum
+    <span id="minLabel" style="font-size:12px; color:#2563eb;"></span>
+  </label>
+
+  <!-- MAX RADIO -->
+  <label style="display:flex; align-items:center; gap:6px;">
+    <input type="radio" name="range" onclick="openRangePicker('max')" />
+    Maximum
+    <span id="maxLabel" style="font-size:12px; color:#2563eb;"></span>
+  </label>
+
+  <!-- SHARED PICKER -->
+  <div id="rangePickerWrapper" style="display:none;">
+    <input
+      id="rangePicker"
+      data-pp-datepicker
+      data-format="MM/DD/YYYY"
+    />
   </div>
+
+</div>
+
   <br /><br />
 
 
@@ -209,19 +232,71 @@
     }
   </script>
 
-  <script>
-    function onFileModeChange(selectedOptions) {
+<script>
+  function onFileModeChange(selectedOptions) {
       const fileInput = document.querySelector("[data-pp-file]");
       if (!fileInput) return;
 
       // If "Allowed Multiple files" is selected → enable multiple
       if (selectedOptions.includes("Allowed Multiple files")) {
-        fileInput.multiple = true;
+        fileInput.multiple = true; 
       } else {
-        fileInput.multiple = false;
-      }
+        fileInput.multiple = false;   
     }
-  </script>
+  }
+</script>
+<script>
+  let activeMode = null;
+
+  function toISO(val) {
+    const [m, d, y] = val.split("/");
+    return `${y}-${m.padStart(2, "0")}-${d.padStart(2, "0")}`;
+  }
+
+  function openRangePicker(mode) {
+    activeMode = mode;
+    const wrapper = document.getElementById("rangePickerWrapper");
+    const picker = document.getElementById("rangePicker");
+
+    wrapper.style.display = "inline-block";
+    picker.focus();
+    picker.click();
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const picker = document.getElementById("rangePicker");
+    const main = document.getElementById("mainDateInput");
+
+    picker.addEventListener("change", e => {
+      const val = e.target.value; // MM/DD/YYYY
+      if (!val || !activeMode) return;
+
+      if (activeMode === "min") {
+        main.dataset.minDate = val;
+        document.getElementById("minLabel").textContent = val;
+      }
+
+      if (activeMode === "max") {
+        main.dataset.maxDate = val;
+        document.getElementById("maxLabel").textContent = val;
+      }
+
+      // Apply constraints to main input
+      initDatepicker();
+
+      // Reset picker
+      picker.value = "";
+      document.getElementById("rangePickerWrapper").style.display = "none";
+      activeMode = null;
+    });
+  });
+
+  function onDateChange(value) {
+    // ALWAYS valid date (browser enforces min/max)
+    console.log("Final valid date selected:", value);
+  }
+</script>
+
   <script>
     document.addEventListener("DOMContentLoaded", function () {
       if (window.PPValidation) {
