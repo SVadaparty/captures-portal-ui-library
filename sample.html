@@ -250,6 +250,20 @@
     </div>
 
   </header>
+  <div
+  data-pp-pdf-wrapper
+  data-id="invoicePdf"
+  data-title="Invoice"
+  data-orientation="portrait"
+  data-pagesize="a4"
+  data-download-label="Download PDF">
+
+  <h2>Invoice #1023 sample for html to pdf fomat </h2>
+  <p>Customer: testing pdf format including below table</p>
+
+  <div data-pp-table data-datasource="usersData"></div>
+
+</div>
 
 
   <footer data-pp-footer data-bg="#7c3aed" data-textColor="#7c3aed">
@@ -299,6 +313,7 @@
       initLoader();
       initTypography();
       initAlerts();
+      initPdfWrappers();
     });
   </script>
   <script>
