@@ -194,10 +194,24 @@ alertLightBg: "#fefefe",
 alertLightText: "#636464",
 
 alertDarkBg: "#d3d3d4",
-alertDarkText: "#141619"
+alertDarkText: "#141619",
+/* ========= ACCORDION DEFAULTS ========= */
+accordionBgColor: "#ffffff",
+accordionBorderColor: "#e5e7eb",
+accordionHeaderBg: "#f8fafc",
+accordionHeaderTextColor: "#0f172a",
+accordionContentBg: "#ffffff",
+accordionTextColor: "#111827",
 
+accordionPadding: "12px 16px",
+accordionFontFamily: "HelveticaNeueLTStd-Bd, Helvetica, Arial, sans-serif",
+accordionFontSize: "15px",
+accordionFontWeight: "500",
 
-
+accordionBorderRadius: "6px",
+accordionIcon: "▾",
+accordionOpenIcon: "▴",
+accordionTransition: "0.25s ease"
 
 };
 
