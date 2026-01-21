@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Power Pages UI Framework – Loader</title>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+  <link rel="stylesheet" href="../../dist/pp-ui-core.min.css"/>
+  <script type="module" src="../../dist/pp-ui-core.min.js"></script>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Segoe UI, system-ui, sans-serif;
+      background: #f3f4f6;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 360px 1fr;
+      height: 100vh;
+    }
+
+    .controls {
+      background: #020617;
+      color: white;
+      padding: 20px;
+      overflow-y: auto;
+    }
+
+    .controls h2 {
+      color: #38bdf8;
+    }
+
+    .controls label {
+      display: block;
+      margin-top: 12px;
+      font-size: 13px;
+      color: #cbd5f5;
+    }
+
+    .controls input,
+    .controls select {
+      width: 100%;
+      padding: 8px;
+      border-radius: 6px;
+      border: none;
+      margin-top: 4px;
+    }
+
+    .preview {
+      padding: 32px;
+      overflow-y: auto;
+    }
+
+    .preview-box {
+      background: white;
+      padding: 32px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,.05);
+      margin-bottom: 24px;
+      min-height: 160px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .playbook-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: #2563eb;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+      margin-bottom: 16px;
+    }
+
+    code, pre {
+      background: #020617;
+      color: #38bdf8;
+      padding: 16px;
+      border-radius: 8px;
+      display: block;
+      overflow-x: auto;
+      font-size: 13px;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="layout">
+
+  <!-- CONTROLS -->
+  <div class="controls">
+    <h2>Loader Settings</h2>
+
+    <label>Text</label>
+    <input id="pb-text" value="Loading..."/>
+
+    <label>Size</label>
+    <input id="pb-size" value="48px"/>
+
+    <label>Spinner Color</label>
+    <input id="pb-color" type="color" value="#2563eb"/>
+
+    <label>Background Ring Color</label>
+    <input id="pb-bgcolor" type="color" value="#e5e7eb"/>
+
+    <label>Alignment</label>
+    <select id="pb-align">
+      <option value="center">center</option>
+      <option value="flex-start">left</option>
+      <option value="flex-end">right</option>
+    </select>
+  </div>
+
+  <!-- PREVIEW -->
+  <div class="preview">
+
+    <a href="../index.html" class="playbook-back">← Back to Playbook</a>
+
+    <h1>Power Pages Loader</h1>
+
+    <!-- LIVE PREVIEW -->
+    <div class="preview-box">
+      <div id="loaderHost" data-pp-loader></div>
+    </div>
+
+    <!-- GENERATED CODE -->
+    <div class="preview-box" style="display:block;">
+      <h2>Generated HTML</h2>
+      <pre id="codeBlock"></pre>
+    </div>
+
+    <!-- DOCUMENTATION -->
+    <div class="preview-box" style="display:block;">
+      <h2>How to use Loader</h2>
+
+      <pre>
+&lt;div
+  data-pp-loader
+  data-text="Loading..."
+  data-size="48px"
+  data-color="#2563eb"
+  data-bgcolor="#e5e7eb"
+  data-align="center"&gt;
+&lt;/div&gt;
+      </pre>
+
+      <h3>Supported Attributes</h3>
+      <table style="width:100%;border-collapse:collapse;">
+        <tr>
+          <th align="left">Attribute</th>
+          <th align="left">Description</th>
+        </tr>
+        <tr>
+          <td>data-text</td>
+          <td>Loader label text</td>
+        </tr>
+        <tr>
+          <td>data-size</td>
+          <td>Spinner size (px / rem)</td>
+        </tr>
+        <tr>
+          <td>data-color</td>
+          <td>Spinner color</td>
+        </tr>
+        <tr>
+          <td>data-bgcolor</td>
+          <td>Spinner background ring color</td>
+        </tr>
+        <tr>
+          <td>data-align</td>
+          <td>flex-start / center / flex-end</td>
+        </tr>
+      </table>
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+function bindPlaybook() {
+  const host = document.getElementById("loaderHost");
+  const codeBlock = document.getElementById("codeBlock");
+
+  function sync() {
+    const text = pb("pb-text");
+    const size = pb("pb-size");
+    const color = pb("pb-color");
+    const bgcolor = pb("pb-bgcolor");
+    const align = pb("pb-align");
+
+    host.dataset.text = text;
+    host.dataset.size = size;
+    host.dataset.color = color;
+    host.dataset.bgcolor = bgcolor;
+    host.dataset.align = align;
+
+    // Initialize loader (will render inside host)
+    if (typeof window.initLoader === "function") {
+      window.initLoader();
+    }
+
+    // -------- CODE GENERATION (after loader is rendered) --------
+    const code = `<div
+  data-pp-loader
+  data-text="${text}"
+  data-size="${size}"
+  data-color="${color}"
+  data-bgcolor="${bgcolor}"
+  data-align="${align}">
+</div>`;
+    
+    // Set code in the code block (separate element, won't affect loader display)
+    if (codeBlock) {
+      codeBlock.textContent = code;
+    }
+  }
+
+  document
+    .querySelectorAll(".controls input, .controls select")
+    .forEach(el => el.addEventListener("input", sync));
+
+  sync();
+}
+
+function pb(id) {
+  return document.getElementById(id).value;
+}
+
+// Wait for module to load before initializing
+setTimeout(() => {
+  bindPlaybook();
+}, 500);
+</script>
+
+</body>
+</html>
