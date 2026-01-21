@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Power Pages UI Framework – Tabs</title>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<link rel="stylesheet" href="../../dist/pp-ui-core.min.css"/>
+<script src="../../dist/pp-ui-core.min.js"></script>
+
+<style>
+body {
+  margin: 0;
+  font-family: Segoe UI, system-ui, sans-serif;
+  background: #f3f4f6;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  height: 100vh;
+}
+
+.controls {
+  background: #020617;
+  color: white;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.controls h2 {
+  color: #38bdf8;
+}
+
+.controls label {
+  display: block;
+  margin-top: 12px;
+  font-size: 13px;
+  color: #cbd5f5;
+}
+
+.controls input,
+.controls textarea,
+.controls select {
+  width: 100%;
+  padding: 8px;
+  border-radius: 6px;
+  border: none;
+  margin-top: 4px;
+}
+
+.preview {
+  padding: 32px;
+  overflow-y: auto;
+}
+
+.preview-box {
+  background: white;
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,.05);
+  margin-bottom: 24px;
+}
+
+.playbook-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #2563eb;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: 16px;
+}
+
+code, pre {
+  background: #020617;
+  color: #38bdf8;
+  padding: 16px;
+  border-radius: 8px;
+  display: block;
+  overflow-x: auto;
+  font-size: 13px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="layout">
+
+  <!-- CONTROLS -->
+  <div class="controls">
+    <h2>Tabs Settings</h2>
+
+    <label>Tabs (comma separated)</label>
+    <input id="pb-tabs" value="Overview, Details, Settings"/>
+
+    <label>Active Tab Index</label>
+    <input id="pb-active" value="0"/>
+
+    <label>Active Style</label>
+    <select id="pb-activeBgStyle">
+      <option value="underline">Underline</option>
+      <option value="block">Block</option>
+    </select>
+
+    <label>Text Color</label>
+    <input id="pb-textColor" type="color" value="#475569"/>
+
+    <label>Active Color</label>
+    <input id="pb-activeColor" type="color" value="#2563eb"/>
+
+    <label>Active Background</label>
+    <input id="pb-activeBg" type="color" value="#2563eb"/>
+
+    <label>Hover Color</label>
+    <input id="pb-hoverColor" type="color" value="#1d4ed8"/>
+
+    <label>On Select</label>
+    <select id="pb-onselect">
+      <option value="">None</option>
+      <option value="onTabSelect">onTabSelect()</option>
+    </select>
+  </div>
+
+  <!-- PREVIEW -->
+  <div class="preview">
+
+    <a href="../index.html" class="playbook-back">← Back to Playbook</a>
+
+    <h1>Power Pages Tabs</h1>
+
+    <div class="preview-box">
+      <div id="tabsHost" data-pp-tabs></div>
+    </div>
+
+    <!-- GENERATED CODE -->
+    <div class="preview-box">
+      <h2>Generated HTML</h2>
+      <pre id="codeBlock"></pre>
+    </div>
+
+    <!-- DOCUMENTATION -->
+    <div class="preview-box">
+      <h2>How to use Tabs</h2>
+
+      <pre>
+&lt;div
+  data-pp-tabs
+  data-tabs="Overview, Details, Settings"
+  data-active="0"
+  data-active-bg-style="underline"
+  data-onselect="onTabSelect"&gt;
+&lt;/div&gt;
+      </pre>
+
+      <h3>Supported Attributes</h3>
+      <table style="width:100%;border-collapse:collapse;">
+        <tr><th align="left">Attribute</th><th align="left">Description</th></tr>
+        <tr><td>data-tabs</td><td>Comma separated tab labels</td></tr>
+        <tr><td>data-active</td><td>Active tab index (0-based)</td></tr>
+        <tr><td>data-active-bg-style</td><td>underline or block</td></tr>
+        <tr><td>data-text-color</td><td>Default tab text color</td></tr>
+        <tr><td>data-active-color</td><td>Active tab text color</td></tr>
+        <tr><td>data-active-bg</td><td>Active tab background / underline</td></tr>
+        <tr><td>data-hover-color</td><td>Hover text color</td></tr>
+        <tr><td>data-onselect</td><td>JS function name</td></tr>
+      </table>
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+function onTabSelect(index, label) {
+  alert("Selected tab: " + label + " (index " + index + ")");
+}
+
+function bindPlaybook() {
+  const host = document.getElementById("tabsHost");
+  const codeBlock = document.getElementById("codeBlock");
+
+  function sync() {
+    host.innerHTML = "";
+
+    const tabs = pb("pb-tabs");
+    const active = pb("pb-active");
+    const activeBgStyle = pb("pb-activeBgStyle");
+    const textColor = pb("pb-textColor");
+    const activeColor = pb("pb-activeColor");
+    const activeBg = pb("pb-activeBg");
+    const hoverColor = pb("pb-hoverColor");
+    const onselect = pb("pb-onselect");
+
+    host.dataset.tabs = tabs;
+    host.dataset.active = active;
+    host.dataset.activeBgStyle = activeBgStyle;
+    host.dataset.textColor = textColor;
+    host.dataset.activeColor = activeColor;
+    host.dataset.activeBg = activeBg;
+    host.dataset.hoverColor = hoverColor;
+
+    if (onselect) host.dataset.onselect = onselect;
+    else delete host.dataset.onselect;
+
+    window.initTabs();
+
+    // -------- CODE GENERATION --------
+    codeBlock.textContent =
+`<div
+  data-pp-tabs
+  data-tabs="${tabs}"
+  data-active="${active}"
+  data-active-bg-style="${activeBgStyle}"
+  data-text-color="${textColor}"
+  data-active-color="${activeColor}"
+  data-active-bg="${activeBg}"
+  data-hover-color="${hoverColor}"${onselect ? `
+  data-onselect="${onselect}"` : ""}>
+</div>`;
+  }
+
+  document.querySelectorAll(".controls input, .controls select")
+    .forEach(el => el.addEventListener("input", sync));
+
+  sync();
+}
+
+function pb(id) {
+  return document.getElementById(id).value;
+}
+
+window.addEventListener("load", bindPlaybook);
+</script>
+
+</body>
+</html>

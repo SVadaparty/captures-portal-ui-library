@@ -72,12 +72,12 @@ body {
   margin-bottom: 20px;
 }
 
-code, pre {
+pre {
   background: #020617;
   color: #38bdf8;
-  padding: 14px;
+  padding: 16px;
   border-radius: 8px;
-  display: block;
+  font-size: 13px;
   overflow-x: auto;
 }
 </style>
@@ -148,70 +148,14 @@ code, pre {
       <div
         id="tableHost"
         data-pp-table
-        data-datasource="usersData"
-        data-search="true"
-        data-filter="true"
-        data-search-placeholder="Search"
-        data-filter-placeholder="Select column"
-        data-width="100%"
-        data-font-family="sans-serif"
-        data-font-size="14px"
-        data-border-color="#000"
-        data-header-bg="#b7c9e6"
-        data-header-text-color="#03025f"
-        data-row-hover-bg="#fafafa"
-        data-text-color="#000"
-        data-page-size="2"
-        data-sticky-header="true"
-        data-column-toggle="true">
+        data-datasource="usersData">
       </div>
     </div>
 
-    <!-- DOCUMENTATION -->
+    <!-- GENERATED CODE -->
     <div class="preview-box">
-      <h2>How to use this Table in Power Pages</h2>
-
-      <p>This component is rendered entirely through HTML attributes. No JavaScript is required in Power Pages.</p>
-
-      <h3>Basic Example</h3>
-      <pre>
-&lt;div
-  data-pp-table
-  data-datasource="usersData"&gt;
-&lt;/div&gt;
-      </pre>
-
-      <h3>With Search & Pagination</h3>
-      <pre>
-&lt;div
-  data-pp-table
-  data-datasource="usersData"
-  data-search="true"
-  data-page-size="10"&gt;
-&lt;/div&gt;
-      </pre>
-
-      <h3>Supported Attributes</h3>
-      <table style="width:100%;border-collapse:collapse;">
-        <tr><th align="left">Attribute</th><th align="left">Description</th></tr>
-        <tr><td>data-datasource</td><td>Global JS array name</td></tr>
-        <tr><td>data-search</td><td>Enable search box</td></tr>
-        <tr><td>data-filter</td><td>Enable column filter</td></tr>
-        <tr><td>data-search-placeholder</td><td>Search input placeholder</td></tr>
-        <tr><td>data-filter-placeholder</td><td>Filter dropdown placeholder</td></tr>
-        <tr><td>data-page-size</td><td>Rows per page</td></tr>
-        <tr><td>data-width</td><td>Table width</td></tr>
-        <tr><td>data-font-family</td><td>Font family</td></tr>
-        <tr><td>data-font-size</td><td>Font size</td></tr>
-        <tr><td>data-text-color</td><td>Text color</td></tr>
-        <tr><td>data-border-color</td><td>Border color</td></tr>
-        <tr><td>data-header-bg</td><td>Header background</td></tr>
-        <tr><td>data-header-text-color</td><td>Header text color</td></tr>
-        <tr><td>data-row-hover-bg</td><td>Row hover background</td></tr>
-        <tr><td>data-sticky-header</td><td>Sticky header</td></tr>
-        <tr><td>data-column-toggle</td><td>Show/hide columns</td></tr>
-      </table>
-
+      <h2>Generated HTML</h2>
+      <pre id="codeBlock"></pre>
     </div>
 
   </div>
@@ -224,34 +168,63 @@ window.usersData = [
   { name: "Amit", role: "Tester", city: "Mumbai", salary: 60000 },
   { name: "Priya", role: "Designer", city: "Pune", salary: 70000 },
   { name: "John", role: "Manager", city: "Delhi", salary: 120000 },
-  { name: "Meera", role: "Support", city: "Chennai", salary: 50000 },
-  { name: "Rahul", role: "Developer", city: "Bangalore", salary: 85000 },
-  { name: "Sneha", role: "HR", city: "Kolkata", salary: 65000 }
+  { name: "Meera", role: "Support", city: "Chennai", salary: 50000 }
 ];
 
-function pb(id) { return document.getElementById(id).value; }
+function pb(id) {
+  return document.getElementById(id).value;
+}
 
 function bindPlaybook() {
   const table = document.getElementById("tableHost");
+  const codeBlock = document.getElementById("codeBlock");
 
   function sync() {
-    table.dataset.pageSize = pb("pb-pageSize");
-    table.dataset.search = pb("pb-search");
-    table.dataset.filter = pb("pb-filter");
-    table.dataset.searchPlaceholder = pb("pb-searchPlaceholder");
-    table.dataset.filterPlaceholder = pb("pb-filterPlaceholder");
-    table.dataset.width = pb("pb-width");
-    table.dataset.fontFamily = pb("pb-fontFamily");
-    table.dataset.fontSize = pb("pb-fontSize");
-    table.dataset.textColor = pb("pb-textColor");
-    table.dataset.borderColor = pb("pb-borderColor");
-    table.dataset.headerBg = pb("pb-headerBg");
-    table.dataset.headerTextColor = pb("pb-headerTextColor");
-    table.dataset.rowHoverBg = pb("pb-rowHoverBg");
-    table.dataset.stickyHeader = pb("pb-stickyHeader");
-    table.dataset.columnToggle = pb("pb-columnToggle");
+    const config = {
+      pageSize: pb("pb-pageSize"),
+      search: pb("pb-search"),
+      filter: pb("pb-filter"),
+      searchPlaceholder: pb("pb-searchPlaceholder"),
+      filterPlaceholder: pb("pb-filterPlaceholder"),
+      width: pb("pb-width"),
+      fontFamily: pb("pb-fontFamily"),
+      fontSize: pb("pb-fontSize"),
+      textColor: pb("pb-textColor"),
+      borderColor: pb("pb-borderColor"),
+      headerBg: pb("pb-headerBg"),
+      headerTextColor: pb("pb-headerTextColor"),
+      rowHoverBg: pb("pb-rowHoverBg"),
+      stickyHeader: pb("pb-stickyHeader"),
+      columnToggle: pb("pb-columnToggle")
+    };
+
+    Object.entries(config).forEach(([k, v]) => {
+      table.dataset[k] = v;
+    });
 
     window.initTables();
+
+    // ---------- CODE GENERATION ----------
+    codeBlock.textContent =
+`<div
+  data-pp-table
+  data-datasource="usersData"
+  data-page-size="${config.pageSize}"
+  data-search="${config.search}"
+  data-filter="${config.filter}"
+  data-search-placeholder="${config.searchPlaceholder}"
+  data-filter-placeholder="${config.filterPlaceholder}"
+  data-width="${config.width}"
+  data-font-family="${config.fontFamily}"
+  data-font-size="${config.fontSize}"
+  data-text-color="${config.textColor}"
+  data-border-color="${config.borderColor}"
+  data-header-bg="${config.headerBg}"
+  data-header-text-color="${config.headerTextColor}"
+  data-row-hover-bg="${config.rowHoverBg}"
+  data-sticky-header="${config.stickyHeader}"
+  data-column-toggle="${config.columnToggle}">
+</div>`;
   }
 
   document.querySelectorAll(".controls input, .controls select")
@@ -265,5 +238,3 @@ window.addEventListener("load", bindPlaybook);
 
 </body>
 </html>
-<!DOCTYPE html>
-<html lang="en">

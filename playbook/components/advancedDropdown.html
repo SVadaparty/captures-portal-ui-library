@@ -1,211 +1,210 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<title>Power Pages UI Framework – Select Menu</title>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Power Pages UI Framework – Select Menu</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<link rel="stylesheet" href="../../dist/pp-ui-core.min.css"/>
-<script src="../../dist/pp-ui-core.min.js"></script>
+  <link rel="stylesheet" href="../../dist/pp-ui-core.min.css" />
+  <script src="../../dist/pp-ui-core.min.js"></script>
 
-<style>
-body {
-  margin: 0;
-  font-family: Segoe UI, system-ui, sans-serif;
-  background: #f3f4f6;
-}
+  <style>
+    body {
+      margin: 0;
+      font-family: Segoe UI, system-ui, sans-serif;
+      background: #f3f4f6;
+    }
 
-.layout {
-  display: grid;
-  grid-template-columns: 360px 1fr;
-  height: 100vh;
-}
+    .layout {
+      display: grid;
+      grid-template-columns: 360px 1fr;
+      height: 100vh;
+    }
 
-.controls {
-  background: #020617;
-  color: white;
-  padding: 20px;
-  overflow-y: auto;
-}
+    .controls {
+      background: #020617;
+      color: white;
+      padding: 20px;
+      overflow-y: auto;
+    }
 
-.controls h2 {
-  color: #38bdf8;
-}
+    .controls h2 {
+      color: #38bdf8;
+    }
 
-.controls label {
-  display: block;
-  margin-top: 12px;
-  font-size: 13px;
-  color: #cbd5f5;
-}
+    .controls label {
+      display: block;
+      margin-top: 12px;
+      font-size: 13px;
+      color: #cbd5f5;
+    }
 
-.controls input,
-.controls textarea,
-.controls select {
-  width: 100%;
-  padding: 8px;
-  border-radius: 6px;
-  border: none;
-  margin-top: 4px;
-}
+    .controls input,
+    .controls textarea,
+    .controls select {
+      width: 100%;
+      padding: 8px;
+      border-radius: 6px;
+      border: none;
+      margin-top: 4px;
+    }
 
-.preview {
-  padding: 40px;
-  overflow-y: auto;
-}
+    .preview {
+      padding: 40px;
+      overflow-y: auto;
+    }
 
-.preview-box {
-  background: white;
-  padding: 32px;
-  border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0,0,0,.05);
-  margin-bottom: 24px;
-}
+    .preview-box {
+      background: white;
+      padding: 32px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, .05);
+      margin-bottom: 24px;
+    }
 
-.playbook-back {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  color: #2563eb;
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 14px;
-  margin-bottom: 20px;
-}
+    .playbook-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: #2563eb;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
 
-code, pre {
-  background: #020617;
-  color: #38bdf8;
-  padding: 14px;
-  border-radius: 8px;
-  display: block;
-  overflow-x: auto;
-}
-</style>
+    pre {
+      background: #020617;
+      color: #38bdf8;
+      padding: 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      overflow-x: auto;
+    }
+  </style>
 </head>
 
 <body>
 
-<div class="layout">
+  <div class="layout">
 
-  <!-- CONTROLS -->
-  <div class="controls">
-    <h2>Select Menu Settings</h2>
+    <!-- CONTROLS -->
+    <div class="controls">
+      <h2>Select Menu Settings</h2>
 
-    <label>Options</label>
-    <textarea id="pb-options">Apple, Banana, Mango, Orange, Pineapple</textarea>
+      <label>Options</label>
+      <textarea id="pb-options">Apple, Banana, Mango, Orange, Pineapple</textarea>
 
-    <label>Multiple Select</label>
-    <select id="pb-multiple">
-      <option>false</option>
-      <option>true</option>
-    </select>
+      <label>Multiple Select</label>
+      <select id="pb-multiple">
+        <option>false</option>
+        <option>true</option>
+      </select>
 
-    <label>Enable Search</label>
-    <select id="pb-search">
-      <option>false</option>
-      <option>true</option>
-    </select>
+      <label>Enable Search</label>
+      <select id="pb-search">
+        <option>false</option>
+        <option>true</option>
+      </select>
 
-    <label>Placeholder</label>
-    <input id="pb-placeholder" value="Select fruit"/>
+      <label>Placeholder</label>
+      <input id="pb-placeholder" value="Select fruit" />
 
-    <label>Search Placeholder</label>
-    <input id="pb-searchPlaceholder" value="Search..."/>
+      <label>Search Placeholder</label>
+      <input id="pb-searchPlaceholder" value="Search..." />
 
-    <label>Width</label>
-    <input id="pb-width" value="280px"/>
+      <label>Width</label>
+      <input id="pb-width" value="280px" />
 
-    <label>On Change</label>
-    <select id="pb-onchange">
-      <option value="">None</option>
-      <option value="onSelectChange">onSelectChange()</option>
-    </select>
-  </div>
+      <label>On Change</label>
+      <select id="pb-onchange">
+        <option value="">None</option>
+        <option value="onSelectChange">onSelectChange()</option>
+      </select>
+    </div>
 
-  <!-- PREVIEW -->
-  <div class="preview">
+    <!-- PREVIEW -->
+    <div class="preview">
 
-    <a href="../index.html" class="playbook-back">← Back to Playbook</a>
+      <a href="../index.html" class="playbook-back">← Back to Playbook</a>
 
-    <h1>Power Pages Select Menu</h1>
+      <h1>Power Pages Select Menu</h1>
 
-    <div class="preview-box">
-      <div
-        id="selectHost"
-        data-pp-select
-        data-options="Apple, Banana, Mango, Orange, Pineapple"
-        data-placeholder="Select fruit"
-        data-search="false"
-        data-multiple="false"
-        data-width="280px">
+      <div class="preview-box">
+        <div id="selectHost" data-pp-select data-datasource="usersData">
+        </div>
       </div>
-    </div>
 
-    <!-- DOCUMENTATION -->
-    <div class="preview-box">
-      <h2>How to use this Select Menu</h2>
+      <!-- GENERATED CODE -->
+      <div class="preview-box">
+        <h2>Generated HTML</h2>
+        <pre id="codeBlock"></pre>
+      </div>
 
-      <pre>
-&lt;div
-  data-pp-select
-  data-options="Low, Medium, High"
-  data-placeholder="Priority"
-  data-search="true"
-  data-multiple="false"
-  data-width="300px"
-  data-onchange="onPriorityChange"&gt;
-&lt;/div&gt;
-      </pre>
-
-      <h3>Supported Attributes</h3>
-      <table style="width:100%;border-collapse:collapse;">
-        <tr><th align="left">Attribute</th><th align="left">Description</th></tr>
-        <tr><td>data-options</td><td>Comma separated or JSON array</td></tr>
-        <tr><td>data-multiple</td><td>true / false</td></tr>
-        <tr><td>data-search</td><td>true / false</td></tr>
-        <tr><td>data-placeholder</td><td>Display text</td></tr>
-        <tr><td>data-search-placeholder</td><td>Search box text</td></tr>
-        <tr><td>data-width</td><td>Component width</td></tr>
-        <tr><td>data-onchange</td><td>JS function name</td></tr>
-      </table>
     </div>
 
   </div>
 
-</div>
+  <script>
+    function onSelectChange(val) {
+      alert("Selected: " + (Array.isArray(val) ? val.join(", ") : val));
+    }
 
-<script>
-function onSelectChange(val) {
-  alert("Selected: " + (Array.isArray(val) ? val.join(", ") : val));
-}
+    function pb(id) {
+      return document.getElementById(id).value;
+    }
 
-function bindPlaybook() {
-  const host = document.getElementById("selectHost");
+    function bindPlaybook() {
+      const host = document.getElementById("selectHost");
+      const codeBlock = document.getElementById("codeBlock");
 
-  function sync() {
-    host.dataset.options = document.getElementById("pb-options").value;
-    host.dataset.multiple = document.getElementById("pb-multiple").value;
-    host.dataset.search = document.getElementById("pb-search").value;
-    host.dataset.placeholder = document.getElementById("pb-placeholder").value;
-    host.dataset.searchPlaceholder = document.getElementById("pb-searchPlaceholder").value;
-    host.dataset.width = document.getElementById("pb-width").value;
+      function sync() {
+        const config = {
+          options: pb("pb-options"),
+          multiple: pb("pb-multiple"),
+          search: pb("pb-search"),
+          placeholder: pb("pb-placeholder"),
+          searchPlaceholder: pb("pb-searchPlaceholder"),
+          width: pb("pb-width"),
+          onchange: pb("pb-onchange")
+        };
 
-    const fn = document.getElementById("pb-onchange").value;
-    if (fn) host.dataset.onchange = fn;
-    else delete host.dataset.onchange;
+        host.dataset.options = config.options;
+        host.dataset.multiple = config.multiple;
+        host.dataset.search = config.search;
+        host.dataset.placeholder = config.placeholder;
+        host.dataset.searchPlaceholder = config.searchPlaceholder;
+        host.dataset.width = config.width;
 
-    window.initSelectMenus();
-  }
+        if (config.onchange) host.dataset.onchange = config.onchange;
+        else delete host.dataset.onchange;
 
-  document.querySelectorAll(".controls textarea, .controls input, .controls select")
-    .forEach(el => el.addEventListener("input", sync));
+        window.initSelectMenus();
 
-  sync();
-}
+        // ---------- CODE GENERATION ----------
+        codeBlock.textContent =
+          `<div
+  data-pp-select
+  data-options="${config.options}"
+  data-multiple="${config.multiple}"
+  data-search="${config.search}"
+  data-placeholder="${config.placeholder}"
+  data-search-placeholder="${config.searchPlaceholder}"
+  data-width="${config.width}"${config.onchange ? `
+  data-onchange="${config.onchange}"` : ""}>
+</div>`;
+      }
 
-window.addEventListener("load", bindPlaybook);
-</script>
+      document.querySelectorAll(".controls textarea, .controls input, .controls select")
+        .forEach(el => el.addEventListener("input", sync));
+
+      sync();
+    }
+
+    window.addEventListener("load", bindPlaybook);
+  </script>
 
 </body>
+
 </html>

@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Power Pages UI Framework – Header</title>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<link rel="stylesheet" href="../../dist/pp-ui-core.min.css"/>
+<script src="../../dist/pp-ui-core.min.js"></script>
+
+<style>
+body {
+  margin: 0;
+  font-family: Segoe UI, system-ui, sans-serif;
+  background: #f3f4f6;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  height: 100vh;
+}
+
+.controls {
+  background: #020617;
+  color: white;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.controls h2 {
+  color: #38bdf8;
+}
+
+.controls label {
+  display: block;
+  margin-top: 12px;
+  font-size: 13px;
+  color: #cbd5f5;
+}
+
+.controls input,
+.controls select {
+  width: 100%;
+  padding: 8px;
+  border-radius: 6px;
+  border: none;
+  margin-top: 4px;
+}
+
+.preview {
+  padding: 32px;
+  overflow-y: auto;
+}
+
+.preview-box {
+  background: white;
+  padding: 0;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,.05);
+  margin-bottom: 24px;
+  overflow: hidden;
+}
+
+.playbook-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #2563eb;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: 16px;
+}
+
+code, pre {
+  background: #020617;
+  color: #38bdf8;
+  padding: 16px;
+  border-radius: 8px;
+  display: block;
+  overflow-x: auto;
+  font-size: 13px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="layout">
+
+  <!-- CONTROLS -->
+  <div class="controls">
+    <h2>Header Settings</h2>
+
+    <label>Background</label>
+    <select id="pb-bg">
+      <option value="primary">Primary</option>
+      <option value="neutral">Neutral</option>
+      <option value="dark">Dark</option>
+      <option value="accent">Accent</option>
+    </select>
+
+    <label>Sticky Header</label>
+    <select id="pb-sticky">
+      <option value="false">false</option>
+      <option value="true">true</option>
+    </select>
+
+    <label>Logo Text</label>
+    <input id="pb-logo" value="MyBrand"/>
+
+    <label>Logo URL</label>
+    <input id="pb-logoUrl" value="/"/>
+
+    <label>Nav Items (JSON)</label>
+    <input
+      id="pb-nav"
+      value='[{"label":"Home","href":"#","active":true},{"label":"About","href":"#"},{"label":"Contact","href":"#"}]' />
+
+    <label>CTA Label</label>
+    <input id="pb-ctaLabel" value="Get Started"/>
+
+    <label>CTA OnClick</label>
+    <input id="pb-ctaOnclick" value="onHeaderCTA"/>
+  </div>
+
+  <!-- PREVIEW -->
+  <div class="preview">
+
+    <a href="../index.html" class="playbook-back">← Back to Playbook</a>
+
+    <h1>Power Pages Header</h1>
+
+    <div class="preview-box">
+      <header id="headerHost" data-pp-header></header>
+    </div>
+
+    <!-- GENERATED CODE -->
+    <div class="preview-box" style="padding:24px;">
+      <h2>Generated HTML</h2>
+      <pre id="codeBlock"></pre>
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+function onHeaderCTA() {
+  alert("CTA clicked");
+}
+
+function bindPlaybook() {
+  const host = document.getElementById("headerHost");
+  const codeBlock = document.getElementById("codeBlock");
+
+  function sync() {
+    host.innerHTML = "";
+
+    const bg = pb("pb-bg");
+    const sticky = pb("pb-sticky");
+    const logo = pb("pb-logo");
+    const logoUrl = pb("pb-logoUrl");
+    const navItems = JSON.parse(pb("pb-nav") || "[]");
+    const ctaLabel = pb("pb-ctaLabel");
+    const ctaOnclick = pb("pb-ctaOnclick");
+
+    host.dataset.bg = bg;
+    host.dataset.sticky = sticky;
+    host.dataset.logo = logo;
+    host.dataset.logoUrl = logoUrl;
+    host.dataset.ctaLabel = ctaLabel;
+    host.dataset.ctaOnclick = ctaOnclick;
+
+    navItems.forEach(n => {
+      const a = document.createElement("a");
+      a.dataset.ppNavItem = "";
+      a.dataset.label = n.label;
+      a.dataset.href = n.href;
+      if (n.active) a.dataset.active = "true";
+      host.appendChild(a);
+    });
+
+    window.initHeaders();
+
+    // -------- CODE GENERATION --------
+    const navCode = navItems.map(n =>
+`  <a data-pp-nav-item data-label="${n.label}" data-href="${n.href}"${n.active ? ' data-active="true"' : ""}></a>`
+    ).join("\n");
+
+    codeBlock.textContent =
+`<header
+  data-pp-header
+  data-bg="${bg}"
+  data-sticky="${sticky}"
+  data-logo="${logo}"
+  data-logo-url="${logoUrl}"
+  data-cta-label="${ctaLabel}"
+  data-cta-onclick="${ctaOnclick}">
+${navCode}
+</header>`;
+  }
+
+  document.querySelectorAll(".controls input, .controls select")
+    .forEach(el => el.addEventListener("input", sync));
+
+  sync();
+}
+
+function pb(id) {
+  return document.getElementById(id).value;
+}
+
+window.addEventListener("load", bindPlaybook);
+</script>
+
+</body>
+</html>

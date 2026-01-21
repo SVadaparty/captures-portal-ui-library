@@ -73,12 +73,12 @@ body {
   margin-bottom: 20px;
 }
 
-code, pre {
+pre {
   background: #020617;
   color: #38bdf8;
-  padding: 14px;
+  padding: 16px;
   border-radius: 8px;
-  display: block;
+  font-size: 13px;
   overflow-x: auto;
 }
 </style>
@@ -136,46 +136,14 @@ code, pre {
     <div class="preview-box">
       <select
         id="dropdownHost"
-        data-pp-dropdown
-        data-options="India, USA, UK"
-        data-width="240px"
-        data-height="40px"
-        data-padding="8px"
-        data-fontsize="14px"
-        data-color="#111827"
-        data-bgcolor="#ffffff"
-        data-bordercolor="#d1d5db"
-        data-borderradius="6px">
+        data-pp-dropdown>
       </select>
     </div>
 
-    <!-- DOCUMENTATION -->
+    <!-- GENERATED CODE -->
     <div class="preview-box">
-      <h2>How to use this Dropdown</h2>
-
-      <pre>
-&lt;select
-  data-pp-dropdown
-  data-options="Low, Medium, High"
-  data-width="300px"
-  data-onchange="onPriorityChange"&gt;
-&lt;/select&gt;
-      </pre>
-
-      <h3>Supported Attributes</h3>
-      <table style="width:100%;border-collapse:collapse;">
-        <tr><th align="left">Attribute</th><th align="left">Description</th></tr>
-        <tr><td>data-options</td><td>Comma separated or JSON array</td></tr>
-        <tr><td>data-width</td><td>Dropdown width</td></tr>
-        <tr><td>data-height</td><td>Dropdown height</td></tr>
-        <tr><td>data-padding</td><td>Inner padding</td></tr>
-        <tr><td>data-fontsize</td><td>Font size</td></tr>
-        <tr><td>data-color</td><td>Text color</td></tr>
-        <tr><td>data-bgcolor</td><td>Background color</td></tr>
-        <tr><td>data-bordercolor</td><td>Border color</td></tr>
-        <tr><td>data-borderradius</td><td>Border radius</td></tr>
-        <tr><td>data-onchange</td><td>JS function name</td></tr>
-      </table>
+      <h2>Generated HTML</h2>
+      <pre id="codeBlock"></pre>
     </div>
 
   </div>
@@ -187,25 +155,58 @@ function onCountryChange(val) {
   alert("Selected: " + val);
 }
 
+function pb(id) {
+  return document.getElementById(id).value;
+}
+
 function bindPlaybook() {
   const dropdown = document.getElementById("dropdownHost");
+  const codeBlock = document.getElementById("codeBlock");
 
   function sync() {
-    dropdown.dataset.options = document.getElementById("pb-options").value;
-    dropdown.dataset.width = document.getElementById("pb-width").value;
-    dropdown.dataset.height = document.getElementById("pb-height").value;
-    dropdown.dataset.padding = document.getElementById("pb-padding").value;
-    dropdown.dataset.fontsize = document.getElementById("pb-fontsize").value;
-    dropdown.dataset.color = document.getElementById("pb-color").value;
-    dropdown.dataset.bgcolor = document.getElementById("pb-bgcolor").value;
-    dropdown.dataset.bordercolor = document.getElementById("pb-bordercolor").value;
-    dropdown.dataset.borderradius = document.getElementById("pb-borderradius").value;
+    const config = {
+      options: pb("pb-options"),
+      width: pb("pb-width"),
+      height: pb("pb-height"),
+      padding: pb("pb-padding"),
+      fontsize: pb("pb-fontsize"),
+      color: pb("pb-color"),
+      bgcolor: pb("pb-bgcolor"),
+      bordercolor: pb("pb-bordercolor"),
+      borderradius: pb("pb-borderradius"),
+      onchange: pb("pb-onchange")
+    };
 
-    const fn = document.getElementById("pb-onchange").value;
-    if (fn) dropdown.dataset.onchange = fn;
+    dropdown.dataset.options = config.options;
+    dropdown.dataset.width = config.width;
+    dropdown.dataset.height = config.height;
+    dropdown.dataset.padding = config.padding;
+    dropdown.dataset.fontsize = config.fontsize;
+    dropdown.dataset.color = config.color;
+    dropdown.dataset.bgcolor = config.bgcolor;
+    dropdown.dataset.bordercolor = config.bordercolor;
+    dropdown.dataset.borderradius = config.borderradius;
+
+    if (config.onchange) dropdown.dataset.onchange = config.onchange;
     else delete dropdown.dataset.onchange;
 
     window.initDropdowns();
+
+    // ---------- CODE GENERATION ----------
+    codeBlock.textContent =
+`<select
+  data-pp-dropdown
+  data-options="${config.options}"
+  data-width="${config.width}"
+  data-height="${config.height}"
+  data-padding="${config.padding}"
+  data-fontsize="${config.fontsize}"
+  data-color="${config.color}"
+  data-bgcolor="${config.bgcolor}"
+  data-bordercolor="${config.bordercolor}"
+  data-borderradius="${config.borderradius}"${config.onchange ? `
+  data-onchange="${config.onchange}"` : ""}>
+</select>`;
   }
 
   document.querySelectorAll(".controls textarea, .controls input, .controls select")

@@ -72,12 +72,12 @@ body {
   margin-bottom: 20px;
 }
 
-code, pre {
+pre {
   background: #020617;
   color: #38bdf8;
-  padding: 14px;
+  padding: 16px;
   border-radius: 8px;
-  display: block;
+  font-size: 13px;
   overflow-x: auto;
 }
 </style>
@@ -129,38 +129,13 @@ code, pre {
     <div class="preview-box">
       <input
         id="fileHost"
-        data-pp-file
-        data-accept=".pdf,.jpg,.png"
-        data-max-size="5"
-        data-multiple="false"
-        data-align="left"
-        data-width="300px">
+        data-pp-file>
     </div>
 
-    <!-- DOCUMENTATION -->
+    <!-- GENERATED CODE -->
     <div class="preview-box">
-      <h2>How to use this File Upload</h2>
-
-      <pre>
-&lt;input
-  data-pp-file
-  data-accept=".pdf,.png"
-  data-max-size="10"
-  data-multiple="true"
-  data-align="center"
-  data-onchange="handleFiles"&gt;
-      </pre>
-
-      <h3>Supported Attributes</h3>
-      <table style="width:100%;border-collapse:collapse;">
-        <tr><th align="left">Attribute</th><th align="left">Description</th></tr>
-        <tr><td>data-accept</td><td>Allowed file types</td></tr>
-        <tr><td>data-max-size</td><td>Max file size in MB</td></tr>
-        <tr><td>data-multiple</td><td>true / false</td></tr>
-        <tr><td>data-align</td><td>left or center</td></tr>
-        <tr><td>data-width</td><td>Input width</td></tr>
-        <tr><td>data-onchange</td><td>JS function name</td></tr>
-      </table>
+      <h2>Generated HTML</h2>
+      <pre id="codeBlock"></pre>
     </div>
 
   </div>
@@ -172,21 +147,45 @@ function onFileUpload(files) {
   alert(files.length + " file(s) selected");
 }
 
+function pb(id) {
+  return document.getElementById(id).value;
+}
+
 function bindPlaybook() {
   const input = document.getElementById("fileHost");
+  const codeBlock = document.getElementById("codeBlock");
 
   function sync() {
-    input.dataset.accept = document.getElementById("pb-accept").value;
-    input.dataset.maxSize = document.getElementById("pb-maxSize").value;
-    input.dataset.multiple = document.getElementById("pb-multiple").value;
-    input.dataset.align = document.getElementById("pb-align").value;
-    input.dataset.width = document.getElementById("pb-width").value;
+    const config = {
+      accept: pb("pb-accept"),
+      maxSize: pb("pb-maxSize"),
+      multiple: pb("pb-multiple"),
+      align: pb("pb-align"),
+      width: pb("pb-width"),
+      onchange: pb("pb-onchange")
+    };
 
-    const fn = document.getElementById("pb-onchange").value;
-    if (fn) input.dataset.onchange = fn;
+    input.dataset.accept = config.accept;
+    input.dataset.maxSize = config.maxSize;
+    input.dataset.multiple = config.multiple;
+    input.dataset.align = config.align;
+    input.dataset.width = config.width;
+
+    if (config.onchange) input.dataset.onchange = config.onchange;
     else delete input.dataset.onchange;
 
     window.initFileUpload();
+
+    // ---------- CODE GENERATION ----------
+    codeBlock.textContent =
+`<input
+  data-pp-file
+  data-accept="${config.accept}"
+  data-max-size="${config.maxSize}"
+  data-multiple="${config.multiple}"
+  data-align="${config.align}"
+  data-width="${config.width}"${config.onchange ? `
+  data-onchange="${config.onchange}"` : ""}>`;
   }
 
   document.querySelectorAll(".controls input, .controls select")

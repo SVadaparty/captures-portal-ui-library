@@ -53,6 +53,22 @@
 <body>
   <h2>This is testing page</h2>
 
+  
+
+  <div data-pp-card data-bg="#fff" data-border-color="#dee2e6" data-border-radius="0.5rem">
+    <div data-pp-card-header>Featured</div>
+
+    <img data-pp-card-img src="https://via.placeholder.com/500x300" alt="Card image">
+
+    <div data-pp-card-body>
+      <h5 data-pp-card-title>Card title</h5>
+      <p data-pp-card-text>Some quick example text to build on the card title.</p>
+      <button data-pp-card-btn data-label="Go somewhere"></button>
+    </div>
+
+    <div data-pp-card-footer>Last updated 3 mins ago</div>
+  </div>
+
   <!-- INPUTS -->
   <input data-width="60%" data-pp-input data-placeholder="Email" data-type="email" data-required="true" />
   <div data-pp-validation data-for="email"></div>
@@ -133,6 +149,11 @@
   </div>
 
 </div> -->
+  <nav data-pp-breadcrumb data-items="Home,Library,Data,Reports" data-links="/,/library,/library,/reports"
+    data-icons="🏠,📁,📄,📊" data-text-color="red" data-link-color="green" data-active-color="#0f172a"
+    data-separator="/" data-font-size="10px">
+  </nav>
+
 
 
 
@@ -162,6 +183,7 @@
   </div>
   <br /><br />
 
+
   <header data-pp-header data-logo="SipNSee" data-sticky="true" data-cta-label="Get Started"
     data-cta-onclick="onHeaderCtaClick">
 
@@ -169,6 +191,9 @@
     <div class="custom-left">
       <span>Surendra</span>
     </div>
+
+
+
 
     <div class="custom-center">
       <a data-pp-nav-item data-label="Services" data-href="#services"></a>
@@ -340,31 +365,26 @@
 
   </div>
 
-<div
-  data-pp-tabs
-  data-tabs="Details,Settings"
-  data-active="0"
-  data-text-color="#475569"
-  data-active-bg="#2563eb"
-  data-active-color="#fff"
-  data-hover-color="#1d4ed8"
-  data-onselect="onTabSelect"
-  data-active-bg-style="block"
->
-</div>
+  <div data-pp-tabs data-tabs="Details,Settings" data-active="0" data-text-color="#475569" data-active-bg="#2563eb"
+    data-active-color="#fff" data-hover-color="#1d4ed8" data-onselect="onTabSelect" data-active-bg-style="block">
+  </div>
 
 
 
 
-</div>
 
 
- <script>
-    function onTabSelect(index,label) {
+
+
+  </div>
+
+
+  <script>
+    function onTabSelect(index, label) {
       alert("Selected Tab Index: " + index + ", Label: " + label
       );
     }
- </script>
+  </script>
 
 
 
