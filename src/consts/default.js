@@ -128,7 +128,90 @@ fileInputFontWeight: "400",
 fileInputCursor: "pointer",
 fileHintFontSize: "12px",
 fileHintTextColor: "#666",
-fileHintMarginTop: "6px"
+fileHintMarginTop: "6px",
+/* ========= LOADER DEFAULTS (APPENDED ONLY) ========= */
+loaderSize: "40px",
+loaderBorderWidth: "4px",
+loaderColor: "#FFA500",
+loaderBgColor: "#e0e0e0",
+loaderBorderRadius: "50%",
+loaderAnimationDuration: "1s",
+loaderText: "Loading...",
+loaderTextColor: "#000",
+loaderFontFamily: "HelveticaNeueLTStd-Bd, Helvetica, Arial, sans-serif",
+loaderFontSize: "14px",
+loaderGap: "8px",
+loaderAlignment: "center",
+/* ========= TYPOGRAPHY DEFAULTS (APPENDED ONLY) ========= */
+typographyFontFamily: "HelveticaNeueLTStd-Bd, Helvetica, Arial, sans-serif",
+typographyTextColor: "#000",
+
+/* Headings */
+typographyH1Size: "32px",
+typographyH2Size: "24px",
+typographyH3Size: "20px",
+typographyH4Size: "18px",
+typographyH5Size: "16px",
+typographyH6Size: "14px",
+typographyHeadingWeight: "600",
+
+/* Body text */
+typographyBodySize: "14px",
+typographyBodyWeight: "400",
+typographyLineHeight: "1.5",
+
+/* Labels */
+typographyLabelSize: "14px",
+typographyLabelWeight: "500",
+/* ========= ALERT DEFAULTS (APPENDED ONLY) ========= */
+alertPadding: "12px 16px",
+alertBorderRadius: "6px",
+alertFontFamily: "HelveticaNeueLTStd-Bd, Helvetica, Arial, sans-serif",
+alertFontSize: "14px",
+alertFontWeight: "400",
+alertMarginBottom: "12px",
+
+/* Alert Colors (Bootstrap-like) */
+alertPrimaryBg: "#cfe2ff",
+alertPrimaryText: "#084298",
+
+alertSecondaryBg: "#e2e3e5",
+alertSecondaryText: "#41464b",
+
+alertSuccessBg: "#d1e7dd",
+alertSuccessText: "#0f5132",
+
+alertDangerBg: "#f8d7da",
+alertDangerText: "#842029",
+
+alertWarningBg: "#fff3cd",
+alertWarningText: "#664d03",
+
+alertInfoBg: "#cff4fc",
+alertInfoText: "#055160",
+
+alertLightBg: "#fefefe",
+alertLightText: "#636464",
+
+alertDarkBg: "#d3d3d4",
+alertDarkText: "#141619",
+/* ========= ACCORDION DEFAULTS ========= */
+accordionBgColor: "#ffffff",
+accordionBorderColor: "#e5e7eb",
+accordionHeaderBg: "#f8fafc",
+accordionHeaderTextColor: "#0f172a",
+accordionContentBg: "#ffffff",
+accordionTextColor: "#111827",
+
+accordionPadding: "12px 16px",
+accordionFontFamily: "HelveticaNeueLTStd-Bd, Helvetica, Arial, sans-serif",
+accordionFontSize: "15px",
+accordionFontWeight: "500",
+
+accordionBorderRadius: "6px",
+accordionIcon: "▾",
+accordionOpenIcon: "▴",
+accordionTransition: "0.25s ease"
 
 };
 

@@ -4,7 +4,6 @@
 
 <head>
   <title>Sample Page Test</title>
-  <script src="/pp-validation.js"></script>
   <link rel="stylesheet" href="./dist/pp-ui-core.min.css">
 </head>
 <style>
@@ -89,6 +88,39 @@
     data-onchange="onProgramChange">
   </select>
   <br /><br />
+  <!-- TYPOGRAPHY COMPONENT DEMO -->
+  <div style="margin: 24px 0;">
+
+    <h1 data-pp-typography data-type="h1">
+      Typography – Heading 1
+    </h1>
+
+    <h2 data-pp-typography data-type="h2">
+      Typography – Heading 2
+    </h2>
+
+    <h3 data-pp-typography data-type="h3">
+      Typography – Heading 3
+    </h3>
+
+    <div data-pp-typography data-type="body" style="margin-top: 8px;">
+      This is body text rendered using the reusable typography component.
+      It follows the default font, size, and line height defined in DEFAULTS.
+    </div>
+
+    <div style="margin-top: 12px;">
+      <span data-pp-typography data-type="label" style="text-transform: uppercase; letter-spacing: 0.4px;">
+        Email Address
+      </span>
+    </div>
+
+    <div data-pp-typography data-type="body" data-color="#2563eb" data-align="center" style="margin-top: 12px;">
+      Center aligned text with custom color
+    </div>
+
+  </div>
+
+
 
   <div style="
     display: flex;
@@ -169,6 +201,42 @@
   <br /><br />
 
 
+  <!-- LOADER TEST -->
+  <div data-pp-loader data-text="Loading..." data-size="50px" data-color="#2563eb" data-bgcolor="#e0e7ff"
+    data-align="center"></div>
+  <!-- <div
+  data-pp-loader
+  data-color="#16a34a"
+  data-bgcolor="#dcfce7"
+  data-text="Processing...">
+</div> -->
+  <br /><br />
+  <div data-pp-alert data-type="secondary">Secondary alert</div>
+  <div data-pp-alert data-type="warning">Warning alert</div>
+  <div data-pp-alert data-type="info">Info alert</div>
+
+  <!-- PRIMARY ALERT -->
+  <div data-pp-alert data-type="primary">
+    Primary alert — check it out!
+  </div>
+
+  <!-- SUCCESS ALERT -->
+  <div data-pp-alert data-type="success">
+    Success alert — operation completed!
+  </div>
+
+  <!-- LIGHT ALERT -->
+  <div data-pp-alert data-type="light">
+    Light alert
+  </div>
+
+  <!-- DARK ALERT (OVERRIDDEN BACKGROUND FOR TESTING) -->
+  <div data-pp-alert data-type="dark" style="
+    background-color:#18dd18;
+    color:#115598;
+  ">
+    Dark alert (custom overridden background)
+  </div>
   <div style="
     display: flex;
     width: 100%;
@@ -206,6 +274,37 @@
     </div>
 
   </header>
+  <div
+  data-pp-pdf-wrapper
+  data-id="invoicePdf"
+  data-title="Invoice"
+  data-orientation="portrait"
+  data-pagesize="a4"
+  data-download-label="Download PDF">
+
+  <h2>Invoice #1023 sample for html to pdf fomat </h2>
+  <p>Customer: testing pdf format including below table</p>
+
+  <div data-pp-table data-datasource="usersData"></div>
+
+</div>
+<div data-pp-container data-layout="column" data-gap="8px">
+
+  <div data-pp-accordion data-title="Section 1">
+    <p>Content for section 1</p>
+  </div>
+
+  <div data-pp-accordion data-title="Section 2" data-open="true">
+    <h1>test 1</h1>
+    <p>Content for section 2</p>
+  </div>
+
+  <div data-pp-accordion data-title="Section 3">
+    <p>Content for section 3</p>
+  </div>
+
+</div>
+
 
 
   <footer data-pp-footer data-bg="#7c3aed" data-textColor="#7c3aed">
@@ -223,10 +322,6 @@
       <span>Built by Surendra</span>
     </div>
   </footer>
-
-
-
-
   <div style="
     display: flex;
     width: 100%;
@@ -248,8 +343,11 @@
 
   <button data-pp-button data-label="Cancel" data-type="secondary" data-onclick="handleSave">
   </button>
-  <script>
 
+  <!-- Load the UI component library bundle -->
+  <script type="module" src="./dist/pp-ui-core.min.js"></script>
+
+  <script>
     function onProgramChange(value) {
       alert("Selected: " + value);
     }
@@ -295,16 +393,6 @@
       }
     }
   </script>
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      if (window.PPValidation) {
-        PPValidation.init();
-      } else {
-        console.error("PPValidation not loaded");
-      }
-    });
-  </script>
-
   <script>
     function onGenderChange(value) {
       alert("Selected Gender: " + value);
@@ -386,9 +474,6 @@
     }
   </script>
 
-
-
-  <script type="module" src="./dist/pp-ui-core.min.js"></script>
   <script>
     function handleSave() {
       alert('Cancel button clicked!');
