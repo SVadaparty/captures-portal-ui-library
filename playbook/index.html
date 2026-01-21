@@ -1,245 +1,537 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8" />
-<title>Power Pages UI Framework – Component Playbook</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta charset="UTF-8" />
+    <title>Power Pages UI Framework – Playbook</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<style>
-body {
-    margin: 0;
-    font-family: "Segoe UI", Arial, sans-serif;
-    background: #f5f7fa;
-    color: #1f2937;
-}
+    <style>
+        body {
+            margin: 0;
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: #f5f7fa;
+            color: #1f2937;
+        }
 
-.app {
-    display: flex;
-    height: 100vh;
-}
+        .app {
+            display: flex;
+            height: 100vh;
+        }
 
-/* Sidebar */
-.sidebar {
-    width: 280px;
-    background: #0f172a;
-    color: #fff;
-    padding: 20px;
-    overflow-y: auto;
-}
+        /* Sidebar */
+        .sidebar {
+            width: 280px;
+            background: #0f172a;
+            color: #fff;
+            padding: 20px;
+            overflow-y: auto;
+        }
 
-.sidebar h2 {
-    font-size: 18px;
-    margin-bottom: 12px;
-    color: #38bdf8;
-}
+        .sidebar h2 {
+            font-size: 18px;
+            margin-bottom: 12px;
+            color: #38bdf8;
+        }
 
-.nav-group {
-    margin-bottom: 20px;
-}
+        .nav-group {
+            margin-bottom: 20px;
+        }
 
-.nav-group h3 {
-    font-size: 13px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    color: #94a3b8;
-    margin-bottom: 6px;
-}
+        .nav-group h3 {
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #94a3b8;
+            margin-bottom: 6px;
+        }
 
-.nav-group a {
-    display: block;
-    padding: 8px 10px;
-    color: #e5e7eb;
-    text-decoration: none;
-    border-radius: 6px;
-    font-size: 14px;
-}
+        .nav-group a {
+            display: block;
+            padding: 8px 10px;
+            color: #e5e7eb;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 14px;
+        }
 
-.nav-group a:hover {
-    background: #1e293b;
-}
+        .nav-group a:hover {
+            background: #1e293b;
+        }
 
-/* Main */
-.main {
-    flex: 1;
-    padding: 40px;
-    overflow-y: auto;
-}
+        /* Main */
+        .main {
+            flex: 1;
+            padding: 40px;
+            overflow-y: auto;
+        }
 
-.header {
-    border-bottom: 1px solid #e5e7eb;
-    padding-bottom: 20px;
-    margin-bottom: 30px;
-}
+        .header {
+            border-bottom: 1px solid #e5e7eb;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
 
-.header h1 {
-    font-size: 28px;
-    margin-bottom: 6px;
-}
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 6px;
+        }
 
-.header p {
-    color: #6b7280;
-    max-width: 800px;
-}
+        .header p {
+            color: #6b7280;
+            max-width: 900px;
+            line-height: 1.6;
+        }
 
-.section {
-    background: #ffffff;
-    padding: 24px;
-    border-radius: 12px;
-    margin-bottom: 24px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.04);
-}
+        .section {
+            background: #ffffff;
+            padding: 28px;
+            border-radius: 12px;
+            margin-bottom: 28px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
+        }
 
-.section h2 {
-    margin-bottom: 12px;
-    font-size: 20px;
-}
+        .section h2 {
+            margin-bottom: 12px;
+            font-size: 22px;
+        }
 
-.grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-    gap: 16px;
-}
+        .section p {
+            color: #374151;
+            line-height: 1.7;
+            margin-bottom: 12px;
+        }
 
-.card {
-    background: #f9fafb;
-    padding: 16px;
-    border-radius: 10px;
-    border: 1px solid #e5e7eb;
-}
+        .section ul {
+            padding-left: 18px;
+            margin-top: 10px;
+        }
 
-.card h4 {
-    margin-bottom: 6px;
-}
+        .section li {
+            margin-bottom: 8px;
+            color: #374151;
+        }
 
-.card p {
-    font-size: 14px;
-    color: #6b7280;
-}
-</style>
+        pre {
+            background: #020617;
+            color: #38bdf8;
+            padding: 16px;
+            border-radius: 8px;
+            font-size: 13px;
+            overflow-x: auto;
+            margin-top: 12px;
+        }
+
+        code {
+            color: #38bdf8;
+        }
+    </style>
 </head>
 
 <body>
 
-<div class="app">
+    <div class="app">
 
-    <!-- Sidebar Navigation -->
-    <aside class="sidebar">
-        <h2>Power Pages UI Framework</h2>
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <h2>Power Pages UI Framework</h2>
 
-        <div class="nav-group">
-            <h3>Getting Started</h3>
-            <a href="#">Introduction</a>
-            <a href="#">Architecture</a>
-            <a href="#">How to Use</a>
-        </div>
-
-        <div class="nav-group">
-            <h3>Foundation</h3>
-            <a href="components/buttons.html">Buttons</a>
-            <a href="components/typography.html">Typography</a>
-            <a href="components/inputs.html">Inputs</a>
-            <a href="components/alerts.html">Alerts</a>
-            <a href="components/loaders.html">Loaders</a>
-        </div>
-
-        <div class="nav-group">
-            <h3>Forms</h3>
-            <a href="components/checkbox.html">Checkbox</a>
-            <a href="components/radio.html">Radio</a>
-            <a href="components/dropdown.html">Dropdown</a>
-            <a href="components/file-upload.html">File Upload</a>
-            <a href="components/advancedDropdown.html">Auto Complete</a>
-        </div>
-
-        <div class="nav-group">
-            <h3>Data Display</h3>
-            <a href="components/table.html">Table</a>
-            <a href="components/cards.html">Cards</a>
-            <a href="components/kpi.html">KPI Tiles</a>
-            <a href="components/empty-state.html">Empty State</a>
-        </div>
-
-        <div class="nav-group">
-            <h3>Navigation</h3>
-            <a href="components/header.html">Header</a>
-            <a href="components/footer.html">Footer</a>
-            <a href="components/sidebar.html">Sidebar</a>
-            <a href="components/accordion.html">Accordion</a>
-            <a href="components/loader.html">Loader</a>
-            <a href="components/htmltopdf.html">HTML to PDF</a>
-            <a href="components/tabs.html">Tabs</a>
-            <a href="components/breadcrumb.html">Breadcrumb</a>
-        </div>
-
-        <div class="nav-group">
-            <h3>Power Pages</h3>
-            <a href="components/dataverse-form.html">Dataverse Form</a>
-            <a href="components/dataverse-list.html">Dataverse List</a>
-            <a href="components/role-wrapper.html">Role Wrapper</a>
-            <a href="components/login.html">Login</a>
-        </div>
-    </aside>
-
-    <!-- Main Content -->
-    <main class="main">
-
-        <div class="header">
-            <h1>Power Pages UI Framework</h1>
-            <p>
-                A centralized, CDN-hosted UI framework for building consistent, scalable, and reusable user
-                interfaces across all Power Pages portals. This playbook acts as the single source of truth
-                for all UI components, patterns, and usage guidelines.
-            </p>
-        </div>
-
-        <div class="section">
-            <h2>Why this framework exists</h2>
-            <p>
-                Power Pages development often suffers from duplicated UI work, inconsistent designs,
-                and slow iteration cycles. This framework solves those problems by providing a
-                standardized library of components that can be reused across portals without
-                redeployment.
-            </p>
-        </div>
-
-        <div class="section">
-            <h2>How it works</h2>
-            <p>
-                Components are configured using HTML <strong>data-attributes</strong>, loaded via
-                CDN-hosted JavaScript and CSS, and rendered dynamically inside Power Pages.
-                No inline JavaScript is required, making it fully CSP-compliant and safe for enterprise use.
-            </p>
-        </div>
-
-        <div class="section">
-            <h2>Component Categories</h2>
-            <div class="grid">
-                <div class="card">
-                    <h4>Foundation</h4>
-                    <p>Buttons, inputs, typography, loaders, alerts and basic building blocks.</p>
-                </div>
-                <div class="card">
-                    <h4>Forms</h4>
-                    <p>Checkboxes, dropdowns, date pickers, OTP inputs, file uploads.</p>
-                </div>
-                <div class="card">
-                    <h4>Data Display</h4>
-                    <p>Tables, cards, KPI tiles, empty states, skeleton loaders.</p>
-                </div>
-                <div class="card">
-                    <h4>Navigation</h4>
-                    <p>Headers, sidebars, tabs, breadcrumbs, paginations, steppers.</p>
-                </div>
-                <div class="card">
-                    <h4>Power Pages</h4>
-                    <p>Dataverse wrappers, role-based UI, login, activity timelines.</p>
-                </div>
+            <div class="nav-group">
+                <h3>Getting Started</h3>
+                <a href="#intro">Introduction</a>
+                <a href="#architecture">Architecture</a>
+                <a href="#how-to-use">How to Use</a>
             </div>
-        </div>
 
-    </main>
+            <div class="nav-group">
+                <h3>CDN & Integration</h3>
+                <a href="#cdn">CDN Links</a>
+                <a href="#integration">Power Pages Flow</a>
+            </div>
 
-</div>
+            <div class="nav-group">
+                <h3>Governance</h3>
+                <a href="#governance">Best Practices</a>
+                <a href="#lifecycle">Component Lifecycle</a>
+            </div>
+
+            <div class="nav-group">
+                <h3>Foundation</h3>
+                <a href="components/buttons.html">Buttons</a>
+                <a href="components/inputs.html">Inputs</a>
+                <a href="components/alerts.html">Alerts</a>
+                <a href="components/loader.html">Loader</a>
+            </div>
+
+            <div class="nav-group">
+                <h3>Forms</h3>
+                <a href="components/checkbox.html">Checkbox</a>
+                <a href="components/radio.html">Radio</a>
+                <a href="components/dropdown.html">Dropdown</a>
+                <a href="components/file-upload.html">File Upload</a>
+                <a href="components/datePicker.html">Datepicker</a>
+                <a href="components/advancedDropdown.html">Auto Complete</a>
+            </div>
+
+            <div class="nav-group">
+                <h3>Data Display</h3>
+                <a href="components/table.html">Table</a>
+                <a href="components/card.html">Cards</a>
+                <a href="components/kpi.html">KPI Tiles</a>
+            </div>
+
+            <div class="nav-group">
+                <h3>Navigation</h3>
+                <a href="components/header.html">Header</a>
+                <a href="components/footer.html">Footer</a>
+                <a href="components/tabs.html">Tabs</a>
+                <a href="components/breadcrumb.html">Breadcrumb</a>
+            </div>
+        </aside>
+
+        <!-- Main -->
+        <main class="main">
+
+            <!-- INTRO -->
+            <div class="header" id="intro">
+                <h1>Power Pages UI Framework</h1>
+                <p>
+                    A centralized, CDN-hosted UI framework for building consistent,
+                    scalable, and enterprise-ready user interfaces across Power Pages.
+                    This playbook is the single source of truth for components,
+                    governance, and integration standards.
+                </p>
+            </div>
+
+            <div class="section">
+                <h2>Why use this framework?</h2>
+
+                <p>
+                    Building user interfaces in Power Pages often leads to duplicated code,
+                    inconsistent styling, CSP violations, and high maintenance effort across portals.
+                    Each project ends up solving the same UI problems repeatedly.
+                </p>
+
+                <p>
+                    This Power Pages UI Framework exists to solve those challenges by providing a
+                    <strong>centralized, reusable, and enterprise-ready UI system</strong> that works
+                    seamlessly with Power Pages security and governance models.
+                </p>
+
+                <p>
+                    Instead of rebuilding UI logic for every portal, teams use a
+                    <strong>single CDN-hosted framework</strong> that standardizes components,
+                    behavior, and visual design across the organization.
+                </p>
+            </div>
+
+
+            <div class="section">
+                <h2>Key Advantages</h2>
+
+                <ul>
+                    <li>
+                        <strong>Centralized UI Logic</strong><br />
+                        All components are maintained in one CDN location. Fix once, update everywhere.
+                    </li>
+
+                    <li>
+                        <strong>Zero Redeployment</strong><br />
+                        UI updates do not require portal rebuilds or republishing Power Pages.
+                    </li>
+
+                    <li>
+                        <strong>CSP & Enterprise Safe</strong><br />
+                        No inline JavaScript, no unsafe event handlers, fully compliant with Power Pages CSP rules.
+                    </li>
+
+                    <li>
+                        <strong>Declarative & Low-Code Friendly</strong><br />
+                        Components are configured using simple HTML <code>data-attributes</code>.
+                    </li>
+
+                    <li>
+                        <strong>Consistent Design System</strong><br />
+                        All portals follow the same design language, spacing, typography, and behavior.
+                    </li>
+
+                    <li>
+                        <strong>Scalable Across Teams</strong><br />
+                        New teams adopt the same components without re-learning or re-building UI logic.
+                    </li>
+
+                    <li>
+                        <strong>Framework-Agnostic</strong><br />
+                        No React, Angular, or Vue dependency. Pure HTML, CSS, and JavaScript.
+                    </li>
+                </ul>
+            </div>
+
+
+            <!-- ARCHITECTURE -->
+            <div class="section">
+                <h2>Visual Architecture Overview</h2>
+
+                <pre>
+┌──────────────────────────────┐
+│        Power Pages Portal     │
+│                              │
+│  ┌────────────────────────┐  │
+│  │        HTML Markup      │  │
+│  │  (data-pp-* attributes)│  │
+│  └───────────┬────────────┘  │
+│              │               │
+│              ▼               │
+│   Browser loads page content │
+│                              │
+└──────────────┬───────────────┘
+               │
+               ▼
+┌─────────────────────────────────────────┐
+│        CDN – UI Framework                │
+│                                         │
+│  pp-ui-core.min.css                     │
+│  pp-ui-core.min.js                      │
+│                                         │
+│  • Scans DOM for data-pp-*              │
+│  • Applies styles                       │
+│  • Attaches behavior                    │
+│  • Handles events (CSP-safe)            │
+│                                         │
+└──────────────┬──────────────────────────┘
+               │
+               ▼
+┌─────────────────────────────────────────┐
+│        Final Rendered UI                 │
+│                                         │
+│  ✔ Styled Components                    │
+│  ✔ Interactive Behavior                 │
+│  ✔ Consistent UX                        │
+│  ✔ No Inline JS                         │
+│                                         │
+└─────────────────────────────────────────┘
+  </pre>
+
+                <p>
+                    Power Pages only renders HTML. The framework enhances it at runtime,
+                    ensuring full separation between portal content and UI logic.
+                </p>
+            </div>
+
+
+            <!-- HOW TO USE -->
+            <div class="section" id="how-to-use">
+                <h2>How to Use (Step-by-Step)</h2>
+
+                <h4>Step 1: Add CDN in Power Pages</h4>
+                <pre>
+&lt;link rel="stylesheet"
+ href="https://PP-Reusable-Components.b-cdn.net/UI-Comp/pp-ui-core.min.css"&gt;
+
+&lt;script
+ src="https://PP-Reusable-Components.b-cdn.net/UI-Comp/pp-ui-core.min.js"&gt;&lt;/script&gt;
+      </pre>
+
+                <h4>Step 2: Use Components via HTML</h4>
+                <pre>
+&lt;button
+ data-pp-button
+ data-label="Save"
+ data-bgcolor="#2563eb"
+ data-onclick="saveForm"&gt;
+&lt;/button&gt;
+      </pre>
+
+                <h4>Step 3: Optional JS Callbacks</h4>
+                <pre>
+&lt;script&gt;
+function saveForm() {
+  alert("Saved");
+}
+&lt;/script&gt;
+      </pre>
+            </div>
+
+            <div class="section" id="onboarding">
+                <h2>Developer Onboarding Checklist</h2>
+
+                <p>
+                    This checklist ensures every developer integrates the Power Pages UI Framework
+                    correctly, securely, and consistently across portals.
+                    Follow these steps before building or modifying any UI.
+                </p>
+
+                <h3>1. Prerequisites</h3>
+                <ul>
+                    <li>Access to Power Pages portal (Author or Admin role)</li>
+                    <li>Basic understanding of HTML and CSS</li>
+                    <li>Familiarity with Power Pages Content Snippets / Web Templates</li>
+                    <li>Awareness of CSP (Content Security Policy) restrictions</li>
+                </ul>
+
+                <h3>2. Add CDN References</h3>
+                <p>
+                    Always load the framework from the approved CDN.
+                    Do not host local copies unless explicitly approved.
+                </p>
+
+                <pre>
+&lt;link rel="stylesheet"
+  href="https://PP-Reusable-Components.b-cdn.net/UI-Comp/pp-ui-core.min.css" /&gt;
+
+&lt;script
+  src="https://PP-Reusable-Components.b-cdn.net/UI-Comp/pp-ui-core.min.js"&gt;&lt;/script&gt;
+  </pre>
+
+                <ul>
+                    <li>Include CDN links in the global header or master template</li>
+                    <li>Never inline JavaScript for UI behavior</li>
+                </ul>
+
+                <h3>3. Use Components Declaratively</h3>
+                <p>
+                    Components must be created using <code>data-pp-*</code> attributes only.
+                    JavaScript should never be embedded directly in HTML.
+                </p>
+
+                <pre>
+&lt;button
+  data-pp-button
+  data-label="Save"
+  data-bgcolor="#2563eb"
+  data-onclick="saveForm"&gt;
+&lt;/button&gt;
+  </pre>
+
+                <ul>
+                    <li>Use only documented attributes</li>
+                    <li>Follow naming conventions exactly</li>
+                    <li>Avoid custom inline styles unless approved</li>
+                </ul>
+
+                <h3>4. Event Handling Rules</h3>
+                <ul>
+                    <li>Event handlers must reference global functions</li>
+                    <li>No inline <code>onclick</code>, <code>onchange</code>, etc.</li>
+                    <li>All event logic must live in a central JS file</li>
+                </ul>
+
+                <pre>
+&lt;script&gt;
+function saveForm(value, event) {
+  // Business logic only
+}
+&lt;/script&gt;
+  </pre>
+
+                <h3>5. Styling & Customization</h3>
+                <ul>
+                    <li>Prefer component attributes over CSS overrides</li>
+                    <li>Use design tokens provided by the framework</li>
+                    <li>Avoid hardcoded colors and spacing</li>
+                    <li>Ensure accessibility contrast ratios are preserved</li>
+                </ul>
+
+                <h3>6. Testing Before Commit</h3>
+                <ul>
+                    <li>Verify components render correctly on page load</li>
+                    <li>Change attributes and confirm live updates</li>
+                    <li>Test keyboard navigation and focus states</li>
+                    <li>Validate behavior across supported browsers</li>
+                </ul>
+
+                <h3>7. Power Pages Validation</h3>
+                <ul>
+                    <li>No CSP errors in browser console</li>
+                    <li>No inline JavaScript warnings</li>
+                    <li>No blocked external resources</li>
+                </ul>
+
+                <h3>8. Performance & Governance</h3>
+                <ul>
+                    <li>Do not duplicate component logic</li>
+                    <li>Reuse existing components whenever possible</li>
+                    <li>Request new components via the UI governance process</li>
+                    <li>Do not modify CDN files directly</li>
+                </ul>
+
+                <h3>9. Final Review Checklist</h3>
+                <ul>
+                    <li>✔ Uses only approved components</li>
+                    <li>✔ Attributes documented in the playbook</li>
+                    <li>✔ CSP-compliant implementation</li>
+                    <li>✔ Accessible and responsive UI</li>
+                    <li>✔ No portal-specific hacks</li>
+                </ul>
+
+                <p style="margin-top:16px;color:#6b7280;">
+                    Following this checklist ensures long-term maintainability,
+                    security compliance, and a consistent user experience across all Power Pages portals.
+                </p>
+            </div>
+
+
+            <!-- GOVERNANCE -->
+            <div class="section" id="governance">
+                <h2>Governance & Best Practices</h2>
+                <ul>
+                    <li>Single Source of Truth via CDN</li>
+                    <li>No inline JS or inline events</li>
+                    <li>Backward-compatible changes only</li>
+                    <li>Versioned releases</li>
+                    <li>One naming convention: <code>data-pp-*</code></li>
+                </ul>
+            </div>
+
+            <!-- LIFECYCLE -->
+            <div class="section" id="lifecycle">
+                <h2>Component Lifecycle Rules</h2>
+                <pre>
+Discover → Initialize → Update → (Optional) Destroy
+      </pre>
+                <ul>
+                    <li>initX() must be safe to call multiple times</li>
+                    <li>Re-init driven only by attributes</li>
+                    <li>No memory leaks or duplicate listeners</li>
+                    <li>Playbook = validation layer</li>
+                </ul>
+            </div>
+
+            <!-- CDN -->
+            <div class="section" id="cdn">
+                <h2>CDN Links</h2>
+                <pre>
+CSS:
+https://PP-Reusable-Components.b-cdn.net/UI-Comp/pp-ui-core.min.css
+
+JS:
+https://PP-Reusable-Components.b-cdn.net/UI-Comp/pp-ui-core.min.js
+      </pre>
+            </div>
+
+            <!-- FLOW -->
+            <div class="section" id="integration">
+                <h2>Power Pages Integration Flow</h2>
+                <pre>
+Author HTML
+ ↓
+Add data-pp-* attributes
+ ↓
+Power Pages Render
+ ↓
+CDN Loads
+ ↓
+Components Initialized
+      </pre>
+                <p>
+                    No redeployment. No CSP issues. Instant UI updates.
+                </p>
+            </div>
+
+        </main>
+
+    </div>
 
 </body>
+
 </html>

@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Power Pages UI Framework – Card</title>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+  <link rel="stylesheet" href="https://PP-Reusable-Components.b-cdn.net/UI-Comp/pp-ui-core.min.css"/>
+  <script src="https://pp-reusable-components.b-cdn.net/UI-Comp/pp-ui-core.min.js"></script>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Segoe UI, system-ui, sans-serif;
+      background: #f3f4f6;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 360px 1fr;
+      height: 100vh;
+    }
+
+    .controls {
+      background: #020617;
+      color: white;
+      padding: 20px;
+      overflow-y: auto;
+    }
+
+    .controls h2 { color: #38bdf8; }
+
+    .controls label {
+      display: block;
+      margin-top: 12px;
+      font-size: 13px;
+      color: #cbd5f5;
+    }
+
+    .controls input,
+    .controls select,
+    .controls textarea {
+      width: 100%;
+      padding: 8px;
+      border-radius: 6px;
+      border: none;
+      margin-top: 4px;
+    }
+
+    .preview {
+      padding: 40px;
+    }
+
+    .preview-box {
+      background: #fff;
+      padding: 32px;
+      border-radius: 12px;
+      margin-bottom: 24px;
+    }
+
+    pre {
+      background: #020617;
+      color: #38bdf8;
+      padding: 16px;
+      border-radius: 8px;
+      overflow-x: auto;
+      font-size: 13px;
+    }
+
+    .playbook-back {
+      display: inline-block;
+      margin-bottom: 16px;
+      color: #2563eb;
+      font-weight: 600;
+      text-decoration: none;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="layout">
+
+  <!-- CONTROLS -->
+  <div class="controls">
+    <h2>Card Settings</h2>
+
+    <label>Title</label>
+    <input id="pb-title" value="User Details"/>
+
+    <label>Subtitle</label>
+    <input id="pb-subtitle" value="Profile information"/>
+
+    <label>Padding</label>
+    <input id="pb-padding" value="24px"/>
+
+    <label>Border Radius</label>
+    <input id="pb-radius" value="12px"/>
+
+    <label>Background Color</label>
+    <input id="pb-bgcolor" type="color" value="#ffffff"/>
+
+    <label>Border Color</label>
+    <input id="pb-bordercolor" type="color" value="#e5e7eb"/>
+
+    <label>Shadow</label>
+    <select id="pb-shadow">
+      <option value="sm">Small</option>
+      <option value="md" selected>Medium</option>
+      <option value="lg">Large</option>
+      <option value="none">None</option>
+    </select>
+
+    <label>Body Content</label>
+    <textarea id="pb-content">This is card body content.</textarea>
+  </div>
+
+  <!-- PREVIEW -->
+  <div class="preview">
+
+    <a href="../index.html" class="playbook-back">← Back to Playbook</a>
+
+    <h1>Power Pages Card</h1>
+
+    <div class="preview-box">
+      <div id="cardHost" data-pp-card>
+        This is card body content.
+      </div>
+    </div>
+
+    <div class="preview-box">
+      <h2>Generated HTML</h2>
+      <pre id="codeBlock"></pre>
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+function pb(id) {
+  return document.getElementById(id).value;
+}
+
+function bindPlaybook() {
+  let host = document.getElementById("cardHost");
+  const codeBlock = document.getElementById("codeBlock");
+
+  function sync() {
+    const config = {
+      title: pb("pb-title"),
+      subtitle: pb("pb-subtitle"),
+      padding: pb("pb-padding"),
+      radius: pb("pb-radius"),
+      bgcolor: pb("pb-bgcolor"),
+      bordercolor: pb("pb-bordercolor"),
+      shadow: pb("pb-shadow"),
+      content: pb("pb-content")
+    };
+
+    const card = document.createElement("div");
+    card.id = "cardHost";
+    card.setAttribute("data-pp-card", "");
+    card.dataset.title = config.title;
+    card.dataset.subtitle = config.subtitle;
+    card.dataset.padding = config.padding;
+    card.dataset.radius = config.radius;
+    card.dataset.bgcolor = config.bgcolor;
+    card.dataset.bordercolor = config.bordercolor;
+    card.dataset.shadow = config.shadow;
+    card.textContent = config.content;
+
+    host.replaceWith(card);
+    host = card;
+
+    window.initCards();
+
+    codeBlock.textContent =
+`<div
+  data-pp-card
+  data-title="${config.title}"
+  data-subtitle="${config.subtitle}"
+  data-padding="${config.padding}"
+  data-radius="${config.radius}"
+  data-bgcolor="${config.bgcolor}"
+  data-bordercolor="${config.bordercolor}"
+  data-shadow="${config.shadow}">
+  ${config.content}
+</div>`;
+  }
+
+  document
+    .querySelectorAll(".controls input, .controls textarea, .controls select")
+    .forEach(el => el.addEventListener("input", sync));
+
+  sync();
+}
+
+window.addEventListener("load", bindPlaybook);
+</script>
+
+</body>
+</html>

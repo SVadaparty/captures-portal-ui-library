@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <title>Power Pages UI Framework – PDF Wrapper</title>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <link rel="stylesheet" href="../dist/pp-ui-core.min.css"/>
+  <link rel="stylesheet" href="../dist/pp-ui-core.min.css" />
   <script src="../dist/pp-ui-core.min.js"></script>
 
   <style>
@@ -57,7 +58,7 @@
       background: white;
       padding: 24px;
       border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0,0,0,.05);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, .05);
       margin-bottom: 24px;
     }
 
@@ -72,14 +73,13 @@
       margin-bottom: 16px;
     }
 
-    code, pre {
+    pre {
       background: #020617;
       color: #38bdf8;
       padding: 16px;
       border-radius: 8px;
-      display: block;
-      overflow-x: auto;
       font-size: 13px;
+      overflow-x: auto;
     }
 
     /* Demo content */
@@ -88,205 +88,131 @@
       border-radius: 8px;
       padding: 16px;
     }
-
-    .demo-card h3 {
-      margin-bottom: 8px;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 10px;
-    }
-
-    table th, table td {
-      border: 1px solid #ddd;
-      padding: 8px;
-    }
-
-    table th {
-      background: #f8fafc;
-      font-weight: 600;
-    }
   </style>
 </head>
 
 <body>
 
-<div class="layout">
+  <div class="layout">
 
-  <!-- CONTROLS -->
-  <div class="controls">
-    <h2>PDF Wrapper Settings</h2>
+    <!-- CONTROLS -->
+    <div class="controls">
+      <h2>PDF Wrapper Settings</h2>
 
-    <label>Wrapper ID</label>
-    <input id="pb-id" value="invoice-pdf"/>
+      <label>Wrapper ID</label>
+      <input id="pb-id" value="invoice-pdf" />
 
-    <label>Document Title</label>
-    <input id="pb-title" value="Invoice"/>
+      <label>Document Title</label>
+      <input id="pb-title" value="Invoice" />
 
-    <label>Orientation</label>
-    <select id="pb-orientation">
-      <option value="portrait">portrait</option>
-      <option value="landscape">landscape</option>
-    </select>
+      <label>Orientation</label>
+      <select id="pb-orientation">
+        <option value="portrait">portrait</option>
+        <option value="landscape">landscape</option>
+      </select>
 
-    <label>Page Size</label>
-    <select id="pb-pagesize">
-      <option value="a4">A4</option>
-      <option value="letter">Letter</option>
-    </select>
+      <label>Page Size</label>
+      <select id="pb-pagesize">
+        <option value="a4">A4</option>
+        <option value="letter">Letter</option>
+      </select>
 
-    <label>Download Button Label</label>
-    <input id="pb-downloadLabel" value="Export PDF"/>
-  </div>
+      <label>Download Button Label</label>
+      <input id="pb-downloadLabel" value="Export PDF" />
+    </div>
 
-  <!-- PREVIEW -->
-  <div class="preview">
+    <!-- PREVIEW -->
+    <div class="preview">
 
-    <a href="../index.html" class="playbook-back">← Back to Playbook</a>
+      <a href="../index.html" class="playbook-back">← Back to Playbook</a>
 
-    <h1>Power Pages PDF Wrapper</h1>
+      <h1>Power Pages PDF Wrapper</h1>
 
-    <!-- LIVE PREVIEW -->
-    <div class="preview-box">
-      <div id="pdfHost" data-pp-pdf-wrapper>
-
-        <div class="demo-card">
-          <h3>Invoice #INV‑001</h3>
-          <p>Date: 20 Jan 2026</p>
-
-          <table>
-            <thead>
-              <tr>
-                <th>Item</th>
-                <th>Qty</th>
-                <th>Price</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Service A</td>
-                <td>1</td>
-                <td>$500</td>
-              </tr>
-              <tr>
-                <td>Service B</td>
-                <td>2</td>
-                <td>$300</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
+      <!-- LIVE PREVIEW -->
+      <div class="preview-box">
+        <div id="pdfHost"></div>
       </div>
-    </div>
 
-    <!-- GENERATED CODE -->
-    <div class="preview-box">
-      <h2>Generated HTML</h2>
-      <pre id="codeBlock"></pre>
-    </div>
+      <!-- GENERATED CODE -->
+      <div class="preview-box">
+        <h2>Generated HTML</h2>
+        <pre id="codeBlock"></pre>
+      </div>
 
-    <!-- DOCUMENTATION -->
-    <div class="preview-box">
-      <h2>How to use PDF Wrapper</h2>
-
-<pre>
-&lt;div
-  data-pp-pdf-wrapper
-  data-id="invoice-pdf"
-  data-title="Invoice"
-  data-orientation="portrait"
-  data-pagesize="a4"
-  data-download-label="Export PDF"&gt;
-
-  &lt;!-- Any HTML content --&gt;
-
-&lt;/div&gt;
-</pre>
-
-      <h3>Supported Attributes</h3>
-      <table style="width:100%;border-collapse:collapse;">
-        <tr>
-          <th align="left">Attribute</th>
-          <th align="left">Description</th>
-        </tr>
-        <tr>
-          <td>data-id</td>
-          <td>Unique identifier for the PDF wrapper</td>
-        </tr>
-        <tr>
-          <td>data-title</td>
-          <td>PDF document title</td>
-        </tr>
-        <tr>
-          <td>data-orientation</td>
-          <td>portrait / landscape</td>
-        </tr>
-        <tr>
-          <td>data-pagesize</td>
-          <td>a4 / letter</td>
-        </tr>
-        <tr>
-          <td>data-download-label</td>
-          <td>Export button label</td>
-        </tr>
-      </table>
     </div>
 
   </div>
 
-</div>
+  <script>
+    function pb(id) {
+      return document.getElementById(id).value;
+    }
 
-<script>
-function bindPlaybook() {
-  const host = document.getElementById("pdfHost");
-  const codeBlock = document.getElementById("codeBlock");
+    function bindPlaybook() {
+      let host = document.getElementById("pdfHost");
+      const codeBlock = document.getElementById("codeBlock");
 
-  function sync() {
-    const id = pb("pb-id");
-    const title = pb("pb-title");
-    const orientation = pb("pb-orientation");
-    const pagesize = pb("pb-pagesize");
-    const downloadLabel = pb("pb-downloadLabel");
+      function sync() {
+        const cfg = {
+          id: pb("pb-id"),
+          title: pb("pb-title"),
+          orientation: pb("pb-orientation"),
+          pagesize: pb("pb-pagesize"),
+          downloadLabel: pb("pb-downloadLabel")
+        };
 
-    host.dataset.id = id;
-    host.dataset.title = title;
-    host.dataset.orientation = orientation;
-    host.dataset.pagesize = pagesize;
-    host.dataset.downloadLabel = downloadLabel;
+        /* ===== RECREATE WRAPPER (CRITICAL) ===== */
+        const wrapper = document.createElement("div");
+        wrapper.id = "pdfHost";
+        wrapper.setAttribute("data-pp-pdf-wrapper", "");
+        wrapper.dataset.id = cfg.id;
+        wrapper.dataset.title = cfg.title;
+        wrapper.dataset.orientation = cfg.orientation;
+        wrapper.dataset.pagesize = cfg.pagesize;
+        wrapper.dataset.downloadLabel = cfg.downloadLabel;
 
-    window.initPdfWrappers();
+        wrapper.innerHTML = `
+      <div class="demo-card">
+        <h3>Invoice #INV-001</h3>
+        <p>Date: 20 Jan 2026</p>
+        <table style="width:100%;border-collapse:collapse;margin-top:10px">
+          <tr><th>Item</th><th>Qty</th><th>Price</th></tr>
+          <tr><td>Service A</td><td>1</td><td>$500</td></tr>
+          <tr><td>Service B</td><td>2</td><td>$300</td></tr>
+        </table>
+      </div>
+    `;
 
-    // -------- CODE GENERATION --------
-    codeBlock.textContent =
-`<div
+        host.replaceWith(wrapper);
+        host = wrapper;
+
+        window.initPdfWrappers();
+
+        /* ===== GENERATED HTML ===== */
+        codeBlock.textContent =
+          `<div
   data-pp-pdf-wrapper
-  data-id="${id}"
-  data-title="${title}"
-  data-orientation="${orientation}"
-  data-pagesize="${pagesize}"
-  data-download-label="${downloadLabel}">
-  
-  <!-- Your content here -->
+  data-id="${cfg.id}"
+  data-title="${cfg.title}"
+  data-orientation="${cfg.orientation}"
+  data-pagesize="${cfg.pagesize}"
+  data-download-label="${cfg.downloadLabel}">
+
+  <!-- Your HTML content -->
 
 </div>`;
-  }
+      }
 
-  document
-    .querySelectorAll(".controls input, .controls select")
-    .forEach(el => el.addEventListener("input", sync));
+      document
+        .querySelectorAll(".controls input, .controls select")
+        .forEach(el => el.addEventListener("input", sync));
 
-  sync();
-}
+      sync();
+    }
 
-function pb(id) {
-  return document.getElementById(id).value;
-}
-
-window.addEventListener("load", bindPlaybook);
-</script>
+    window.addEventListener("load", bindPlaybook);
+  </script>
 
 </body>
+
 </html>

@@ -1,58 +1,60 @@
 function initCards() {
   document.querySelectorAll("[data-pp-card]").forEach(card => {
 
-    // ---------- CARD STYLES ----------
-    const bg = card.dataset.bg || "#ffffff";
-    const borderColor = card.dataset.borderColor || "#dee2e6";
-    const borderRadius = card.dataset.borderRadius || "0.375rem";
+    const title = card.dataset.title;
+    const subtitle = card.dataset.subtitle;
+    const padding = card.dataset.padding || "24px";
+    const radius = card.dataset.radius || "12px";
+    const bgColor = card.dataset.bgcolor || "#ffffff";
+    const borderColor = card.dataset.bordercolor || "#e5e7eb";
+    const shadow = card.dataset.shadow || "md"; // sm | md | lg | none
 
-    card.classList.add("pp-card");
-    card.style.background = bg;
+    /* ===== RESET (SAFE RE-INIT) ===== */
+    const bodyContent = document.createElement("div");
+    while (card.firstChild) {
+      bodyContent.appendChild(card.firstChild);
+    }
+
+    card.innerHTML = "";
+    card.className = "pp-card";
+
+    /* ===== STYLES ===== */
+    card.style.padding = padding;
+    card.style.borderRadius = radius;
+    card.style.backgroundColor = bgColor;
     card.style.border = `1px solid ${borderColor}`;
-    card.style.borderRadius = borderRadius;
-    card.style.overflow = "hidden";
 
-    // ---------- IMAGE ----------
-    const img = card.querySelector("[data-pp-card-img]");
-    if (img) {
-      img.classList.add("pp-card-img-top");
+    if (shadow !== "none") {
+      card.classList.add(`pp-shadow-${shadow}`);
     }
 
-    // ---------- HEADER ----------
-    const header = card.querySelector("[data-pp-card-header]");
-    if (header) {
-      header.classList.add("pp-card-header");
+    /* ===== HEADER ===== */
+    if (title || subtitle) {
+      const header = document.createElement("div");
+      header.className = "pp-card-header";
+
+      if (title) {
+        const h = document.createElement("h3");
+        h.className = "pp-card-title";
+        h.textContent = title;
+        header.appendChild(h);
+      }
+
+      if (subtitle) {
+        const s = document.createElement("div");
+        s.className = "pp-card-subtitle";
+        s.textContent = subtitle;
+        header.appendChild(s);
+      }
+
+      card.appendChild(header);
     }
 
-    // ---------- BODY ----------
-    const body = card.querySelector("[data-pp-card-body]");
-    if (body) {
-      body.classList.add("pp-card-body");
-    }
+    /* ===== BODY ===== */
+    const body = document.createElement("div");
+    body.className = "pp-card-body";
+    body.appendChild(bodyContent);
 
-    // ---------- TITLE ----------
-    const title = card.querySelector("[data-pp-card-title]");
-    if (title) {
-      title.classList.add("pp-card-title");
-    }
-
-    // ---------- TEXT ----------
-    const text = card.querySelector("[data-pp-card-text]");
-    if (text) {
-      text.classList.add("pp-card-text");
-    }
-
-    // ---------- BUTTONS ----------
-    card.querySelectorAll("[data-pp-card-btn]").forEach(btn => {
-      const label = btn.dataset.label || "Button";
-      btn.classList.add("pp-card-btn");
-      btn.textContent = label;
-    });
-
-    // ---------- FOOTER ----------
-    const footer = card.querySelector("[data-pp-card-footer]");
-    if (footer) {
-      footer.classList.add("pp-card-footer");
-    }
+    card.appendChild(body);
   });
 }

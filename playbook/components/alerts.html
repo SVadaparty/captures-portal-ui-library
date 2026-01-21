@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Power Pages UI Framework – Alerts</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- CDN Framework -->
+    <link rel="stylesheet" href="https://PP-Reusable-Components.b-cdn.net/UI-Comp/pp-ui-core.min.css" />
+    <script src="https://pp-reusable-components.b-cdn.net/UI-Comp/pp-ui-core.min.js"></script>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Segoe UI, system-ui, sans-serif;
+            background: #f3f4f6;
+        }
+
+        .layout {
+            display: grid;
+            grid-template-columns: 320px 1fr;
+            height: 100vh;
+        }
+
+        .controls {
+            background: #020617;
+            color: white;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .controls h2 {
+            color: #38bdf8;
+            margin-bottom: 12px;
+        }
+
+        .controls label {
+            display: block;
+            margin-top: 12px;
+            font-size: 13px;
+            color: #cbd5f5;
+        }
+
+        .controls select,
+        .controls textarea {
+            width: 100%;
+            padding: 8px;
+            border-radius: 6px;
+            border: none;
+            margin-top: 4px;
+            font-size: 14px;
+        }
+
+        .preview {
+            padding: 40px;
+            overflow-y: auto;
+        }
+
+        .preview-box {
+            background: white;
+            padding: 32px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, .05);
+            margin-bottom: 24px;
+        }
+
+        .playbook-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: #2563eb;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        pre {
+            background: #020617;
+            color: #38bdf8;
+            padding: 16px;
+            border-radius: 8px;
+            font-size: 13px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="layout">
+
+        <!-- ================= SIDEBAR CONTROLS ================= -->
+        <div class="controls">
+            <h2>Alert Settings</h2>
+
+            <label>Type</label>
+            <select id="pb-type">
+                <option value="primary">Primary</option>
+                <option value="success">Success</option>
+                <option value="warning">Warning</option>
+                <option value="danger">Danger</option>
+                <option value="info">Info</option>
+            </select>
+
+            <label>Dismissible</label>
+            <select id="pb-dismissible">
+                <option value="false">False</option>
+                <option value="true">True</option>
+            </select>
+
+            <label>Message</label>
+            <textarea id="pb-message">This is an alert message</textarea>
+        </div>
+
+        <!-- ================= PREVIEW ================= -->
+        <div class="preview">
+
+            <a href="../index.html" class="playbook-back">← Back to Playbook</a>
+
+            <h1>Power Pages Alert</h1>
+
+            <!-- LIVE PREVIEW -->
+            <div class="preview-box">
+                <div id="alertHost" data-pp-alert>
+                    This is an alert message
+                </div>
+            </div>
+
+            <!-- GENERATED CODE -->
+            <div class="preview-box">
+                <h2>Generated HTML</h2>
+                <pre id="codeBlock"></pre>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ================= PLAYBOOK SCRIPT ================= -->
+    <script>
+        function pb(id) {
+            return document.getElementById(id).value;
+        }
+
+        function bindPlaybook() {
+            let alertEl = document.getElementById("alertHost");
+            const codeBlock = document.getElementById("codeBlock");
+
+            function sync() {
+                const config = {
+                    type: pb("pb-type"),
+                    dismissible: pb("pb-dismissible"),
+                    message: pb("pb-message")
+                };
+
+                // 🔁 Create a fresh alert element (clean re-init)
+                const newAlert = document.createElement("div");
+                newAlert.id = "alertHost";
+                newAlert.setAttribute("data-pp-alert", "");
+                newAlert.setAttribute("data-type", config.type);
+                newAlert.setAttribute("data-dismissible", config.dismissible);
+                newAlert.textContent = config.message;
+
+                // Replace old alert & rebind reference
+                alertEl.replaceWith(newAlert);
+                alertEl = newAlert;
+
+                // Re-initialize alert engine
+                window.initAlerts();
+
+                // Generate HTML code
+                codeBlock.textContent =
+                    `<div
+  data-pp-alert
+  data-type="${config.type}"
+  data-dismissible="${config.dismissible}">
+  ${config.message}
+</div>`;
+            }
+
+            document
+                .querySelectorAll(".controls textarea, .controls select")
+                .forEach(el => el.addEventListener("input", sync));
+
+            sync();
+        }
+
+        window.addEventListener("load", bindPlaybook);
+    </script>
+
+</body>
+
+</html>

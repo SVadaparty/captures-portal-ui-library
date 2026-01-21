@@ -2,12 +2,13 @@
 <html>
 
 <head>
-  <title>Power Pages UI Framework – Radios</title>
+  <title>Power Pages UI Framework – Loader</title>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <link rel="stylesheet" href="../../dist/pp-ui-core.min.css" />
-  <script src="../../dist/pp-ui-core.min.js"></script>
+  <!-- IMPORTANT: NOT module for playbook -->
+  <link rel="stylesheet" href="https://PP-Reusable-Components.b-cdn.net/UI-Comp/pp-ui-core.min.css" />
+  <script src="https://pp-reusable-components.b-cdn.net/UI-Comp/pp-ui-core.min.js"></script>
 
   <style>
     body {
@@ -18,7 +19,7 @@
 
     .layout {
       display: grid;
-      grid-template-columns: 320px 1fr;
+      grid-template-columns: 360px 1fr;
       height: 100vh;
     }
 
@@ -31,6 +32,7 @@
 
     .controls h2 {
       color: #38bdf8;
+      margin-bottom: 12px;
     }
 
     .controls label {
@@ -41,7 +43,6 @@
     }
 
     .controls input,
-    .controls textarea,
     .controls select {
       width: 100%;
       padding: 8px;
@@ -51,7 +52,7 @@
     }
 
     .preview {
-      padding: 40px;
+      padding: 32px;
       overflow-y: auto;
     }
 
@@ -61,6 +62,10 @@
       border-radius: 12px;
       box-shadow: 0 4px 10px rgba(0, 0, 0, .05);
       margin-bottom: 24px;
+      min-height: 160px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .playbook-back {
@@ -71,7 +76,7 @@
       text-decoration: none;
       font-weight: 600;
       font-size: 14px;
-      margin-bottom: 20px;
+      margin-bottom: 16px;
     }
 
     pre {
@@ -89,43 +94,44 @@
 
   <div class="layout">
 
-    <!-- CONTROLS -->
+    <!-- ================= CONTROLS ================= -->
     <div class="controls">
-      <h2>Radio Group Settings</h2>
+      <h2>Loader Settings</h2>
 
-      <label>Options (comma separated or JSON)</label>
-      <textarea id="pb-options">Male, Female, Other</textarea>
+      <label>Text</label>
+      <input id="pb-text" value="Loading..." />
 
-      <label>Group Name</label>
-      <input id="pb-name" value="gender" />
+      <label>Size</label>
+      <input id="pb-size" value="48px" />
 
-      <label>Layout</label>
-      <select id="pb-layout">
-        <option value="column">Column</option>
-        <option value="row">Row</option>
-      </select>
+      <label>Spinner Color</label>
+      <input id="pb-color" type="color" value="#2563eb" />
 
-      <label>On Change</label>
-      <select id="pb-onchange">
-        <option value="">None</option>
-        <option value="onRadioChange">onRadioChange()</option>
+      <label>Background Ring Color</label>
+      <input id="pb-bgcolor" type="color" value="#e5e7eb" />
+
+      <label>Alignment</label>
+      <select id="pb-align">
+        <option value="center">center</option>
+        <option value="flex-start">left</option>
+        <option value="flex-end">right</option>
       </select>
     </div>
 
-    <!-- PREVIEW -->
+    <!-- ================= PREVIEW ================= -->
     <div class="preview">
 
       <a href="../index.html" class="playbook-back">← Back to Playbook</a>
 
-      <h1>Power Pages Radio Group</h1>
+      <h1>Power Pages Loader</h1>
 
+      <!-- LIVE PREVIEW -->
       <div class="preview-box">
-        <div id="radioHost" data-pp-radio-group>
-        </div>
+        <div id="loaderHost"></div>
       </div>
 
-      <!-- GENERATED CODE -->
-      <div class="preview-box">
+      <!-- GENERATED HTML -->
+      <div class="preview-box" style="display:block;">
         <h2>Generated HTML</h2>
         <pre id="codeBlock"></pre>
       </div>
@@ -135,47 +141,59 @@
   </div>
 
   <script>
-    function onRadioChange(value) {
-      alert("Selected: " + value);
-    }
-
     function pb(id) {
       return document.getElementById(id).value;
     }
 
     function bindPlaybook() {
-      const host = document.getElementById("radioHost");
+      let host = document.getElementById("loaderHost");
       const codeBlock = document.getElementById("codeBlock");
 
       function sync() {
-        const config = {
-          options: pb("pb-options"),
-          name: pb("pb-name"),
-          layout: pb("pb-layout"),
-          onchange: pb("pb-onchange")
-        };
+        const text = pb("pb-text");
+        const size = pb("pb-size");
+        const color = pb("pb-color");
+        const bgcolor = pb("pb-bgcolor");
+        const align = pb("pb-align");
 
-        host.dataset.options = config.options;
-        host.dataset.name = config.name;
-        host.dataset.layout = config.layout;
+        /* ===============================
+           RECREATE NODE (CRITICAL)
+        =============================== */
+        const newLoader = document.createElement("div");
+        newLoader.id = "loaderHost";
+        newLoader.setAttribute("data-pp-loader", "");
+        newLoader.dataset.text = text;
+        newLoader.dataset.size = size;
+        newLoader.dataset.color = color;
+        newLoader.dataset.bgcolor = bgcolor;
+        newLoader.dataset.align = align;
 
-        if (config.onchange) host.dataset.onchange = config.onchange;
-        else delete host.dataset.onchange;
+        host.replaceWith(newLoader);
+        host = newLoader;
 
-        window.initRadios();
+        /* ===============================
+           INIT LOADER ENGINE
+        =============================== */
+        if (typeof window.initLoader === "function") {
+          window.initLoader();
+        }
 
-        // ---------- CODE GENERATION ----------
+        /* ===============================
+           GENERATED CODE
+        =============================== */
         codeBlock.textContent =
           `<div
-  data-pp-radio-group
-  data-options="${config.options}"
-  data-name="${config.name}"
-  data-layout="${config.layout}"${config.onchange ? `
-  data-onchange="${config.onchange}"` : ""}>
+  data-pp-loader
+  data-text="${text}"
+  data-size="${size}"
+  data-color="${color}"
+  data-bgcolor="${bgcolor}"
+  data-align="${align}">
 </div>`;
       }
 
-      document.querySelectorAll(".controls textarea, .controls input, .controls select")
+      document
+        .querySelectorAll(".controls input, .controls select")
         .forEach(el => el.addEventListener("input", sync));
 
       sync();

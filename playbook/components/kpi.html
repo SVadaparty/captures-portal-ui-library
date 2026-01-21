@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Power Pages UI Framework – KPI Tile</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link rel="stylesheet" href="https://PP-Reusable-Components.b-cdn.net/UI-Comp/pp-ui-core.min.css" />
+    <script src="https://pp-reusable-components.b-cdn.net/UI-Comp/pp-ui-core.min.js"></script>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Segoe UI, system-ui, sans-serif;
+            background: #f3f4f6;
+        }
+
+        .layout {
+            display: grid;
+            grid-template-columns: 360px 1fr;
+            height: 100vh;
+        }
+
+        .controls {
+            background: #020617;
+            color: white;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .controls h2 {
+            color: #38bdf8;
+        }
+
+        .controls label {
+            display: block;
+            margin-top: 12px;
+            font-size: 13px;
+            color: #cbd5f5;
+        }
+
+        .controls input,
+        .controls select {
+            width: 100%;
+            padding: 8px;
+            border-radius: 6px;
+            border: none;
+            margin-top: 4px;
+        }
+
+        .preview {
+            padding: 40px;
+        }
+
+        .preview-box {
+            background: #fff;
+            padding: 32px;
+            border-radius: 12px;
+            margin-bottom: 24px;
+            max-width: 320px;
+        }
+
+        pre {
+            background: #020617;
+            color: #38bdf8;
+            padding: 16px;
+            border-radius: 8px;
+            font-size: 13px;
+            overflow-x: auto;
+        }
+
+        .playbook-back {
+            color: #2563eb;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            margin-bottom: 16px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="layout">
+
+        <!-- CONTROLS -->
+        <div class="controls">
+            <h2>KPI Settings</h2>
+
+            <label>Label</label>
+            <input id="pb-label" value="Total Users" />
+
+            <label>Value</label>
+            <input id="pb-value" value="12,450" />
+
+            <label>Delta</label>
+            <input id="pb-delta" value="+8.2%" />
+
+            <label>Trend</label>
+            <select id="pb-trend">
+                <option value="up">Up</option>
+                <option value="down">Down</option>
+                <option value="neutral">Neutral</option>
+            </select>
+
+            <label>Icon</label>
+            <input id="pb-icon" value="👤" />
+
+            <label>Background</label>
+            <input id="pb-bgcolor" type="color" value="#ffffff" />
+
+            <label>Border Color</label>
+            <input id="pb-bordercolor" type="color" value="#e5e7eb" />
+
+            <label>Border Radius</label>
+            <input id="pb-radius" value="14px" />
+
+            <label>Padding</label>
+            <input id="pb-padding" value="20px" />
+
+            <label>Shadow</label>
+            <select id="pb-shadow">
+                <option value="sm">Small</option>
+                <option value="md" selected>Medium</option>
+                <option value="lg">Large</option>
+                <option value="none">None</option>
+            </select>
+        </div>
+
+        <!-- PREVIEW -->
+        <div class="preview">
+
+            <a href="../index.html" class="playbook-back">← Back to Playbook</a>
+
+            <h1>KPI Tile</h1>
+
+            <div class="preview-box">
+                <div id="kpiHost" data-pp-kpi></div>
+            </div>
+
+            <div class="preview-box">
+                <h2>Generated HTML</h2>
+                <pre id="codeBlock"></pre>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+        function pb(id) {
+            return document.getElementById(id).value;
+        }
+
+        function bindPlaybook() {
+            let host = document.getElementById("kpiHost");
+            const codeBlock = document.getElementById("codeBlock");
+
+            function sync() {
+                const cfg = {
+                    label: pb("pb-label"),
+                    value: pb("pb-value"),
+                    delta: pb("pb-delta"),
+                    trend: pb("pb-trend"),
+                    icon: pb("pb-icon"),
+                    bgcolor: pb("pb-bgcolor"),
+                    bordercolor: pb("pb-bordercolor"),
+                    radius: pb("pb-radius"),
+                    padding: pb("pb-padding"),
+                    shadow: pb("pb-shadow")
+                };
+
+                const tile = document.createElement("div");
+                tile.id = "kpiHost";
+                tile.setAttribute("data-pp-kpi", "");
+                Object.keys(cfg).forEach(k => tile.dataset[k] = cfg[k]);
+
+                host.replaceWith(tile);
+                host = tile;
+
+                window.initKPIs();
+
+                codeBlock.textContent =
+                    `<div
+  data-pp-kpi
+  data-label="${cfg.label}"
+  data-value="${cfg.value}"
+  data-delta="${cfg.delta}"
+  data-trend="${cfg.trend}"
+  data-icon="${cfg.icon}"
+  data-bgcolor="${cfg.bgcolor}"
+  data-bordercolor="${cfg.bordercolor}"
+  data-radius="${cfg.radius}"
+  data-padding="${cfg.padding}"
+  data-shadow="${cfg.shadow}">
+</div>`;
+            }
+
+            document
+                .querySelectorAll(".controls input, .controls select")
+                .forEach(el => el.addEventListener("input", sync));
+
+            sync();
+        }
+
+        window.addEventListener("load", bindPlaybook);
+    </script>
+
+</body>
+
+</html>

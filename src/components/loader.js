@@ -1,68 +1,52 @@
 function initLoader() {
   document.querySelectorAll("[data-pp-loader]").forEach(container => {
-    const text =
-      container.dataset.text || DEFAULTS.loaderText;
 
-    const size =
-      container.dataset.size || DEFAULTS.loaderSize;
+    const text = container.dataset.text || "Loading...";
+    const size = container.dataset.size || "40px";
+    const color = container.dataset.color || "#2563eb";
+    const bgColor = container.dataset.bgcolor || "#e5e7eb";
+    const align = container.dataset.align || "center";
 
-    const color =
-      container.dataset.color || DEFAULTS.loaderColor;
-
-    const bgColor =
-      container.dataset.bgcolor || DEFAULTS.loaderBgColor;
-
-    const alignment =
-      container.dataset.align || DEFAULTS.loaderAlignment;
-
-    // Reset (safe re-init)
+    // Reset (IMPORTANT)
     container.innerHTML = "";
 
-    /* =========================
-       CONTAINER STYLES
-    ========================= */
+    // Alignment
     container.style.display = "flex";
     container.style.flexDirection = "column";
-    container.style.alignItems = alignment;
+    container.style.alignItems = align;
     container.style.justifyContent = "center";
-    container.style.gap = DEFAULTS.loaderGap;
+    container.style.gap = "12px";
 
-    /* =========================
-       SPINNER
-    ========================= */
+    // Spinner
     const spinner = document.createElement("div");
     spinner.style.width = size;
     spinner.style.height = size;
-    spinner.style.border = `${DEFAULTS.loaderBorderWidth} solid ${bgColor}`;
-    spinner.style.borderTop =
-      `${DEFAULTS.loaderBorderWidth} solid ${color}`;
-    spinner.style.borderRadius = DEFAULTS.loaderBorderRadius;
-    spinner.style.animation =
-      `pp-spin ${DEFAULTS.loaderAnimationDuration} linear infinite`;
+    spinner.style.border = `4px solid ${bgColor}`;
+    spinner.style.borderTop = `4px solid ${color}`;
+    spinner.style.borderRadius = "50%";
+    spinner.style.animation = "pp-spin 1s linear infinite";
 
-    /* =========================
-       TEXT
-    ========================= */
-    const label = document.createElement("span");
+    // Text
+    const label = document.createElement("div");
     label.textContent = text;
-    label.style.color = DEFAULTS.loaderTextColor;
-    label.style.fontFamily = DEFAULTS.loaderFontFamily;
-    label.style.fontSize = DEFAULTS.loaderFontSize;
+    label.style.fontSize = "14px";
+    label.style.color = "#374151";
+    label.style.fontFamily = "Segoe UI, system-ui, sans-serif";
 
     container.appendChild(spinner);
     container.appendChild(label);
   });
 }
-(function addLoaderAnimation() {
-  if (document.getElementById("pp-loader-style")) return;
 
+/* Keyframes (inject once) */
+if (!document.getElementById("pp-loader-style")) {
   const style = document.createElement("style");
   style.id = "pp-loader-style";
   style.textContent = `
     @keyframes pp-spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
     }
   `;
   document.head.appendChild(style);
-})();
+}

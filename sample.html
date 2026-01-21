@@ -52,7 +52,27 @@
 <body>
   <h2>This is testing page</h2>
 
-  
+  <div data-pp-card data-title="User Details" data-subtitle="Profile information" data-padding="24px" data-radius="12px"
+    data-bgcolor="#ffffff" data-bordercolor="#0f172a" data-shadow="lg">
+<label>Padding</label>
+    <input id="pb-padding" value="24px"/>
+
+    <label>Border Radius</label>
+    <input id="pb-radius" value="12px"/>
+
+    <label>Background Color</label>
+    <input id="pb-bgcolor" type="color" value="#ffffff"/>
+
+    <label>Border Color</label>
+    <input id="pb-bordercolor" type="color" value="#e5e7eb"/>
+
+    <label>Shadow</label>
+    <select id="pb-shadow">
+      <option value="sm">Small</option>
+      <option value="md" selected>Medium</option>
+      <option value="lg">Large</option>
+      <option value="none">None</option>
+    </select>  </div>
 
   <div data-pp-card data-bg="#fff" data-border-color="#dee2e6" data-border-radius="0.5rem">
     <div data-pp-card-header>Featured</div>
@@ -274,36 +294,31 @@
     </div>
 
   </header>
-  <div
-  data-pp-pdf-wrapper
-  data-id="invoicePdf"
-  data-title="Invoice"
-  data-orientation="portrait"
-  data-pagesize="a4"
-  data-download-label="Download PDF">
+  <div data-pp-pdf-wrapper data-id="invoicePdf" data-title="Invoice" data-orientation="portrait" data-pagesize="a4"
+    data-download-label="Download PDF">
 
-  <h2>Invoice #1023 sample for html to pdf fomat </h2>
-  <p>Customer: testing pdf format including below table</p>
+    <h2>Invoice #1023 sample for html to pdf fomat </h2>
+    <p>Customer: testing pdf format including below table</p>
 
-  <div data-pp-table data-datasource="usersData"></div>
+    <div data-pp-table data-datasource="usersData"></div>
 
-</div>
-<div data-pp-container data-layout="column" data-gap="8px">
-
-  <div data-pp-accordion data-title="Section 1">
-    <p>Content for section 1</p>
   </div>
+  <div data-pp-container data-layout="column" data-gap="8px">
 
-  <div data-pp-accordion data-title="Section 2" data-open="true">
-    <h1>test 1</h1>
-    <p>Content for section 2</p>
+    <div data-pp-accordion data-title="Section 1">
+      <p>Content for section 1</p>
+    </div>
+
+    <div data-pp-accordion data-title="Section 2" data-open="true">
+      <h1>test 1</h1>
+      <p>Content for section 2</p>
+    </div>
+
+    <div data-pp-accordion data-title="Section 3">
+      <p>Content for section 3</p>
+    </div>
+
   </div>
-
-  <div data-pp-accordion data-title="Section 3">
-    <p>Content for section 3</p>
-  </div>
-
-</div>
 
 
 

@@ -21,6 +21,7 @@ window.PP_UI = {
     if(typeof initBreadcrumbs==="function") initBreadcrumbs();
     if(typeof initAccordions==="function") initSidebars();
     if(typeof initSidebars==="function") initCards();
+    if(typeof initKPIs==="function") initKPIs();
   }
 };
 
