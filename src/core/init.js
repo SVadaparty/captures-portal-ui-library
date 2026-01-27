@@ -11,6 +11,17 @@ window.PP_UI = {
     if(typeof initTables==="function") initTables();
     if (typeof initModal === "function") initModal();
     if (typeof initToasts === "function") initToasts();
+    if(typeof initHeaders==="function") initHeaders();
+    if(typeof initFooters==="function") initFooters();
+    if(typeof initLoader==="function") initLoader();
+    if(typeof initAlerts==="function") initAlerts();
+    if(typeof initAccordions==="function") initAccordions();
+    if(typeof initPdfWrappers==="function") initPdfWrappers();
+    if(typeof initTabs==="function") initTabs();
+    if(typeof initBreadcrumbs==="function") initBreadcrumbs();
+    if(typeof initAccordions==="function") initSidebars();
+    if(typeof initSidebars==="function") initCards();
+    if(typeof initKPIs==="function") initKPIs();
   }
 };
 

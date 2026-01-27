@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Power Pages UI Framework – Loader</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- IMPORTANT: NOT module for playbook -->
+  <link rel="stylesheet" href="https://PP-Reusable-Components.b-cdn.net/UI-Comp/pp-ui-core.min.css" />
+  <script src="https://pp-reusable-components.b-cdn.net/UI-Comp/pp-ui-core.min.js"></script>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Segoe UI, system-ui, sans-serif;
+      background: #f3f4f6;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 360px 1fr;
+      height: 100vh;
+    }
+
+    .controls {
+      background: #020617;
+      color: white;
+      padding: 20px;
+      overflow-y: auto;
+    }
+
+    .controls h2 {
+      color: #38bdf8;
+      margin-bottom: 12px;
+    }
+
+    .controls label {
+      display: block;
+      margin-top: 12px;
+      font-size: 13px;
+      color: #cbd5f5;
+    }
+
+    .controls input,
+    .controls select {
+      width: 100%;
+      padding: 8px;
+      border-radius: 6px;
+      border: none;
+      margin-top: 4px;
+    }
+
+    .preview {
+      padding: 32px;
+      overflow-y: auto;
+    }
+
+    .preview-box {
+      background: white;
+      padding: 32px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, .05);
+      margin-bottom: 24px;
+      min-height: 160px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .playbook-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: #2563eb;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+      margin-bottom: 16px;
+    }
+
+    pre {
+      background: #020617;
+      color: #38bdf8;
+      padding: 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="layout">
+
+    <!-- ================= CONTROLS ================= -->
+    <div class="controls">
+      <h2>Loader Settings</h2>
+
+      <label>Text</label>
+      <input id="pb-text" value="Loading..." />
+
+      <label>Size</label>
+      <input id="pb-size" value="48px" />
+
+      <label>Spinner Color</label>
+      <input id="pb-color" type="color" value="#2563eb" />
+
+      <label>Background Ring Color</label>
+      <input id="pb-bgcolor" type="color" value="#e5e7eb" />
+
+      <label>Alignment</label>
+      <select id="pb-align">
+        <option value="center">center</option>
+        <option value="flex-start">left</option>
+        <option value="flex-end">right</option>
+      </select>
+    </div>
+
+    <!-- ================= PREVIEW ================= -->
+    <div class="preview">
+
+      <a href="../index.html" class="playbook-back">← Back to Playbook</a>
+
+      <h1>Power Pages Loader</h1>
+
+      <!-- LIVE PREVIEW -->
+      <div class="preview-box">
+        <div id="loaderHost"></div>
+      </div>
+
+      <!-- GENERATED HTML -->
+      <div class="preview-box" style="display:block;">
+        <h2>Generated HTML</h2>
+        <pre id="codeBlock"></pre>
+      </div>
+
+    </div>
+
+  </div>
+
+  <script>
+    function pb(id) {
+      return document.getElementById(id).value;
+    }
+
+    function bindPlaybook() {
+      let host = document.getElementById("loaderHost");
+      const codeBlock = document.getElementById("codeBlock");
+
+      function sync() {
+        const text = pb("pb-text");
+        const size = pb("pb-size");
+        const color = pb("pb-color");
+        const bgcolor = pb("pb-bgcolor");
+        const align = pb("pb-align");
+
+        /* ===============================
+           RECREATE NODE (CRITICAL)
+        =============================== */
+        const newLoader = document.createElement("div");
+        newLoader.id = "loaderHost";
+        newLoader.setAttribute("data-pp-loader", "");
+        newLoader.dataset.text = text;
+        newLoader.dataset.size = size;
+        newLoader.dataset.color = color;
+        newLoader.dataset.bgcolor = bgcolor;
+        newLoader.dataset.align = align;
+
+        host.replaceWith(newLoader);
+        host = newLoader;
+
+        /* ===============================
+           INIT LOADER ENGINE
+        =============================== */
+        if (typeof window.initLoader === "function") {
+          window.initLoader();
+        }
+
+        /* ===============================
+           GENERATED CODE
+        =============================== */
+        codeBlock.textContent =
+          `<div
+  data-pp-loader
+  data-text="${text}"
+  data-size="${size}"
+  data-color="${color}"
+  data-bgcolor="${bgcolor}"
+  data-align="${align}">
+</div>`;
+      }
+
+      document
+        .querySelectorAll(".controls input, .controls select")
+        .forEach(el => el.addEventListener("input", sync));
+
+      sync();
+    }
+
+    window.addEventListener("load", bindPlaybook);
+  </script>
+
+</body>
+
+</html>

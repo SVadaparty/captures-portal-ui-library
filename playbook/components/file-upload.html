@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Power Pages UI Framework – File Upload</title>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<link rel="stylesheet" href="https://PP-Reusable-Components.b-cdn.net/UI-Comp/pp-ui-core.min.css"/>
+<script src="https://pp-reusable-components.b-cdn.net/UI-Comp/pp-ui-core.min.js"></script>
+
+<style>
+body {
+  margin: 0;
+  font-family: Segoe UI, system-ui, sans-serif;
+  background: #f3f4f6;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  height: 100vh;
+}
+
+.controls {
+  background: #020617;
+  color: white;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.controls h2 {
+  color: #38bdf8;
+}
+
+.controls label {
+  display: block;
+  margin-top: 12px;
+  font-size: 13px;
+  color: #cbd5f5;
+}
+
+.controls input,
+.controls select {
+  width: 100%;
+  padding: 8px;
+  border-radius: 6px;
+  border: none;
+  margin-top: 4px;
+}
+
+.preview {
+  padding: 40px;
+  overflow-y: auto;
+}
+
+.preview-box {
+  background: white;
+  padding: 32px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,.05);
+  margin-bottom: 24px;
+}
+
+.playbook-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #2563eb;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+pre {
+  background: #020617;
+  color: #38bdf8;
+  padding: 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  overflow-x: auto;
+}
+</style>
+</head>
+
+<body>
+
+<div class="layout">
+
+  <!-- CONTROLS -->
+  <div class="controls">
+    <h2>File Upload Settings</h2>
+
+    <label>Accept Types</label>
+    <input id="pb-accept" value=".pdf,.jpg,.png"/>
+
+    <label>Max Size (MB)</label>
+    <input id="pb-maxSize" value="5"/>
+
+    <label>Multiple Files</label>
+    <select id="pb-multiple">
+      <option>false</option>
+      <option>true</option>
+    </select>
+
+    <label>Alignment</label>
+    <select id="pb-align">
+      <option value="left">Left</option>
+      <option value="center">Center</option>
+    </select>
+
+    <label>Width</label>
+    <input id="pb-width" value="300px"/>
+
+    <label>On Change</label>
+    <select id="pb-onchange">
+      <option value="">None</option>
+      <option value="onFileUpload">onFileUpload()</option>
+    </select>
+  </div>
+
+  <!-- PREVIEW -->
+  <div class="preview">
+
+    <a href="../index.html" class="playbook-back">← Back to Playbook</a>
+
+    <h1>Power Pages File Upload</h1>
+
+    <div class="preview-box">
+      <input
+        id="fileHost"
+        data-pp-file>
+    </div>
+
+    <!-- GENERATED CODE -->
+    <div class="preview-box">
+      <h2>Generated HTML</h2>
+      <pre id="codeBlock"></pre>
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+function onFileUpload(files) {
+  alert(files.length + " file(s) selected");
+}
+
+function pb(id) {
+  return document.getElementById(id).value;
+}
+
+function bindPlaybook() {
+  const input = document.getElementById("fileHost");
+  const codeBlock = document.getElementById("codeBlock");
+
+  function sync() {
+    const config = {
+      accept: pb("pb-accept"),
+      maxSize: pb("pb-maxSize"),
+      multiple: pb("pb-multiple"),
+      align: pb("pb-align"),
+      width: pb("pb-width"),
+      onchange: pb("pb-onchange")
+    };
+
+    input.dataset.accept = config.accept;
+    input.dataset.maxSize = config.maxSize;
+    input.dataset.multiple = config.multiple;
+    input.dataset.align = config.align;
+    input.dataset.width = config.width;
+
+    if (config.onchange) input.dataset.onchange = config.onchange;
+    else delete input.dataset.onchange;
+
+    window.initFileUpload();
+
+    // ---------- CODE GENERATION ----------
+    codeBlock.textContent =
+`<input
+  data-pp-file
+  data-accept="${config.accept}"
+  data-max-size="${config.maxSize}"
+  data-multiple="${config.multiple}"
+  data-align="${config.align}"
+  data-width="${config.width}"${config.onchange ? `
+  data-onchange="${config.onchange}"` : ""}>`;
+  }
+
+  document.querySelectorAll(".controls input, .controls select")
+    .forEach(el => el.addEventListener("input", sync));
+
+  sync();
+}
+
+window.addEventListener("load", bindPlaybook);
+</script>
+
+</body>
+</html>

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Power Pages UI Framework – Footer</title>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<link rel="stylesheet" href="https://PP-Reusable-Components.b-cdn.net/UI-Comp/pp-ui-core.min.css"/>
+<script src="https://pp-reusable-components.b-cdn.net/UI-Comp/pp-ui-core.min.js"></script>
+
+<style>
+body {
+  margin: 0;
+  font-family: Segoe UI, system-ui, sans-serif;
+  background: #f3f4f6;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  height: 100vh;
+}
+
+.controls {
+  background: #020617;
+  color: white;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.controls h2 {
+  color: #38bdf8;
+}
+
+.controls label {
+  display: block;
+  margin-top: 12px;
+  font-size: 13px;
+  color: #cbd5f5;
+}
+
+.controls input,
+.controls textarea,
+.controls select {
+  width: 100%;
+  padding: 8px;
+  border-radius: 6px;
+  border: none;
+  margin-top: 4px;
+}
+
+.preview {
+  padding: 32px;
+  overflow-y: auto;
+}
+
+.preview-box {
+  background: white;
+  padding: 0;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,.05);
+  margin-bottom: 24px;
+  overflow: hidden;
+}
+
+.playbook-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #2563eb;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: 16px;
+}
+
+code, pre {
+  background: #020617;
+  color: #38bdf8;
+  padding: 16px;
+  border-radius: 8px;
+  display: block;
+  overflow-x: auto;
+  font-size: 13px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="layout">
+
+  <!-- CONTROLS -->
+  <div class="controls">
+    <h2>Footer Settings</h2>
+
+    <label>Background</label>
+    <select id="pb-bg">
+      <option value="primary">Primary</option>
+      <option value="neutral" selected>Neutral</option>
+      <option value="dark">Dark</option>
+      <option value="accent">Accent</option>
+    </select>
+
+    <label>Text Color</label>
+    <input id="pb-textColor" type="color" value="#111111"/>
+
+    <label>Footer Links (JSON)</label>
+    <textarea id="pb-links">
+[
+  { "label": "Privacy Policy", "href": "#" },
+  { "label": "Terms of Service", "href": "#" },
+  { "label": "Contact", "href": "#" }
+]
+    </textarea>
+  </div>
+
+  <!-- PREVIEW -->
+  <div class="preview">
+
+    <a href="../index.html" class="playbook-back">← Back to Playbook</a>
+
+    <h1>Power Pages Footer</h1>
+
+    <div class="preview-box">
+      <footer id="footerHost" data-pp-footer></footer>
+    </div>
+
+    <!-- GENERATED CODE -->
+    <div class="preview-box" style="padding:24px;">
+      <h2>Generated HTML</h2>
+      <pre id="codeBlock"></pre>
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+function bindPlaybook() {
+  const host = document.getElementById("footerHost");
+  const codeBlock = document.getElementById("codeBlock");
+
+  function sync() {
+    host.innerHTML = "";
+
+    const bg = pb("pb-bg");
+    const textColor = pb("pb-textColor");
+    const links = JSON.parse(pb("pb-links") || "[]");
+
+    host.dataset.bg = bg;
+    host.dataset.textColor = textColor;
+
+    links.forEach(l => {
+      const a = document.createElement("a");
+      a.dataset.ppFooterLink = "";
+      a.textContent = l.label;
+      a.dataset.href = l.href;
+      host.appendChild(a);
+    });
+
+    window.initFooters();
+
+    // -------- CODE GENERATION --------
+    const linksCode = links.map(l =>
+`  <a data-pp-footer-link data-href="${l.href}">${l.label}</a>`
+    ).join("\n");
+
+    codeBlock.textContent =
+`<footer
+  data-pp-footer
+  data-bg="${bg}"
+  data-text-color="${textColor}">
+${linksCode}
+</footer>`;
+  }
+
+  document.querySelectorAll(".controls input, .controls textarea, .controls select")
+    .forEach(el => el.addEventListener("input", sync));
+
+  sync();
+}
+
+function pb(id) {
+  return document.getElementById(id).value;
+}
+
+window.addEventListener("load", bindPlaybook);
+</script>
+
+</body>
+</html>

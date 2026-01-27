@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Power Pages UI Framework – Inputs</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link rel="stylesheet" href="https://PP-Reusable-Components.b-cdn.net/UI-Comp/pp-ui-core.min.css" />
+    <script src="https://pp-reusable-components.b-cdn.net/UI-Comp/pp-ui-core.min.js"></script>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Segoe UI, system-ui, sans-serif;
+            background: #f3f4f6;
+        }
+
+        .layout {
+            display: grid;
+            grid-template-columns: 340px 1fr;
+            height: 100vh;
+        }
+
+        .controls {
+            background: #020617;
+            color: white;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .controls h2 {
+            color: #38bdf8;
+            margin-bottom: 12px;
+        }
+
+        .controls label {
+            display: block;
+            margin-top: 12px;
+            font-size: 13px;
+            color: #cbd5f5;
+        }
+
+        .controls input,
+        .controls select {
+            width: 100%;
+            padding: 8px;
+            border-radius: 6px;
+            border: none;
+            margin-top: 4px;
+        }
+
+        .preview {
+            padding: 40px;
+            overflow-y: auto;
+        }
+
+        .preview-box {
+            background: white;
+            padding: 32px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, .05);
+            margin-bottom: 24px;
+        }
+
+        .playbook-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: #2563eb;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        pre {
+            background: #020617;
+            color: #38bdf8;
+            padding: 14px;
+            border-radius: 8px;
+            font-size: 13px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="layout">
+
+        <!-- CONTROLS -->
+        <div class="controls">
+            <h2>Input Settings</h2>
+
+            <label>Type</label>
+            <select id="pb-type">
+                <option value="text">Text</option>
+                <option value="email">Email</option>
+                <option value="password">Password</option>
+                <option value="number">Number</option>
+                <option value="mobile">Mobile</option>
+                <option value="pincode">Pincode</option>
+            </select>
+
+            <label>Placeholder</label>
+            <input id="pb-placeholder" value="Enter value" />
+
+            <label>Width</label>
+            <input id="pb-width" value="300px" />
+
+            <label>Height</label>
+            <input id="pb-height" value="40px" />
+
+            <label>Required</label>
+            <select id="pb-required">
+                <option>false</option>
+                <option>true</option>
+            </select>
+
+            <label>Required Message</label>
+            <input id="pb-requiredMessage" value="This field is required" />
+
+            <label>Min Length (Password)</label>
+            <input id="pb-minlength" value="8" />
+
+            <label>Length (Mobile / Pincode)</label>
+            <input id="pb-length" value="10" />
+
+            <label>Error Message</label>
+            <input id="pb-errorMessage" value="Invalid value" />
+
+            <label>Error Color</label>
+            <input id="pb-errorColor" type="color" value="#d93025" />
+
+            <label>Error Border Color</label>
+            <input id="pb-errorBorder" type="color" value="#d93025" />
+        </div>
+
+        <!-- PREVIEW -->
+        <div class="preview">
+
+            <a href="../index.html" class="playbook-back">← Back to Playbook</a>
+
+            <h1>Power Pages Input (Validated)</h1>
+
+            <div class="preview-box">
+                <input id="inputHost" data-pp-input />
+            </div>
+
+            <!-- GENERATED CODE -->
+            <div class="preview-box">
+                <h2>Generated HTML</h2>
+                <pre id="codeBlock"></pre>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+        function pb(id) {
+            return document.getElementById(id).value;
+        }
+
+        function bindPlaybook() {
+            const input = document.getElementById("inputHost");
+            const codeBlock = document.getElementById("codeBlock");
+
+            function sync() {
+                const config = {
+                    type: pb("pb-type"),
+                    placeholder: pb("pb-placeholder"),
+                    width: pb("pb-width"),
+                    height: pb("pb-height"),
+                    required: pb("pb-required"),
+                    requiredMessage: pb("pb-requiredMessage"),
+                    minlength: pb("pb-minlength"),
+                    length: pb("pb-length"),
+                    errorMessage: pb("pb-errorMessage"),
+                    errorColor: pb("pb-errorColor"),
+                    errorBorder: pb("pb-errorBorder")
+                };
+
+                Object.entries({
+                    type: config.type,
+                    placeholder: config.placeholder,
+                    width: config.width,
+                    height: config.height,
+                    required: config.required,
+                    requiredmessage: config.requiredMessage,
+                    minlength: config.minlength,
+                    length: config.length,
+                    errormessage: config.errorMessage,
+                    errorcolor: config.errorColor,
+                    errorborder: config.errorBorder
+                }).forEach(([k, v]) => input.dataset[k] = v);
+
+                window.initInputs();
+
+                // ---------- CODE GENERATION ----------
+                codeBlock.textContent =
+                    `<input
+  data-pp-input
+  data-type="${config.type}"
+  data-placeholder="${config.placeholder}"
+  data-width="${config.width}"
+  data-height="${config.height}"
+  data-required="${config.required}"
+  data-requiredmessage="${config.requiredMessage}"
+  data-minlength="${config.minlength}"
+  data-length="${config.length}"
+  data-errormessage="${config.errorMessage}"
+  data-errorcolor="${config.errorColor}"
+  data-errorborder="${config.errorBorder}">
+`;
+            }
+
+            document.querySelectorAll(".controls input, .controls select")
+                .forEach(el => el.addEventListener("input", sync));
+
+            sync();
+        }
+
+        window.addEventListener("load", bindPlaybook);
+    </script>
+
+</body>
+
+</html>

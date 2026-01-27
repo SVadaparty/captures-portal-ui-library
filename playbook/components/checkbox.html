@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Power Pages UI Framework – Checkboxes</title>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<link rel="stylesheet" href="https://PP-Reusable-Components.b-cdn.net/UI-Comp/pp-ui-core.min.css"/>
+<script src="https://pp-reusable-components.b-cdn.net/UI-Comp/pp-ui-core.min.js"></script>
+
+<style>
+body {
+  margin: 0;
+  font-family: Segoe UI, system-ui, sans-serif;
+  background: #f3f4f6;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  height: 100vh;
+}
+
+.controls {
+  background: #020617;
+  color: white;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.controls h2 {
+  color: #38bdf8;
+}
+
+.controls label {
+  display: block;
+  margin-top: 12px;
+  font-size: 13px;
+  color: #cbd5f5;
+}
+
+.controls input,
+.controls textarea,
+.controls select {
+  width: 100%;
+  padding: 8px;
+  border-radius: 6px;
+  border: none;
+  margin-top: 4px;
+}
+
+.preview {
+  padding: 40px;
+  overflow-y: auto;
+}
+
+.preview-box {
+  background: white;
+  padding: 32px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,.05);
+  margin-bottom: 24px;
+}
+
+.playbook-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #2563eb;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+pre {
+  background: #020617;
+  color: #38bdf8;
+  padding: 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  overflow-x: auto;
+}
+</style>
+</head>
+
+<body>
+
+<div class="layout">
+
+  <!-- CONTROLS -->
+  <div class="controls">
+    <h2>Checkbox Group Settings</h2>
+
+    <label>Options (comma separated or JSON)</label>
+    <textarea id="pb-options">Apple, Banana, Mango</textarea>
+
+    <label>Layout</label>
+    <select id="pb-layout">
+      <option value="column">Column</option>
+      <option value="row">Row</option>
+    </select>
+
+    <label>On Change</label>
+    <select id="pb-onchange">
+      <option value="">None</option>
+      <option value="onCheckboxChange">onCheckboxChange()</option>
+    </select>
+  </div>
+
+  <!-- PREVIEW -->
+  <div class="preview">
+
+    <a href="../index.html" class="playbook-back">← Back to Playbook</a>
+
+    <h1>Power Pages Checkbox Group</h1>
+
+    <div class="preview-box">
+      <div
+        id="checkboxHost"
+        data-pp-checkbox-group>
+      </div>
+    </div>
+
+    <!-- GENERATED CODE -->
+    <div class="preview-box">
+      <h2>Generated HTML</h2>
+      <pre id="codeBlock"></pre>
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+function onCheckboxChange(values) {
+  alert("Selected: " + values.join(", "));
+}
+
+function pb(id) {
+  return document.getElementById(id).value;
+}
+
+function bindPlaybook() {
+  const host = document.getElementById("checkboxHost");
+  const codeBlock = document.getElementById("codeBlock");
+
+  function sync() {
+    const config = {
+      options: pb("pb-options"),
+      layout: pb("pb-layout"),
+      onchange: pb("pb-onchange")
+    };
+
+    host.dataset.options = config.options;
+    host.dataset.layout = config.layout;
+
+    if (config.onchange) host.dataset.onchange = config.onchange;
+    else delete host.dataset.onchange;
+
+    window.initCheckboxes();
+
+    // ---------- CODE GENERATION ----------
+    codeBlock.textContent =
+`<div
+  data-pp-checkbox-group
+  data-options="${config.options}"
+  data-layout="${config.layout}"${config.onchange ? `
+  data-onchange="${config.onchange}"` : ""}>
+</div>`;
+  }
+
+  document.querySelectorAll(".controls textarea, .controls select")
+    .forEach(el => el.addEventListener("input", sync));
+
+  sync();
+}
+
+window.addEventListener("load", bindPlaybook);
+</script>
+
+</body>
+</html>

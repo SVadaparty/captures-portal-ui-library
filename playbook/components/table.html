@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Power Pages UI Framework – Tables</title>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<link rel="stylesheet" href="https://PP-Reusable-Components.b-cdn.net/UI-Comp/pp-ui-core.min.css"/>
+<script src="https://pp-reusable-components.b-cdn.net/UI-Comp/pp-ui-core.min.js"></script>
+
+<style>
+body {
+  margin: 0;
+  font-family: Segoe UI, system-ui, sans-serif;
+  background: #f3f4f6;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 380px 1fr;
+  height: 100vh;
+}
+
+.controls {
+  background: #020617;
+  color: white;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.controls h2 {
+  color: #38bdf8;
+}
+
+.controls label {
+  display: block;
+  margin-top: 12px;
+  font-size: 13px;
+  color: #cbd5f5;
+}
+
+.controls input,
+.controls select {
+  width: 100%;
+  padding: 8px;
+  border-radius: 6px;
+  border: none;
+  margin-top: 4px;
+}
+
+.preview {
+  padding: 40px;
+  overflow-y: auto;
+}
+
+.preview-box {
+  background: white;
+  padding: 32px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,.05);
+  margin-bottom: 24px;
+}
+
+.playbook-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #2563eb;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+pre {
+  background: #020617;
+  color: #38bdf8;
+  padding: 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  overflow-x: auto;
+}
+</style>
+</head>
+
+<body>
+
+<div class="layout">
+
+  <!-- SIDEBAR CONTROLS -->
+  <div class="controls">
+    <h2>Table Settings</h2>
+
+    <label>Page Size</label>
+    <input id="pb-pageSize" value="2"/>
+
+    <label>Search</label>
+    <select id="pb-search"><option>true</option><option>false</option></select>
+
+    <label>Filter</label>
+    <select id="pb-filter"><option>true</option><option>false</option></select>
+
+    <label>Search Placeholder</label>
+    <input id="pb-searchPlaceholder" value="Search"/>
+
+    <label>Filter Placeholder</label>
+    <input id="pb-filterPlaceholder" value="Select column"/>
+
+    <label>Width</label>
+    <input id="pb-width" value="100%"/>
+
+    <label>Font Family</label>
+    <input id="pb-fontFamily" value="sans-serif"/>
+
+    <label>Font Size</label>
+    <input id="pb-fontSize" value="14px"/>
+
+    <label>Text Color</label>
+    <input id="pb-textColor" type="color" value="#000000"/>
+
+    <label>Border Color</label>
+    <input id="pb-borderColor" type="color" value="#000000"/>
+
+    <label>Header Background</label>
+    <input id="pb-headerBg" type="color" value="#b7c9e6"/>
+
+    <label>Header Text Color</label>
+    <input id="pb-headerTextColor" type="color" value="#03025f"/>
+
+    <label>Row Hover Background</label>
+    <input id="pb-rowHoverBg" type="color" value="#fafafa"/>
+
+    <label>Sticky Header</label>
+    <select id="pb-stickyHeader"><option>true</option><option>false</option></select>
+
+    <label>Column Toggle</label>
+    <select id="pb-columnToggle"><option>true</option><option>false</option></select>
+  </div>
+
+  <!-- PREVIEW -->
+  <div class="preview">
+
+    <a href="../index.html" class="playbook-back">← Back to Playbook</a>
+
+    <h1>Power Pages Table</h1>
+
+    <div class="preview-box">
+      <div
+        id="tableHost"
+        data-pp-table
+        data-datasource="usersData">
+      </div>
+    </div>
+
+    <!-- GENERATED CODE -->
+    <div class="preview-box">
+      <h2>Generated HTML</h2>
+      <pre id="codeBlock"></pre>
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+window.usersData = [
+  { name: "Surendra", role: "Developer", city: "Hyderabad", salary: 90000 },
+  { name: "Amit", role: "Tester", city: "Mumbai", salary: 60000 },
+  { name: "Priya", role: "Designer", city: "Pune", salary: 70000 },
+  { name: "John", role: "Manager", city: "Delhi", salary: 120000 },
+  { name: "Meera", role: "Support", city: "Chennai", salary: 50000 }
+];
+
+function pb(id) {
+  return document.getElementById(id).value;
+}
+
+function bindPlaybook() {
+  const table = document.getElementById("tableHost");
+  const codeBlock = document.getElementById("codeBlock");
+
+  function sync() {
+    const config = {
+      pageSize: pb("pb-pageSize"),
+      search: pb("pb-search"),
+      filter: pb("pb-filter"),
+      searchPlaceholder: pb("pb-searchPlaceholder"),
+      filterPlaceholder: pb("pb-filterPlaceholder"),
+      width: pb("pb-width"),
+      fontFamily: pb("pb-fontFamily"),
+      fontSize: pb("pb-fontSize"),
+      textColor: pb("pb-textColor"),
+      borderColor: pb("pb-borderColor"),
+      headerBg: pb("pb-headerBg"),
+      headerTextColor: pb("pb-headerTextColor"),
+      rowHoverBg: pb("pb-rowHoverBg"),
+      stickyHeader: pb("pb-stickyHeader"),
+      columnToggle: pb("pb-columnToggle")
+    };
+
+    Object.entries(config).forEach(([k, v]) => {
+      table.dataset[k] = v;
+    });
+
+    window.initTables();
+
+    // ---------- CODE GENERATION ----------
+    codeBlock.textContent =
+`<div
+  data-pp-table
+  data-datasource="usersData"
+  data-page-size="${config.pageSize}"
+  data-search="${config.search}"
+  data-filter="${config.filter}"
+  data-search-placeholder="${config.searchPlaceholder}"
+  data-filter-placeholder="${config.filterPlaceholder}"
+  data-width="${config.width}"
+  data-font-family="${config.fontFamily}"
+  data-font-size="${config.fontSize}"
+  data-text-color="${config.textColor}"
+  data-border-color="${config.borderColor}"
+  data-header-bg="${config.headerBg}"
+  data-header-text-color="${config.headerTextColor}"
+  data-row-hover-bg="${config.rowHoverBg}"
+  data-sticky-header="${config.stickyHeader}"
+  data-column-toggle="${config.columnToggle}">
+</div>`;
+  }
+
+  document.querySelectorAll(".controls input, .controls select")
+    .forEach(el => el.addEventListener("input", sync));
+
+  sync();
+}
+
+window.addEventListener("load", bindPlaybook);
+</script>
+
+</body>
+</html>
