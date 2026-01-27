@@ -40,7 +40,7 @@
 
       const modalContent = document.createElement("div");
       modalContent.style.background = "#fff";
-      modalContent.style.padding = "20px";
+      modalContent.style.padding = "50px 20px 20px 20px";
       modalContent.style.borderRadius = "8px";
       modalContent.style.maxWidth = "500px";
       modalContent.style.width = "90%";
