@@ -1,39 +1,32 @@
 ﻿function initModal() {
-  // Render shorthand holders: <div data-pp-modal ...></div>
   document.querySelectorAll("[data-pp-modal]").forEach(wrapper => {
     const modalId = wrapper.dataset.id || `pp-modal-${Math.random().toString(36).slice(2)}`;
     const triggerText = wrapper.dataset.triggerText || "Open Modal";
-    const title = wrapper.dataset.title || "";
-    const contentText = wrapper.dataset.content || "";
-    const triggerBg = wrapper.dataset.triggerBg || "#FFA500";
-    const triggerPadding = wrapper.dataset.triggerPadding || "10px 20px";
-    const triggerFontSize = wrapper.dataset.triggerFontsize || "16px";
-    const triggerMarginTop = wrapper.dataset.triggerMarginTop || "0px";
 
-    // avoid destroying existing content if user placed a trigger
-    let trigger = wrapper.querySelector('[data-pp-modal-trigger]');
-    if (!trigger) {
-      trigger = document.createElement("button");
-      trigger.type = "button";
-      trigger.textContent = triggerText;
-      trigger.style.cursor = "pointer";
-      trigger.style.backgroundColor = triggerBg;
-      trigger.style.padding = triggerPadding;
-      trigger.style.fontSize = triggerFontSize;
-      trigger.style.marginTop = triggerMarginTop;
-      trigger.style.color = "#fff";
-      trigger.style.border = "none";
-      trigger.style.borderRadius = "6px";
-      wrapper.appendChild(trigger);
-    }
-    trigger.setAttribute('data-pp-modal-trigger', '');
+    // --- CREATE TRIGGER FIRST ---
+    let trigger = document.createElement("button");
+    trigger.type = "button";
+    trigger.textContent = triggerText;
+    trigger.style.cursor = "pointer";
+    trigger.style.backgroundColor = "#FFA500";
+    trigger.style.padding = "10px 20px";
+    trigger.style.fontSize = "16px";
+    trigger.style.color = "#fff";
+    trigger.style.border = "none";
+    trigger.style.borderRadius = "6px";
+    trigger.style.width = "160px";
+    trigger.style.textAlign = "center";
+
+    trigger.setAttribute("data-pp-modal-trigger", "");
     trigger.dataset.target = modalId;
 
-    // create modal element if missing
+    // 🔥 IMPORTANT: insert trigger BEFORE wrapper
+    wrapper.parentNode.insertBefore(trigger, wrapper);
+
+    // --- CREATE MODAL ---
     if (!document.getElementById(modalId)) {
       const modal = document.createElement("div");
       modal.id = modalId;
-      modal.style.display = "none";
       modal.style.position = "fixed";
       modal.style.top = "0";
       modal.style.left = "0";
@@ -41,63 +34,69 @@
       modal.style.height = "100%";
       modal.style.backgroundColor = "rgba(0,0,0,0.5)";
       modal.style.display = "none";
-      modal.style.flexDirection = "column";
       modal.style.justifyContent = "center";
       modal.style.alignItems = "center";
       modal.style.zIndex = "1000";
 
       const modalContent = document.createElement("div");
-      modalContent.className = "pp-modal-content";
       modalContent.style.background = "#fff";
-      modalContent.style.padding = "20px";
+      modalContent.style.padding = "50px 20px 20px 20px";
       modalContent.style.borderRadius = "8px";
       modalContent.style.maxWidth = "500px";
       modalContent.style.width = "90%";
+      modalContent.style.position = "relative";
 
-      if (title) {
-        const h2 = document.createElement("h2");
-        h2.textContent = title;
-        modalContent.appendChild(h2);
-        const hr = document.createElement("hr");
-  hr.style.margin = "10px 0";
-  hr.style.border = "none";
-  hr.style.borderTop = "1px solid #ddd";
-  modalContent.appendChild(hr);
-      }
+      // Extract body & footer
+      const body = wrapper.querySelector("[data-pp-modal-body]");
+      const footer = wrapper.querySelector("[data-pp-modal-footer]");
 
-      if (contentText) {
-        const p = document.createElement("p");
-        p.textContent = contentText;
-        modalContent.appendChild(p);
-      }
+      // Clear wrapper AFTER extracting content
+      wrapper.innerHTML = "";
 
+      const bodyContainer = document.createElement("div");
+      if (body) bodyContainer.appendChild(body);
+
+      const footerContainer = document.createElement("div");
+      footerContainer.style.marginTop = "20px";
+      footerContainer.style.borderTop = "1px solid #eee";
+      footerContainer.style.paddingTop = "10px";
+      if (footer) footerContainer.appendChild(footer);
+
+      // Close button
       const closeBtn = document.createElement("button");
-      closeBtn.textContent = "Close";
+      closeBtn.innerHTML = "✕";
       closeBtn.setAttribute("data-pp-modal-close", "");
-      modalContent.appendChild(closeBtn);
+      closeBtn.style.position = "absolute";
+      closeBtn.style.top = "10px";
+      closeBtn.style.right = "10px";
+      closeBtn.style.background = "transparent";
+      closeBtn.style.border = "none";
+      closeBtn.style.fontSize = "18px";
+      closeBtn.style.cursor = "pointer";
 
+      modalContent.appendChild(closeBtn);
+      modalContent.appendChild(bodyContainer);
+      modalContent.appendChild(footerContainer);
       modal.appendChild(modalContent);
       document.body.appendChild(modal);
     }
   });
 
-  // Bind behavior to all modal triggers (including ones created above)
+  // --- EVENTS ---
   document.querySelectorAll("[data-pp-modal-trigger]").forEach(trigger => {
-    const modalId = trigger.dataset.target;
-    const modal = document.getElementById(modalId);
+    const modal = document.getElementById(trigger.dataset.target);
     if (!modal) return;
 
-    const modalContent = modal.querySelector('.pp-modal-content');
-
-    trigger.addEventListener('click', () => {
-      modal.style.display = 'flex';
+    trigger.addEventListener("click", () => {
+      modal.style.display = "flex";
     });
 
-    const closeBtn = modal.querySelector('[data-pp-modal-close]');
-    if (closeBtn) closeBtn.addEventListener('click', () => (modal.style.display = 'none'));
+    modal.querySelector("[data-pp-modal-close]").addEventListener("click", () => {
+      modal.style.display = "none";
+    });
 
-    modal.addEventListener('click', e => {
-      if (e.target === modal) modal.style.display = 'none';
+    modal.addEventListener("click", e => {
+      if (e.target === modal) modal.style.display = "none";
     });
   });
 }

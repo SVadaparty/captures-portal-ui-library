@@ -26,6 +26,7 @@ const js =
   fs.readFileSync("src/components/fileUpload.js", "utf8") +
   fs.readFileSync("src/components/view_table.js", "utf8") +
   fs.readFileSync("src/components/model.js", "utf8") +
+  fs.readFileSync("src/components/toast.js", "utf8") +
   fs.readFileSync("src/components/header.js", "utf8") +
   fs.readFileSync("src/components/multiDropdown.js", "utf8") +
   fs.readFileSync("src/components/footer.js", "utf8") +

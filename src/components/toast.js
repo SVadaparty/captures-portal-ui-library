@@ -29,16 +29,32 @@ function initToastForms() {
 
     button.addEventListener("click", () => {
       const value = input.value.trim();
+       console.log("VALUE:", value, "LENGTH:", value.length);
 
+      // ❌ Error case
       if (!value) {
         showToast("Input cannot be empty", "error");
         return;
       }
 
+      // ⚠️ Warning case
+      if (value.length < 3) {
+        showToast("Input is too short", "warning");
+        return;
+      }
+
+      // ❌ Failure case (example condition)
+      if (value === "123") {
+        showToast("Submission failed", "error");
+        return;
+      }
+
+      // ✅ Success case
       showToast("Submitted successfully!", "success");
       input.value = "";
     });
   });
 }
+
 
 initToastForms();
