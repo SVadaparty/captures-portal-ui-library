@@ -14,6 +14,8 @@
     trigger.style.color = "#fff";
     trigger.style.border = "none";
     trigger.style.borderRadius = "6px";
+    trigger.style.width = "160px";
+    trigger.style.textAlign = "center";
 
     trigger.setAttribute("data-pp-modal-trigger", "");
     trigger.dataset.target = modalId;
