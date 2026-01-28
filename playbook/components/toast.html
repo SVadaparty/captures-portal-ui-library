@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>PP Toast – Playbook</title>
+
+<style>
+  body {
+    font-family: Inter, Arial, sans-serif;
+    background: #f8fafc;
+    padding: 30px;
+  }
+
+  h2 {
+    margin-bottom: 8px;
+  }
+
+  .playbook {
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: 24px;
+  }
+
+  /* ================= CONTROLS ================= */
+  .controls {
+    background: #fff;
+    padding: 16px;
+    border-radius: 10px;
+    border: 1px solid #e5e7eb;
+  }
+
+  .controls label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    margin-top: 12px;
+  }
+
+  .controls input,
+  .controls select {
+    width: 100%;
+    margin-top: 6px;
+    padding: 8px;
+    font-size: 14px;
+  }
+
+  .controls button {
+    margin-top: 16px;
+    width: 100%;
+    padding: 10px;
+    background: #2563eb;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+
+  /* ================= PREVIEW ================= */
+  .preview {
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    padding: 20px;
+    min-height: 200px;
+    position: relative;
+  }
+
+  /* ================= CODE ================= */
+  pre {
+    margin-top: 16px;
+    background: #0f172a;
+    color: #e5e7eb;
+    padding: 16px;
+    border-radius: 8px;
+    overflow-x: auto;
+    font-size: 12px;
+  }
+
+  /* ================= TOAST ================= */
+  .pp-toast-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 9999;
+  }
+
+  .pp-toast {
+    padding: 12px 16px;
+    border-radius: 6px;
+    color: #fff;
+    min-width: 220px;
+    animation: slideIn 0.3s ease;
+  }
+
+  .pp-toast-success { background: #16a34a; }
+  .pp-toast-error { background: #dc2626; }
+  .pp-toast-warning { background: #f59e0b; }
+
+  @keyframes slideIn {
+    from { transform: translateX(40px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+  }
+</style>
+</head>
+<body>
+
+<h2>Toast – Playbook</h2>
+<p>Change options → See live toast → Copy generated code</p>
+
+<div class="playbook">
+
+  <!-- ================= CONTROLS ================= -->
+  <div class="controls">
+    <label>Message</label>
+    <input id="msg" value="Submitted successfully!" />
+
+    <label>Type</label>
+    <select id="type">
+      <option value="success">Success</option>
+      <option value="error">Error</option>
+      <option value="warning">Warning</option>
+    </select>
+
+    <label>Duration (ms)</label>
+    <input id="duration" type="number" value="3000" />
+
+    <button onclick="previewToast()">Show Toast</button>
+  </div>
+
+  <!-- ================= PREVIEW ================= -->
+  <div class="preview">
+    <strong>Live Preview</strong>
+    <div id="preview-note" style="margin-top:10px;color:#64748b;">
+      Click “Show Toast”
+    </div>
+
+    <pre id="code"></pre>
+  </div>
+
+</div>
+
+<script>
+/* ================= TOAST CORE ================= */
+function initToasts() {
+  if (document.querySelector(".pp-toast-container")) return;
+  const container = document.createElement("div");
+  container.className = "pp-toast-container";
+  document.body.appendChild(container);
+}
+
+function showToast(message, type = "success", duration = 3000) {
+  initToasts();
+
+  const toast = document.createElement("div");
+  toast.className = `pp-toast pp-toast-${type}`;
+  toast.textContent = message;
+
+  const container = document.querySelector(".pp-toast-container");
+  container.appendChild(toast);
+
+  setTimeout(() => {
+    toast.style.opacity = "0";
+    setTimeout(() => toast.remove(), 300);
+  }, duration);
+}
+
+/* ================= PLAYBOOK ================= */
+function previewToast() {
+  const message = msg.value;
+  const typeVal = type.value;
+  const durationVal = duration.value;
+
+  showToast(message, typeVal, durationVal);
+  generateCode(message, typeVal, durationVal);
+}
+
+function generateCode(message, type, duration) {
+  code.textContent =
+`<!-- Toast Trigger -->
+<button onclick="showToast('${message}','${type}',${duration})">
+  Show Toast
+</button>
+
+<script>
+function initToasts() {
+  if (document.querySelector(".pp-toast-container")) return;
+  const c = document.createElement("div");
+  c.className = "pp-toast-container";
+  document.body.appendChild(c);
+}
+
+function showToast(msg,type='success',duration=3000) {
+  initToasts();
+  const t = document.createElement("div");
+  t.className = \`pp-toast pp-toast-\${type}\`;
+  t.textContent = msg;
+  document.querySelector('.pp-toast-container').appendChild(t);
+
+  setTimeout(() => {
+    t.style.opacity = '0';
+    setTimeout(() => t.remove(), 300);
+  }, duration);
+}
+<\/script>`;
+}
+</script>
+
+</body>
+</html>

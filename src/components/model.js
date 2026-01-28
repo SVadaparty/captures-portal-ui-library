@@ -40,18 +40,31 @@
 
       const modalContent = document.createElement("div");
       modalContent.style.background = "#fff";
-      modalContent.style.padding = "50px 20px 20px 20px";
+      modalContent.style.padding = "20px";
       modalContent.style.borderRadius = "8px";
       modalContent.style.maxWidth = "500px";
       modalContent.style.width = "90%";
       modalContent.style.position = "relative";
 
       // Extract body & footer
+      const header = wrapper.querySelector("[data-pp-modal-header]");
       const body = wrapper.querySelector("[data-pp-modal-body]");
       const footer = wrapper.querySelector("[data-pp-modal-footer]");
 
       // Clear wrapper AFTER extracting content
       wrapper.innerHTML = "";
+      const headerContainer = document.createElement("div");
+headerContainer.style.height = "50px";              // ✅ fixed height
+headerContainer.style.display = "flex";
+headerContainer.style.alignItems = "center";        // vertical centering
+headerContainer.style.justifyContent = "center";
+headerContainer.style.padding = "0 40px 0 10px";    // space for ✕ button
+headerContainer.style.borderBottom = "1px solid #eee";
+headerContainer.style.boxSizing = "border-box";
+headerContainer.style.overflow = "hidden";          // prevent growth
+
+
+if (header) headerContainer.appendChild(header);
 
       const bodyContainer = document.createElement("div");
       if (body) bodyContainer.appendChild(body);
@@ -75,6 +88,7 @@
       closeBtn.style.cursor = "pointer";
 
       modalContent.appendChild(closeBtn);
+      modalContent.appendChild(headerContainer);
       modalContent.appendChild(bodyContainer);
       modalContent.appendChild(footerContainer);
       modal.appendChild(modalContent);
