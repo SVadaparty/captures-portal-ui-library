@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>PP Email Form – Playbook</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Core UI -->
+  <link rel="stylesheet" href="../../dist/pp-ui-core.min.css" />
+  <script src="../../dist/pp-ui-core.min.js"></script>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Segoe UI, system-ui, sans-serif;
+      background: #f3f4f6;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 360px 1fr;
+      height: 100vh;
+    }
+
+    .controls {
+      background: #020617;
+      color: #fff;
+      padding: 20px;
+      overflow-y: auto;
+    }
+
+    .controls h2 {
+      color: #38bdf8;
+      margin-top: 0;
+    }
+
+    .controls label {
+      display: block;
+      margin-top: 12px;
+      font-size: 13px;
+      color: #cbd5f5;
+    }
+
+    .controls input,
+    .controls select {
+      width: 100%;
+      padding: 8px;
+      margin-top: 4px;
+      border-radius: 6px;
+      border: none;
+    }
+
+    .preview {
+      padding: 32px;
+      overflow-y: auto;
+    }
+
+    .preview-box {
+      background: #fff;
+      padding: 24px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,.05);
+      margin-bottom: 24px;
+    }
+
+    .playbook-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: #2563eb;
+      font-weight: 600;
+      font-size: 14px;
+      text-decoration: none;
+      margin-bottom: 16px;
+    }
+
+    pre {
+      background: #020617;
+      color: #38bdf8;
+      padding: 16px;
+      border-radius: 8px;
+      overflow-x: auto;
+      font-size: 13px;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="layout">
+
+  <!-- CONTROLS -->
+  <div class="controls">
+    <h2>Email Form Settings</h2>
+
+    <label>onSubmit handler</label>
+    <select id="pb-onSubmit">
+      <option value="">None</option>
+      <option value="handleEmailSubmit">handleEmailSubmit()</option>
+    </select>
+
+    <label>Show CC Field</label>
+    <select id="pb-cc">
+      <option value="true">true</option>
+      <option value="false">false</option>
+    </select>
+
+    <label>Allow Attachments</label>
+    <select id="pb-attachments">
+      <option value="true">true</option>
+      <option value="false">false</option>
+    </select>
+  </div>
+
+  <!-- PREVIEW -->
+  <div class="preview">
+
+    <a href="../index.html" class="playbook-back">← Back to Playbook</a>
+
+    <h1>Email Form</h1>
+
+    <!-- LIVE PREVIEW -->
+    <div class="preview-box">
+      <div id="emailFormHost"></div>
+    </div>
+
+    <!-- GENERATED CODE -->
+    <div class="preview-box">
+      <h2>Generated HTML</h2>
+      <pre id="codeBlock"></pre>
+    </div>
+
+    <!-- DOCUMENTATION -->
+    <div class="preview-box">
+      <h2>How to use Email Form</h2>
+
+<pre>
+&lt;div
+  data-pp-email-form
+  data-on-submit="handleEmailSubmit"&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+function handleEmailSubmit(payload) {
+  console.log(payload);
+}
+&lt;/script&gt;
+</pre>
+
+      <h3>Payload Structure</h3>
+<pre>
+{
+  from: string,
+  to: string,
+  cc: string,
+  subject: string,
+  body: string,
+  attachments: File[]
+}
+</pre>
+
+      <h3>Supported Attributes</h3>
+      <table style="width:100%;border-collapse:collapse;">
+        <tr><th align="left">Attribute</th><th align="left">Description</th></tr>
+        <tr><td>data-pp-email-form</td><td>Initializes email form</td></tr>
+        <tr><td>data-on-submit</td><td>JS submit handler</td></tr>
+      </table>
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+function handleEmailSubmit(payload) {
+  alert(
+    "Email payload:\\n" +
+    JSON.stringify(payload, null, 2)
+  );
+}
+
+function bindPlaybook() {
+  const host = document.getElementById("emailFormHost");
+  const codeBlock = document.getElementById("codeBlock");
+
+  function sync() {
+    host.innerHTML = "";
+    delete host._initialized;
+
+    const onSubmit = pb("pb-onSubmit");
+    if (onSubmit) host.dataset.onSubmit = onSubmit;
+    else delete host.dataset.onSubmit;
+
+    host.innerHTML = `
+      <div data-pp-email-form${onSubmit ? ` data-on-submit="${onSubmit}"` : ""}></div>
+    `;
+
+    initEmailForms();
+
+    codeBlock.textContent =
+`<div
+  data-pp-email-form${onSubmit ? `
+  data-on-submit="${onSubmit}"` : ""}>
+</div>`;
+  }
+
+  document.querySelectorAll(".controls select")
+    .forEach(el => el.addEventListener("input", sync));
+
+  sync();
+}
+
+function pb(id) {
+  return document.getElementById(id).value;
+}
+
+// Wait for module to load before initializing
+setTimeout(() => {
+  bindPlaybook();
+}, 500);
+</script>
+
+</body>
+</html>
