@@ -1,5 +1,6 @@
 function initSelectMenus() {
   document.querySelectorAll("[data-pp-select]").forEach(container => {
+
     const optionsRaw = container.dataset.options;
     const isMultiple = container.dataset.multiple === "true";
     const enableSearch = container.dataset.search === "true";
@@ -11,8 +12,16 @@ function initSelectMenus() {
       "Search...";
     const width = container.dataset.width || DEFAULTS.dropdownWidth;
 
-    // Highlight colors (inline → CSP safe)
-    const ACTIVE_BG = "#eef3ff";
+    /* ⭐ NEW: STYLE ATTRIBUTES */
+    const bg = container.dataset.bg;
+    const color = container.dataset.color;
+    const borderColor = container.dataset.bordercolor;
+    const fontSize = container.dataset.fontsize;
+    const fontWeight = container.dataset.fontweight;
+    const hoverBg = container.dataset.hoverBg || "#eef3ff";
+
+    // Highlight colors (existing)
+    const ACTIVE_BG = hoverBg;
     const ACTIVE_FONT_WEIGHT = "500";
 
     container.innerHTML = "";
@@ -54,6 +63,13 @@ function initSelectMenus() {
     display.style.fontFamily = DEFAULTS.dropdownFontFamily;
     display.style.fontSize = DEFAULTS.dropdownFontSize;
 
+    /* ⭐ NEW: DISPLAY STYLE OVERRIDES */
+    if (bg) display.style.backgroundColor = bg;
+    if (color) display.style.color = color;
+    if (borderColor) display.style.borderColor = borderColor;
+    if (fontSize) display.style.fontSize = fontSize;
+    if (fontWeight) display.style.fontWeight = fontWeight;
+
     /* =========================
        DROPDOWN MENU
     ========================= */
@@ -69,6 +85,8 @@ function initSelectMenus() {
     menu.style.display = "none";
     menu.style.maxHeight = "240px";
     menu.style.overflowY = "auto";
+
+    if (borderColor) menu.style.borderColor = borderColor;
 
     // Prevent menu click from closing
     menu.addEventListener("click", e => e.stopPropagation());
@@ -108,6 +126,8 @@ function initSelectMenus() {
       row.style.fontFamily = DEFAULTS.dropdownFontFamily;
       row.style.fontSize = DEFAULTS.dropdownFontSize;
 
+      if (color) row.style.color = color;
+
       let checkbox;
 
       if (isMultiple) {
@@ -119,6 +139,17 @@ function initSelectMenus() {
       }
 
       row.appendChild(document.createTextNode(opt));
+
+      row.addEventListener("mouseenter", () => {
+        row.style.backgroundColor = ACTIVE_BG;
+      });
+
+      row.addEventListener("mouseleave", () => {
+        if (
+          !isMultiple &&
+          singleSelectedValue !== opt
+        ) row.style.backgroundColor = "";
+      });
 
       row.addEventListener("click", () => {
         if (isMultiple) {
@@ -139,7 +170,6 @@ function initSelectMenus() {
             window[onChangeFn](Array.from(selectedValues));
           }
         } else {
-          // Clear previous highlight
           [...optionBox.children].forEach(r => {
             r.style.backgroundColor = "";
             r.style.fontWeight = "normal";
@@ -149,7 +179,6 @@ function initSelectMenus() {
           display.textContent = opt;
           row.style.backgroundColor = ACTIVE_BG;
           row.style.fontWeight = ACTIVE_FONT_WEIGHT;
-
           menu.style.display = "none";
 
           if (onChangeFn && typeof window[onChangeFn] === "function") {
@@ -160,6 +189,7 @@ function initSelectMenus() {
 
       optionBox.appendChild(row);
     });
+
 
     /* =========================
        SEARCH FILTER
@@ -182,17 +212,6 @@ function initSelectMenus() {
     ========================= */
     display.addEventListener("click", e => {
       e.stopPropagation();
-
-      // Restore highlight for single select
-      if (!isMultiple && singleSelectedValue) {
-        [...optionBox.children].forEach(row => {
-          const isActive =
-            row.dataset.value === singleSelectedValue.toLowerCase();
-          row.style.backgroundColor = isActive ? ACTIVE_BG : "";
-          row.style.fontWeight = isActive ? ACTIVE_FONT_WEIGHT : "normal";
-        });
-      }
-
       menu.style.display = menu.style.display === "block" ? "none" : "block";
     });
 

@@ -1,8 +1,8 @@
 function initTypography() {
   document.querySelectorAll("[data-pp-typography]").forEach(el => {
     const type = el.dataset.type || "body"; // h1–h6, body, label
-    const color =
-      el.dataset.color || DEFAULTS.typographyTextColor;
+    const color = el.dataset.color || DEFAULTS.typographyTextColor;
+    const bg = el.dataset.bg;
     const align = el.dataset.align || "left";
 
     /* =========================
@@ -12,6 +12,7 @@ function initTypography() {
     el.style.color = color;
     el.style.lineHeight = DEFAULTS.typographyLineHeight;
     el.style.textAlign = align;
+    el.style.backgroundColor = bg || "transparent";
 
     /* =========================
        TYPE MAPPING
