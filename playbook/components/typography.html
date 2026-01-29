@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>PP Typography – Playbook</title>
+
+<link rel="stylesheet" href="../../dist/pp-ui-core.min.css"/>
+<script src="../../dist/pp-ui-core.min.js"></script>
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: Segoe UI, system-ui, sans-serif;
+  background: #f3f4f6;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  height: 100vh;
+}
+
+.controls {
+  width: 360px;
+  padding: 20px;
+  background: #020617;
+  color: #fff;
+  overflow-y: auto;
+}
+
+.controls h2 {
+  margin-top: 0;
+  color: #38bdf8;
+}
+
+.controls label {
+  display: block;
+  margin-top: 12px;
+  font-size: 13px;
+  color: #cbd5f5;
+}
+
+.controls input,
+.controls select {
+  width: 100%;
+  padding: 8px;
+  border-radius: 6px;
+  border: none;
+  margin-top: 4px;
+}
+
+.preview {
+  padding: 32px;
+  overflow-y: auto;
+}
+
+.preview-box {
+  background: #ffffff;
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,.05);
+  margin-bottom: 24px;
+}
+
+.playbook-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #2563eb;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: 16px;
+}
+
+pre {
+  background: #020617;
+  color: #38bdf8;
+  padding: 16px;
+  border-radius: 10px;
+  font-size: 13px;
+  overflow-x: auto;
+}
+</style>
+</head>
+
+<body>
+
+<div class="layout">
+<!-- ========== CONTROLS ========== -->
+<div class="controls">
+  <h2>Typography Settings</h2>
+
+  <label>Type</label>
+  <select id="pb-type">
+    <option value="h1">h1</option>
+    <option value="h2">h2</option>
+    <option value="h3">h3</option>
+    <option value="h4">h4</option>
+    <option value="h5">h5</option>
+    <option value="h6">h6</option>
+    <option value="body" selected>body</option>
+    <option value="label">label</option>
+  </select>
+
+  <label>Text Color</label>
+  <input type="color" id="pb-color" value="#0f172a"/>
+
+  <label>Background Color</label>
+  <input type="color" id="pb-bg" value="#ffffff"/>
+
+  <label>Alignment</label>
+  <select id="pb-align">
+    <option value="left">left</option>
+    <option value="center">center</option>
+    <option value="right">right</option>
+  </select>
+
+  <label>Text Content</label>
+  <input id="pb-text" value="This is typography text" />
+</div>
+
+<!-- ========== PREVIEW ========== -->
+<div class="preview">
+
+  <a href="../index.html" class="playbook-back">← Back to Playbook</a>
+
+  <h1>Typography</h1>
+
+  <div class="preview-box">
+    <div id="typographyHost"></div>
+  </div>
+
+  <div class="preview-box">
+    <h2>Generated HTML</h2>
+    <pre id="codeBlock"></pre>
+  </div>
+
+</div>
+
+</div>
+
+<script>
+function bindPlaybook() {
+  const host = document.getElementById("typographyHost");
+  const code = document.getElementById("codeBlock");
+
+  function sync() {
+    const type = v("pb-type");
+    const color = v("pb-color");
+    const bg = v("pb-bg");
+    const align = v("pb-align");
+    const text = v("pb-text");
+
+    // Clear and reset
+    host.innerHTML = "";
+    
+    // Set text content first
+    host.textContent = text;
+
+    // Set data attributes
+    host.setAttribute("data-pp-typography", "");
+    host.dataset.type = type;
+    host.dataset.color = color;
+    host.dataset.bg = bg;
+    host.dataset.align = align;
+
+    // Initialize component
+    if (typeof initTypography === "function") {
+      initTypography();
+    } else {
+      console.warn("initTypography not found, applying styles manually");
+      // Fallback: apply styles directly if function not loaded
+      host.style.color = color;
+      host.style.backgroundColor = bg;
+      host.style.textAlign = align;
+      host.style.fontSize = type === "h1" ? "32px" : type === "h2" ? "24px" : "16px";
+    }
+
+    code.textContent = `<div
+  data-pp-typography
+  data-type="${type}"
+  data-color="${color}"
+  data-bg="${bg}"
+  data-align="${align}">
+  ${text}
+</div>`;
+  }
+
+  const fields = document.querySelectorAll(
+    ".controls input, .controls select"
+  );
+  fields.forEach(el => el.addEventListener("input", sync));
+
+  sync();
+}
+
+function v(id) {
+  return document.getElementById(id).value;
+}
+
+setTimeout(() => {
+  bindPlaybook();
+}, 500);
+</script>
+
+</body>
+</html>

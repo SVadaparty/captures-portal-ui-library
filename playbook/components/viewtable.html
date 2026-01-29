@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>PP Table – Playbook</title>
+
+<!-- CORE TABLE SCRIPT (your existing code bundle) -->
+<script src="../../dist/pp-ui-core.min.js"></script>
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: Inter, system-ui, sans-serif;
+  display: flex;
+  height: 100vh;
+  background: #f8fafc;
+}
+
+/* ========== CONTROLS ========== */
+.controls {
+  width: 360px;
+  padding: 20px;
+  background: #020617;
+  color: #fff;
+  overflow-y: auto;
+}
+
+.controls h2 {
+  color: #38bdf8;
+  margin-top: 0;
+}
+
+.controls label {
+  display: block;
+  margin-top: 12px;
+  font-size: 13px;
+  color: #cbd5f5;
+}
+
+.controls input,
+.controls select {
+  width: 100%;
+  padding: 8px;
+  border-radius: 6px;
+  border: none;
+  margin-top: 4px;
+}
+
+/* ========== PREVIEW ========== */
+.preview {
+  flex: 1;
+  padding: 24px;
+  overflow-y: auto;
+}
+
+.preview-box {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  margin-bottom: 24px;
+}
+
+/* ========== CODE ========== */
+pre {
+  background: #020617;
+  color: #38bdf8;
+  padding: 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  overflow-x: auto;
+}
+</style>
+</head>
+
+<body>
+
+<!-- ================= CONTROLS ================= -->
+<div class="controls">
+  <h2>Table Settings</h2>
+
+  <label>Datasource name</label>
+  <input id="pb-ds" value="usersData"/>
+
+  <label>Page Size</label>
+  <input id="pb-pagesize" value="5"/>
+
+  <label>Width</label>
+  <input id="pb-width" value="100%"/>
+
+  <label>Font Family</label>
+  <input id="pb-font" value="Arial"/>
+
+  <label>Font Size</label>
+  <input id="pb-fontsize" value="14px"/>
+
+  <label>Text Color</label>
+  <input type="color" id="pb-text" value="#000000"/>
+
+  <label>Border Color</label>
+  <input type="color" id="pb-border" value="#dddddd"/>
+
+  <label>Header Background</label>
+  <input type="color" id="pb-headerbg" value="#e5e7eb"/>
+
+  <label>Header Text Color</label>
+  <input type="color" id="pb-headertext" value="#020617"/>
+
+  <label>Row Hover Background</label>
+  <input type="color" id="pb-hover" value="#f8fafc"/>
+
+  <label>Enable Search</label>
+  <select id="pb-search">
+    <option value="true">true</option>
+    <option value="false">false</option>
+  </select>
+
+  <label>Sticky Header</label>
+  <select id="pb-sticky">
+    <option value="true">true</option>
+    <option value="false">false</option>
+  </select>
+
+  <label>Column Toggle</label>
+  <select id="pb-toggle">
+    <option value="true">true</option>
+    <option value="false">false</option>
+  </select>
+</div>
+
+<!-- ================= PREVIEW ================= -->
+<div class="preview">
+
+  <h2>Live Preview</h2>
+  <div class="preview-box">
+    <div id="tableHost" data-pp-table></div>
+  </div>
+
+  <h2>Generated HTML</h2>
+  <pre id="codeBlock"></pre>
+
+</div>
+
+<script>
+/* ===== MOCK DATA ===== */
+window.usersData = [
+  { name: "Alice", email: "alice@mail.com", role: "Admin" },
+  { name: "Bob", email: "bob@mail.com", role: "User" },
+  { name: "Charlie", email: "charlie@mail.com", role: "Editor" },
+  { name: "David", email: "david@mail.com", role: "User" },
+  { name: "Eva", email: "eva@mail.com", role: "Admin" },
+  { name: "Frank", email: "frank@mail.com", role: "User" }
+];
+
+function v(id) {
+  return document.getElementById(id).value;
+}
+
+function sync() {
+  const host = document.getElementById("tableHost");
+  host.innerHTML = "";
+
+  host.dataset.datasource = v("pb-ds");
+  host.dataset.pageSize = v("pb-pagesize");
+  host.dataset.width = v("pb-width");
+  host.dataset.fontFamily = v("pb-font");
+  host.dataset.fontSize = v("pb-fontsize");
+  host.dataset.textColor = v("pb-text");
+  host.dataset.borderColor = v("pb-border");
+  host.dataset.headerBg = v("pb-headerbg");
+  host.dataset.headerTextColor = v("pb-headertext");
+  host.dataset.rowHoverBg = v("pb-hover");
+  host.dataset.search = v("pb-search");
+  host.dataset.stickyHeader = v("pb-sticky");
+  host.dataset.columnToggle = v("pb-toggle");
+
+  /* FORCE CLEAN INIT */
+  delete host._initialized;
+
+  initTables();
+
+  document.getElementById("codeBlock").textContent =
+`<div
+  data-pp-table
+  data-datasource="${v("pb-ds")}"
+  data-page-size="${v("pb-pagesize")}"
+  data-search="${v("pb-search")}"
+  data-sticky-header="${v("pb-sticky")}"
+  data-column-toggle="${v("pb-toggle")}"
+  data-width="${v("pb-width")}"
+  data-font-family="${v("pb-font")}"
+  data-font-size="${v("pb-fontsize")}"
+  data-text-color="${v("pb-text")}"
+  data-border-color="${v("pb-border")}"
+  data-header-bg="${v("pb-headerbg")}"
+  data-header-text-color="${v("pb-headertext")}"
+  data-row-hover-bg="${v("pb-hover")}">
+</div>`;
+}
+
+document
+  .querySelectorAll(".controls input, .controls select")
+  .forEach(el => el.addEventListener("input", sync));
+
+sync();
+</script>
+
+</body>
+</html>

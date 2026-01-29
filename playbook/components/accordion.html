@@ -5,8 +5,8 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-  <link rel="stylesheet" href="https://PP-Reusable-Components.b-cdn.net/UI-Comp/pp-ui-core.min.css"/>
-  <script src="https://pp-reusable-components.b-cdn.net/UI-Comp/pp-ui-core.min.js"></script>
+  <link rel="stylesheet" href="../../dist/pp-ui-core.min.css"/>
+  <script src="../../dist/pp-ui-core.min.js"></script>
 
   <style>
     body {
@@ -100,6 +100,35 @@
       <option value="false">false</option>
       <option value="true">true</option>
     </select>
+    <label>Header Background Color</label>
+<input type="color" id="pb-bg" value="#ffffff"/>
+
+<label>Header Text Color</label>
+<input type="color" id="pb-color" value="#0f172a"/>
+
+<label>Font Size</label>
+<input id="pb-fontsize" value="14px"/>
+
+<label>Font Weight</label>
+<select id="pb-fontweight">
+  <option value="400">400 (Normal)</option>
+  <option value="500">500</option>
+  <option value="600">600</option>
+  <option value="700">700 (Bold)</option>
+</select>
+
+<label>Text Alignment</label>
+<select id="pb-align">
+  <option value="left">left</option>
+  <option value="center">center</option>
+  <option value="right">right</option>
+</select>
+
+<label>Content Background Color</label>
+<input type="color" id="pb-contentBg" value="#ffffff"/>
+
+<label>Content Text Color</label>
+<input type="color" id="pb-contentColor" value="#374151"/>
 
     <label>Content (HTML allowed)</label>
     <textarea id="pb-content" rows="6">
@@ -164,23 +193,54 @@ function bindPlaybook() {
     const open = pb("pb-open");
     const content = pb("pb-content");
 
+    const bg = pb("pb-bg");
+    const color = pb("pb-color");
+    const fontSize = pb("pb-fontsize");
+    const fontWeight = pb("pb-fontweight");
+    const align = pb("pb-align");
+
+    const contentBg = pb("pb-contentBg");
+    const contentColor = pb("pb-contentColor");
+
+    // -------- DATA ATTRIBUTES --------
     host.dataset.title = title;
     host.dataset.open = open;
+
+    host.dataset.bg = bg;
+    host.dataset.color = color;
+    host.dataset.fontsize = fontSize;
+    host.dataset.fontweight = fontWeight;
+    host.dataset.align = align;
+
+    host.dataset.contentBg = contentBg;
+    host.dataset.contentColor = contentColor;
+
     host.innerHTML = content;
+
+    // 🔑 FORCE CLEAN RE-INIT
+    delete host._initialized;
 
     window.initAccordions();
 
-    // -------- CODE GENERATION --------
+    // -------- GENERATED CODE --------
     codeBlock.textContent =
 `<div
   data-pp-accordion
   data-title="${title}"
-  data-open="${open}">
+  data-open="${open}"
+  data-bg="${bg}"
+  data-color="${color}"
+  data-fontsize="${fontSize}"
+  data-fontweight="${fontWeight}"
+  data-align="${align}"
+  data-content-bg="${contentBg}"
+  data-content-color="${contentColor}">
 ${content}
 </div>`;
   }
 
-  document.querySelectorAll(".controls input, .controls textarea, .controls select")
+  document
+    .querySelectorAll(".controls input, .controls textarea, .controls select")
     .forEach(el => el.addEventListener("input", sync));
 
   sync();
@@ -192,6 +252,7 @@ function pb(id) {
 
 window.addEventListener("load", bindPlaybook);
 </script>
+
 
 </body>
 </html>

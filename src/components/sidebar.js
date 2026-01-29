@@ -6,14 +6,23 @@ function initSidebars() {
   const bg = sidebar.dataset.bg || "#0f172a";
   const textColor = sidebar.dataset.textColor || "#e5e7eb";
   const width = sidebar.dataset.width || "260px";
+  const fontSize = sidebar.dataset.fontsize;
+  const fontWeight = sidebar.dataset.fontweight;
   const collapsible = sidebar.dataset.collapsible === "true";
   const isOpen = sidebar.dataset.open === "true";
+
+  // ---------- RESET PREVIOUS STATE ----------
+  sidebar.className = "";
+  sidebar.style.cssText = "";
 
   // ---------- BASE ----------
   sidebar.classList.add("pp-sidebar");
   sidebar.style.background = bg;
   sidebar.style.color = textColor;
   sidebar.style.width = width;
+  
+  if (fontSize) sidebar.style.fontSize = fontSize;
+  if (fontWeight) sidebar.style.fontWeight = fontWeight;
 
   if (!collapsible) return;
 
