@@ -1,130 +1,147 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>PP Email Form – Playbook</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta charset="UTF-8" />
+<title>PP Email Form – Playbook</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <!-- Core UI -->
-  <link rel="stylesheet" href="../../dist/pp-ui-core.min.css" />
-  <script src="../../dist/pp-ui-core.min.js"></script>
+<!-- CORE UI -->
+<link rel="stylesheet" href="../../dist/pp-ui-core.min.css"/>
+<script src="../../dist/pp-ui-core.min.js"></script>
 
-  <style>
-    body {
-      margin: 0;
-      font-family: Segoe UI, system-ui, sans-serif;
-      background: #f3f4f6;
-    }
+<style>
+* { box-sizing: border-box; }
 
-    .layout {
-      display: grid;
-      grid-template-columns: 360px 1fr;
-      height: 100vh;
-    }
+body {
+  margin: 0;
+  font-family: Inter, system-ui, sans-serif;
+  background: #f8fafc;
+}
 
-    .controls {
-      background: #020617;
-      color: #fff;
-      padding: 20px;
-      overflow-y: auto;
-    }
+/* ================= LAYOUT ================= */
+.layout {
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  height: 100vh;
+}
 
-    .controls h2 {
-      color: #38bdf8;
-      margin-top: 0;
-    }
+/* ================= CONTROLS ================= */
+.controls {
+  background: #020617;
+  color: white;
+  padding: 20px;
+  overflow-y: auto;
+}
 
-    .controls label {
-      display: block;
-      margin-top: 12px;
-      font-size: 13px;
-      color: #cbd5f5;
-    }
+.controls h2 {
+  color: #38bdf8;
+  margin-top: 0;
+}
 
-    .controls input,
-    .controls select {
-      width: 100%;
-      padding: 8px;
-      margin-top: 4px;
-      border-radius: 6px;
-      border: none;
-    }
+.controls label {
+  display: block;
+  margin-top: 14px;
+  font-size: 13px;
+  color: #cbd5f5;
+}
 
-    .preview {
-      padding: 32px;
-      overflow-y: auto;
-    }
+.controls input {
+  width: 100%;
+  padding: 8px;
+  border-radius: 6px;
+  border: none;
+  margin-top: 4px;
+}
 
-    .preview-box {
-      background: #fff;
-      padding: 24px;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0,0,0,.05);
-      margin-bottom: 24px;
-    }
+/* ================= PREVIEW ================= */
+.preview {
+  padding: 32px;
+  overflow-y: auto;
+}
 
-    .playbook-back {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      color: #2563eb;
-      font-weight: 600;
-      font-size: 14px;
-      text-decoration: none;
-      margin-bottom: 16px;
-    }
+.preview-box {
+  background: white;
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,.05);
+  margin-bottom: 24px;
+}
 
-    pre {
-      background: #020617;
-      color: #38bdf8;
-      padding: 16px;
-      border-radius: 8px;
-      overflow-x: auto;
-      font-size: 13px;
-    }
-  </style>
+pre {
+  background: #020617;
+  color: #38bdf8;
+  padding: 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  overflow-x: auto;
+}
+
+.playbook-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #2563eb;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: 16px;
+}
+</style>
 </head>
 
 <body>
 
 <div class="layout">
 
-  <!-- CONTROLS -->
+  <!-- ============ CONTROLS ============ -->
   <div class="controls">
     <h2>Email Form Settings</h2>
 
-    <label>onSubmit handler</label>
-    <select id="pb-onSubmit">
-      <option value="">None</option>
-      <option value="handleEmailSubmit">handleEmailSubmit()</option>
-    </select>
+    <label>onSubmit Function</label>
+    <input id="pb-onsubmit" value="handleSendEmail"/>
 
-    <label>Show CC Field</label>
-    <select id="pb-cc">
-      <option value="true">true</option>
-      <option value="false">false</option>
-    </select>
+    <label>Default TO Email</label>
+    <input id="pb-to" value="john@example.com"/>
 
-    <label>Allow Attachments</label>
-    <select id="pb-attachments">
-      <option value="true">true</option>
-      <option value="false">false</option>
+    <label>Default Subject</label>
+    <input id="pb-subject" value="Hello from PP Email Form"/>
+
+    <label>Default Body</label>
+    <input id="pb-body" value="This email was sent using Power Pages UI."/>
+
+    <hr style="margin: 16px 0; border: none; border-top: 1px solid #333;">
+    <h3 style="margin: 12px 0; color: #38bdf8; font-size: 14px;">Styles</h3>
+
+    <label>Background Color</label>
+    <input type="color" id="pb-bg" value="#ffffff"/>
+
+    <label>Font Color</label>
+    <input type="color" id="pb-color" value="#000000"/>
+
+    <label>Font Weight</label>
+    <input id="pb-weight" type="number" min="100" max="900" step="100" value="400"/>
+
+    <label>Text Alignment</label>
+    <select id="pb-align" style="width: 100%; padding: 8px; border-radius: 6px; border: none; margin-top: 4px;">
+      <option value="left">left</option>
+      <option value="center">center</option>
+      <option value="right">right</option>
     </select>
   </div>
 
-  <!-- PREVIEW -->
+  <!-- ============ PREVIEW ============ -->
   <div class="preview">
 
     <a href="../index.html" class="playbook-back">← Back to Playbook</a>
 
-    <h1>Email Form</h1>
+    <h1>Power Pages – Email Form</h1>
 
     <!-- LIVE PREVIEW -->
     <div class="preview-box">
-      <div id="emailFormHost"></div>
+      <div id="emailHost" data-pp-email-form></div>
     </div>
 
-    <!-- GENERATED CODE -->
+    <!-- GENERATED HTML -->
     <div class="preview-box">
       <h2>Generated HTML</h2>
       <pre id="codeBlock"></pre>
@@ -134,21 +151,15 @@
     <div class="preview-box">
       <h2>How to use Email Form</h2>
 
-<pre>
+      <pre>
 &lt;div
   data-pp-email-form
-  data-on-submit="handleEmailSubmit"&gt;
+  data-on-submit="handleSendEmail"&gt;
 &lt;/div&gt;
+      </pre>
 
-&lt;script&gt;
-function handleEmailSubmit(payload) {
-  console.log(payload);
-}
-&lt;/script&gt;
-</pre>
-
-      <h3>Payload Structure</h3>
-<pre>
+      <h3>Payload</h3>
+      <pre>
 {
   from: string,
   to: string,
@@ -157,66 +168,73 @@ function handleEmailSubmit(payload) {
   body: string,
   attachments: File[]
 }
-</pre>
-
-      <h3>Supported Attributes</h3>
-      <table style="width:100%;border-collapse:collapse;">
-        <tr><th align="left">Attribute</th><th align="left">Description</th></tr>
-        <tr><td>data-pp-email-form</td><td>Initializes email form</td></tr>
-        <tr><td>data-on-submit</td><td>JS submit handler</td></tr>
-      </table>
+      </pre>
     </div>
 
   </div>
-
 </div>
 
 <script>
-function handleEmailSubmit(payload) {
-  alert(
-    "Email payload:\\n" +
-    JSON.stringify(payload, null, 2)
-  );
+/* ===== DEMO HANDLER ===== */
+function handleSendEmail(payload) {
+  console.log("EMAIL PAYLOAD:", payload);
+  alert("Email payload logged to console");
 }
 
-function bindPlaybook() {
-  const host = document.getElementById("emailFormHost");
-  const codeBlock = document.getElementById("codeBlock");
-
-  function sync() {
-    host.innerHTML = "";
-    delete host._initialized;
-
-    const onSubmit = pb("pb-onSubmit");
-    if (onSubmit) host.dataset.onSubmit = onSubmit;
-    else delete host.dataset.onSubmit;
-
-    host.innerHTML = `
-      <div data-pp-email-form${onSubmit ? ` data-on-submit="${onSubmit}"` : ""}></div>
-    `;
-
-    initEmailForms();
-
-    codeBlock.textContent =
-`<div
-  data-pp-email-form${onSubmit ? `
-  data-on-submit="${onSubmit}"` : ""}>
-</div>`;
-  }
-
-  document.querySelectorAll(".controls select")
-    .forEach(el => el.addEventListener("input", sync));
-
-  sync();
-}
-
-function pb(id) {
+/* ===== PLAYBOOK LOGIC ===== */
+function v(id) {
   return document.getElementById(id).value;
 }
 
-// Wait for module to load before initializing
+function sync() {
+  const host = document.getElementById("emailHost");
+  const code = document.getElementById("codeBlock");
+
+  const bgColor = v("pb-bg");
+  const fontColor = v("pb-color");
+  const fontWeight = v("pb-weight");
+  const textAlign = v("pb-align");
+
+  host.innerHTML = "";
+  host.style.backgroundColor = bgColor;
+  host.style.color = fontColor;
+  host.style.fontWeight = fontWeight;
+  host.style.textAlign = textAlign;
+  host.style.padding = "16px";
+  host.style.borderRadius = "8px";
+
+  host.dataset.onSubmit = v("pb-onsubmit");
+
+  /* FORCE CLEAN INIT */
+  delete host._initialized;
+
+  initEmailForms();
+
+  /* PREFILL DEMO VALUES */
+  setTimeout(() => {
+    const inputs = host.querySelectorAll("[data-pp-input]");
+    inputs.forEach(input => {
+      if (input.dataset.field === "to") input.value = v("pb-to");
+      if (input.dataset.field === "subject") input.value = v("pb-subject");
+    });
+
+    const textarea = host.querySelector("textarea");
+    if (textarea) textarea.value = v("pb-body");
+  }, 0);
+
+  code.textContent =
+`<div
+  data-pp-email-form
+  data-on-submit="${v("pb-onsubmit")}">
+</div>`;
+}
+
+document
+  .querySelectorAll(".controls input, .controls select")
+  .forEach(el => el.addEventListener("input", sync));
+
 setTimeout(() => {
-  bindPlaybook();
+  sync();
 }, 500);
 </script>
 
