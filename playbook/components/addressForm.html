@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>PP Address Form – Playbook</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: Inter, system-ui, sans-serif;
+  background: #f8fafc;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  height: 100vh;
+}
+
+/* LEFT PANEL */
+.controls {
+  background: #020617;
+  color: white;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.controls h2 {
+  color: #38bdf8;
+  margin-top: 0;
+}
+
+.controls label {
+  display: block;
+  margin-top: 14px;
+  font-size: 13px;
+  color: #cbd5f5;
+}
+
+.controls input {
+  width: 100%;
+  padding: 8px;
+  border-radius: 6px;
+  border: none;
+  margin-top: 4px;
+}
+
+/* RIGHT PREVIEW */
+.preview {
+  padding: 32px;
+  overflow-y: auto;
+}
+
+.preview-box {
+  background: white;
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,.05);
+  margin-bottom: 24px;
+}
+
+pre {
+  background: #020617;
+  color: #38bdf8;
+  padding: 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  overflow-x: auto;
+}
+</style>
+</head>
+
+<body>
+
+<div class="layout">
+
+  <!-- CONTROLS -->
+  <div class="controls">
+    <h2>Address Form Settings</h2>
+
+    <label>Form ID</label>
+    <input id="pb-formid" value="addressForm"/>
+
+    <label>Submit Button Label</label>
+    <input id="pb-submitlabel" value="Submit Address"/>
+
+    <label>Default Name</label>
+    <input id="pb-name" value="Chanchal kumar"/>
+
+    <label>Default Address</label>
+    <input id="pb-address1" value="Yusufguda,Hyderabad"/>
+
+    <label>Default City</label>
+    <input id="pb-city" value="Hyderabad"/>
+
+    <label>Default State</label>
+    <input id="pb-state" value="Telangana"/>
+
+    <label>Default Pincode</label>
+    <input id="pb-pincode" value="500001"/>
+
+    <label>Default Country</label>
+    <input id="pb-country" value="India"/>
+  </div>
+
+  <!-- PREVIEW -->
+  <div class="preview">
+
+    <h1>Power Pages – Address Form</h1>
+
+    <div class="preview-box">
+      <form id="addressForm"></form>
+    </div>
+
+    <div class="preview-box">
+      <h2>Generated HTML</h2>
+      <pre id="codeBlock"></pre>
+    </div>
+
+  </div>
+</div>
+
+<script>
+
+/* ===== SUBMIT FUNCTION ===== */
+function submitAddressForm(formId) {
+  const form = document.getElementById(formId);
+  if (!form) {
+    alert("Form not found: " + formId);
+    return;
+  }
+
+  const inputs = form.querySelectorAll("[data-pp-input]");
+
+  const data = {};
+  let allValid = true;
+
+  inputs.forEach(input => {
+    input.dispatchEvent(new Event("blur"));
+
+    if (input.dataset.required === "true" && !input.value.trim()) {
+      allValid = false;
+    }
+
+    const key =
+      input.dataset.name ||
+      input.dataset.placeholder ||
+      "field";
+
+    data[key] = input.value.trim();
+  });
+
+  if (!allValid) {
+    alert("Please fill all required fields correctly.");
+    return;
+  }
+
+  let message = "Address Form Data:\n\n";
+  Object.entries(data).forEach(([k, v]) => {
+    message += `${k}: ${v || "-"}\n`;
+  });
+
+  alert(message);
+}
+
+window.submitAddressForm = submitAddressForm;
+
+
+/* ===== PLAYBOOK ===== */
+
+function v(id){
+  return document.getElementById(id).value;
+}
+
+function buildInput(field, required=false, type="text"){
+  const input = document.createElement("input");
+  input.setAttribute("data-pp-input","");
+  input.dataset.name = field;
+  input.dataset.type = type;
+  if(required) input.dataset.required = "true";
+  input.placeholder = field;
+
+  input.style.display = "block";
+  input.style.marginBottom = "12px";
+  input.style.padding = "8px";
+  input.style.width = "280px";
+
+  return input;
+}
+
+function sync(){
+
+  const formId = v("pb-formid");
+  const form = document.getElementById("addressForm");
+  const code = document.getElementById("codeBlock");
+
+  form.id = formId;
+  form.innerHTML = "";
+
+  const nameInput = buildInput("Name", true);
+  const address1Input = buildInput("Address Line 1", true);
+  const cityInput = buildInput("City", true);
+  const stateInput = buildInput("State", true);
+  const pinInput = buildInput("Pincode", false, "pincode");
+  const countryInput = buildInput("Country", true);
+
+  form.appendChild(nameInput);
+  form.appendChild(address1Input);
+  form.appendChild(cityInput);
+  form.appendChild(stateInput);
+  form.appendChild(pinInput);
+  form.appendChild(countryInput);
+
+  const btn = document.createElement("button");
+  btn.type = "button";
+  btn.textContent = v("pb-submitlabel");
+  btn.onclick = () => submitAddressForm(formId);
+  btn.style.padding = "8px 16px";
+  btn.style.cursor = "pointer";
+
+  form.appendChild(btn);
+
+  /* Prefill */
+  nameInput.value = v("pb-name");
+  address1Input.value = v("pb-address1") || "";
+  cityInput.value = v("pb-city");
+  stateInput.value = v("pb-state");
+  pinInput.value = v("pb-pincode");
+  countryInput.value = v("pb-country");
+
+  code.textContent =
+`<form id="${formId}">
+  <input data-pp-input data-name="Name" data-required="true">
+  <input data-pp-input data-name="Address Line 1" data-required="true">
+  <input data-pp-input data-name="City" data-required="true">
+  <input data-pp-input data-name="State" data-required="true">
+  <input data-pp-input data-name="Pincode" data-type="pincode">
+   <input data-pp-input data-name="Country" data-required="true">
+
+  <button onclick="submitAddressForm('${formId}')">
+    ${v("pb-submitlabel")}
+  </button>
+</form>`;
+}
+
+document
+  .querySelectorAll(".controls input")
+  .forEach(el => el.addEventListener("input", sync));
+
+window.addEventListener("load", sync);
+
+</script>
+
+</body>
+</html>
