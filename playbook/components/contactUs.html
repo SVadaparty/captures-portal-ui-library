@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>PP Form Playbook – Final</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<link rel="stylesheet" href="../../dist/pp-ui-core.min.css"/>
+<script src="../../dist/pp-ui-core.min.js"></script>
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: Inter, system-ui, sans-serif;
+  background: #f8fafc;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  height: 100vh;
+}
+
+.controls {
+  background: #020617;
+  color: white;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.controls h2 {
+  color: #38bdf8;
+  margin-top: 0;
+}
+
+.controls label {
+  display: block;
+  margin-top: 14px;
+  font-size: 13px;
+  color: #cbd5f5;
+}
+
+.controls input {
+  width: 100%;
+  padding: 8px;
+  border-radius: 6px;
+  border: none;
+  margin-top: 4px;
+}
+
+.preview {
+  padding: 32px;
+  overflow-y: auto;
+}
+
+.preview-box {
+  background: white;
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,.05);
+  margin-bottom: 24px;
+}
+
+pre {
+  background: #020617;
+  color: #38bdf8;
+  padding: 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  overflow-x: auto;
+}
+</style>
+</head>
+
+<body>
+
+<div class="layout">
+
+  <!-- CONTROLS -->
+  <div class="controls">
+
+    <h2>Form Settings</h2>
+
+    <label>Form ID</label>
+    <input id="pb-formid" value="ppForm"/>
+
+    <label>Form Title (Alert Title)</label>
+    <input id="pb-title" value="User Form Data"/>
+
+    <label>Submit Button Label</label>
+    <input id="pb-submitlabel" value="Submit Form"/>
+
+    <h2 style="margin-top:30px">Default Values</h2>
+
+    <label>Name</label>
+    <input id="pb-name" value="John Doe"/>
+
+    <label>Email</label>
+    <input id="pb-email" value="john@email.com"/>
+
+    <label>Mobile</label>
+    <input id="pb-mobile" value="9876543210"/>
+
+    <label>Message</label>
+    <input id="pb-message" value="Hello this is sample message"/>
+
+  </div>
+
+  <!-- PREVIEW -->
+  <div class="preview">
+
+    <h1>Power Pages – Form</h1>
+
+    <div class="preview-box">
+      <form id="ppForm"></form>
+    </div>
+
+    <div class="preview-box">
+      <h2>Generated HTML</h2>
+      <pre id="codeBlock"></pre>
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+/* ================= SUBMIT FUNCTION ================= */
+function submitPPForm(formId, title = "Form Data") {
+
+  const form = document.getElementById(formId);
+  if (!form) {
+    alert("Form not found: " + formId);
+    return;
+  }
+
+  const inputs = form.querySelectorAll("[data-pp-input]");
+  if (!inputs.length) {
+    alert("No inputs found in form");
+    return;
+  }
+
+  const data = {};
+  let allValid = true;
+
+  inputs.forEach(input => {
+
+    input.dispatchEvent(new Event("blur"));
+
+    if (input.dataset.required === "true" && !input.value.trim()) {
+      allValid = false;
+    }
+
+    const key =
+      input.dataset.name ||
+      input.dataset.placeholder ||
+      "field";
+
+    data[key] = input.value.trim();
+  });
+
+  if (!allValid) {
+    alert("Please fill all required fields correctly.");
+    return;
+  }
+
+  let message = `${title}:\n\n`;
+
+  Object.entries(data).forEach(([k, v]) => {
+    message += `${k}: ${v || "-"}\n`;
+  });
+
+  alert(message);
+}
+
+window.submitPPForm = submitPPForm;
+
+
+/* ================= PLAYBOOK ================= */
+
+function v(id){
+  return document.getElementById(id).value;
+}
+
+function buildInput(field, required=false, type="text") {
+
+  const input = document.createElement("input");
+
+  input.setAttribute("data-pp-input","");
+  input.dataset.name = field;
+  input.dataset.type = type;
+
+  if(required) input.dataset.required = "true";
+
+  input.placeholder = field;
+  input.style.display = "block";
+  input.style.marginBottom = "12px";
+  input.style.padding = "8px";
+  input.style.width = "280px";
+
+  return input;
+}
+
+function buildTextarea(field, required=false) {
+
+  const textarea = document.createElement("textarea");
+
+  textarea.setAttribute("data-pp-input","");
+  textarea.dataset.name = field;
+
+  if(required) textarea.dataset.required = "true";
+
+  textarea.placeholder = field;
+  textarea.style.display = "block";
+  textarea.style.marginBottom = "12px";
+  textarea.style.padding = "8px";
+  textarea.style.width = "280px";
+  textarea.style.minHeight = "100px";
+
+  return textarea;
+}
+
+function sync(){
+
+  const formId = v("pb-formid");
+  const form = document.getElementById("ppForm");
+  const code = document.getElementById("codeBlock");
+
+  form.id = formId;
+  form.innerHTML = "";
+
+  const nameInput = buildInput("Name", true);
+  const emailInput = buildInput("Email", true, "email");
+  const mobileInput = buildInput("Mobile", false, "mobileNumber");
+  const messageInput = buildTextarea("Message", true);
+
+  form.appendChild(nameInput);
+  form.appendChild(emailInput);
+  form.appendChild(mobileInput);
+  form.appendChild(messageInput);
+
+  const btn = document.createElement("button");
+  btn.type = "button";
+  btn.textContent = v("pb-submitlabel");
+  btn.onclick = () => submitPPForm(formId, v("pb-title"));
+  btn.style.padding = "8px 16px";
+  btn.style.cursor = "pointer";
+
+  form.appendChild(btn);
+
+  /* Prefill */
+  nameInput.value = v("pb-name");
+  emailInput.value = v("pb-email");
+  mobileInput.value = v("pb-mobile");
+  messageInput.value = v("pb-message");
+
+  /* Generated Code */
+  code.textContent =
+`<form id="${formId}">
+
+  <input data-pp-input data-name="Name" data-required="true">
+
+  <input data-pp-input data-name="Email"
+         data-type="email" data-required="true">
+
+  <input data-pp-input data-name="Mobile"
+         data-type="mobileNumber">
+
+  <textarea data-pp-input data-name="Message"
+            data-required="true"></textarea>
+
+  <button onclick="submitPPForm('${formId}', '${v("pb-title")}')">
+    ${v("pb-submitlabel")}
+  </button>
+
+</form>`;
+}
+
+document
+  .querySelectorAll(".controls input")
+  .forEach(el => el.addEventListener("input", sync));
+
+window.addEventListener("load", sync);
+
+</script>
+
+</body>
+</html>

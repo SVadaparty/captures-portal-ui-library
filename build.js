@@ -28,6 +28,7 @@ const js =
   fs.readFileSync("src/components/model.js", "utf8") +
   fs.readFileSync("src/components/toast.js", "utf8") +
   fs.readFileSync("src/components/addressForm.js", "utf8") +
+  fs.readFileSync("src/components/contactUs.js", "utf8") +
   fs.readFileSync("src/components/header.js", "utf8") +
   fs.readFileSync("src/components/multiDropdown.js", "utf8") +
   fs.readFileSync("src/components/footer.js", "utf8") +

@@ -534,3 +534,52 @@ body {
   background: #2563eb; /* blue (optional) */
 }
 .pp-toast-error   { background: #dc2626; }
+
+.contact-wrapper {
+  display: flex;
+  gap: 32px;
+  align-items: flex-start;
+}
+
+.contact-form,
+.contact-help {
+  width: 50%;
+}
+
+.contact-help {
+  padding: 24px;
+  background: #f8fafc;
+  border-radius: 12px;
+}
+
+.contact-help h2 {
+  margin-top: 0;
+}
+
+.contact-help ul {
+  padding-left: 18px;
+}
+
+.contact-form label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 500;
+}
+
+.contact-form input,
+.contact-form textarea {
+  display: block;
+  width: 100%;
+  margin-bottom: 16px;
+}
+.contact-form label {
+  font-weight: 600; /* or 700 for stronger */
+}
+#addressFormCard label{
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+
+

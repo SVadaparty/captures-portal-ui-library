@@ -12,17 +12,17 @@
 
   <div data-pp-card data-title="User Details" data-subtitle="Profile information" data-padding="24px" data-radius="12px"
     data-bgcolor="#ffffff" data-bordercolor="#0f172a" data-shadow="lg">
-<label>Padding</label>
-    <input id="pb-padding" value="24px"/>
+    <label>Padding</label>
+    <input id="pb-padding" value="24px" />
 
     <label>Border Radius</label>
-    <input id="pb-radius" value="12px"/>
+    <input id="pb-radius" value="12px" />
 
     <label>Background Color</label>
-    <input id="pb-bgcolor" type="color" value="#ffffff"/>
+    <input id="pb-bgcolor" type="color" value="#ffffff" />
 
     <label>Border Color</label>
-    <input id="pb-bordercolor" type="color" value="#e5e7eb"/>
+    <input id="pb-bordercolor" type="color" value="#e5e7eb" />
 
     <label>Shadow</label>
     <select id="pb-shadow">
@@ -30,7 +30,8 @@
       <option value="md" selected>Medium</option>
       <option value="lg">Large</option>
       <option value="none">None</option>
-    </select>  </div>
+    </select>
+  </div>
 
   <div data-pp-card data-bg="#fff" data-border-color="#dee2e6" data-border-radius="0.5rem">
     <div data-pp-card-header>Featured</div>
@@ -47,12 +48,12 @@
   </div>
 
   <!-- INPUTS -->
-  <input data-width="60%" data-pp-input data-placeholder="Email" data-type="email"  />
+  <input data-width="60%" data-pp-input data-placeholder="Email" data-type="email" />
   <div data-pp-validation data-for="email"></div>
 
 
   <br /><br />
-  <input data-pp-input data-field="password" data-type="password" data-placeholder="Password"/>
+  <input data-pp-input data-field="password" data-type="password" data-placeholder="Password" />
   <div data-pp-validation data-for="password"></div>
   <br /><br />
   <input data-pp-input data-field="pincode" data-type="pincode" data-placeholder="Pincode" data-required="true" />
@@ -125,45 +126,32 @@
 
   <br /><br />
 
-<div data-pp-modal data-id="myModal">
-  <div data-pp-modal-header>
-    <h2 style="margin:0; text-align:center;">This is Header area</h2>
-  </div>
+  <div data-pp-modal data-id="myModal">
+    <div data-pp-modal-header>
+      <h2 style="margin:0; text-align:center;">This is Header area</h2>
+    </div>
 
-  <!-- MODAL BODY -->
-  <div data-pp-modal-body>
-    
-    <div
-      data-pp-table
-      data-datasource="usersData"
-      data-search="true"
-      data-filter="true"
-      data-search-placeholder="Search"
-      data-filter-placeholder="Select column"
-      data-width="100%"
-      data-font-family="sans-serif"
-      data-font-size="14px"
-      data-border-color="#000"
-      data-header-bg="#b7c9e6"
-      data-header-text-color="#03025f"
-      data-row-hover-bg="#fafafa"
-      data-text-color="#000"
-      data-page-size="2"
-      data-sticky-header="true"
-      data-column-toggle="true">
+    <!-- MODAL BODY -->
+    <div data-pp-modal-body>
+
+      <div data-pp-table data-datasource="usersData" data-search="true" data-filter="true"
+        data-search-placeholder="Search" data-filter-placeholder="Select column" data-width="100%"
+        data-font-family="sans-serif" data-font-size="14px" data-border-color="#000" data-header-bg="#b7c9e6"
+        data-header-text-color="#03025f" data-row-hover-bg="#fafafa" data-text-color="#000" data-page-size="2"
+        data-sticky-header="true" data-column-toggle="true">
+      </div>
+    </div>
+
+    <!-- MODAL FOOTER -->
+    <div data-pp-modal-footer>
+      <div data-pp-tabs data-tabs="Details,Settings" data-active="0" data-text-color="#475569" data-active-bg="#2563eb"
+        data-active-color="#fff" data-hover-color="#1d4ed8" data-onselect="onTabSelect" data-active-bg-style="block">
+      </div>
+
     </div>
   </div>
 
-  <!-- MODAL FOOTER -->
-  <div data-pp-modal-footer>
-    <div data-pp-tabs data-tabs="Details,Settings" data-active="0" data-text-color="#475569" data-active-bg="#2563eb"
-    data-active-color="#fff" data-hover-color="#1d4ed8" data-onselect="onTabSelect" data-active-bg-style="block">
   </div>
-
-  </div>
-  </div>
-
-</div>
 
   <nav data-pp-breadcrumb data-items="Home,Library,Data,Reports" data-links="/,/library,/library,/reports"
     data-icons="🏠,📁,📄,📊" data-text-color="red" data-link-color="green" data-active-color="#0f172a"
@@ -183,322 +171,318 @@
   </div>
 
   <br /><br />
-<div
-  data-pp-card
-  data-pp-form="address"
-  data-title="Address Details"
-  data-subtitle="Please enter your address"
-  data-padding="24px"
-  data-radius="12px"
-  data-bgcolor="#ffffff"
-  data-bordercolor="#e5e7eb"
-  data-shadow="md"
-  id="addressFormCard"
->
+  <div data-pp-card data-pp-form="address" data-title="Address Details" data-subtitle="Please enter your address"
+    data-padding="24px" data-radius="12px" data-bgcolor="#ffffff" data-bordercolor="#e5e7eb" data-shadow="md"
+    id="addressFormCard">
 
-  <!-- Address Line 1 -->
-  <label>Address Line 1</label>
-  <input
-    data-pp-input
-    data-name="Address Line 1"
-    data-placeholder="House no, Street, Area"
-    data-required="true"
-    data-requiredmessage="Address Line 1 is required"
-    data-width="100%"
-  />
+    <!-- Address Line 1 -->
+    <label>Name</label>
+    <input data-pp-input data-name="Address Line 1" data-placeholder="Name" data-required="true"
+      data-requiredmessage="Address Line 1 is required" data-width="100%" />
 
-  <!-- Address Line 2 -->
-  <label>Address Line 2</label>
-  <input
-    data-pp-input
-    data-name="Address Line 2"
-    data-placeholder="Apartment, Landmark (optional)"
-    data-width="100%"
-  />
+    <!-- Address Line 2 -->
+    <label>Address Line 2</label>
+    <input data-pp-input data-name="Address Line 2" data-placeholder="Apartment, Landmark (optional)"
+      data-width="100%" />
 
-  <!-- City -->
-  <label>City</label>
-  <input
-    data-pp-input
-    data-name="City"
-    data-placeholder="City"
-    data-required="true"
-    data-width="100%"
-  />
+    <!-- City -->
+    <label>City</label>
+    <input data-pp-input data-name="City" data-placeholder="City" data-required="true" data-width="100%" />
 
-  <!-- State -->
-  <label>State</label>
-  <input
-    data-pp-input
-    data-name="State"
-    data-placeholder="State"
-    data-required="true"
-    data-width="100%"
-  />
+    <!-- State -->
+    <label>State</label>
+    <input data-pp-input data-name="State" data-placeholder="State" data-required="true" data-width="100%" />
 
-  <!-- Pincode -->
-  <label>Pincode</label>
-  <input
-    data-pp-input
-    data-name="Pincode"
-    data-type="pincode"
-    data-placeholder="Enter pincode"
-    data-length="6"
-    data-required="true"
-    data-width="100%"
-    data-errormessage="Enter a valid 6-digit pincode"
-  />
+    <!-- Pincode -->
+    <label>Pincode</label>
+    <input data-pp-input data-name="Pincode" data-type="pincode" data-placeholder="Enter pincode" data-length="6"
+      data-required="true" data-width="100%" data-errormessage="Enter a valid 6-digit pincode" />
 
-  <!-- Country -->
-  <label>Country</label>
-  <input
-    data-pp-input
-    data-name="Country"
-    data-placeholder="Country"
-    data-value="India"
-    data-width="100%"
-  />
+    <!-- Country -->
+    <label>Country</label>
+    <input data-pp-input data-name="Country" data-placeholder="Country" data-value="India" data-width="100%" />
 
-  <!-- Submit Button -->
-  <div style="margin-top: 20px; text-align: right;">
-   <button
-  type="button"
-  onclick="submitAddressForm('addressFormCard')"
->
-  Submit
-</button>
-  </div>
-
+    <!-- Submit Button -->
+    <div style="margin-top: 20px; text-align: center;">
+      <button data-pp-button data-label="Submit" data-type="primary" onclick="submitAddressForm('addressFormCard')">
+      </button>
+    </div>
+    <hr />
 </div>
 
-  <br /><br />
+    <br /><br />
+
+    <div class="contact-wrapper">
+
+      <!-- LEFT: Contact Form -->
+
+      <div class="contact-help">
+        <h1>How can we help you?</h1>
+        <p>
+          Thank you for your interest In TRC Companies.
+        </p>
+      </div>
+
+
+      <!-- RIGHT: Help Text -->
+      <div class="contact-form">
+        <!-- 👇 YOUR EXISTING FORM (unchanged) -->
+        <div data-pp-card id="contactFormCard" data-title="Contact Us" data-subtitle="We would love to hear from you"
+          data-padding="24px" data-radius="12px" data-bgcolor="#ffffff" data-bordercolor="#e5e7eb" data-shadow="md">
+
+          <!-- Name -->
+          <label>Name</label>
+          <input data-pp-input data-name="Name" data-required="true" data-width="100%" />
+
+          <label>Email</label>
+          <input data-pp-input data-type="email" data-name="Email" data-required="true" data-width="100%" />
+
+          <label>Phone Number</label>
+          <input data-pp-input data-type="mobile" data-name="Phone" data-length="10" data-required="true"
+            data-width="100%" />
+
+          <label>Message</label>
+          <textarea data-pp-input data-name="Message" data-required="true" data-width="100%"
+            style="min-height:100px;"></textarea>
+
+          <div style="margin-top:20px; text-align:left;">
+            <button data-pp-button data-label="Save" data-type="Secondary"
+              onclick="submitPPForm('contactFormCard', 'Contact Us Form Data')">
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr />
 
 
 
-  <!-- LOADER TEST -->
-  <div data-pp-loader data-text="Loading..." data-size="50px" data-color="#2563eb" data-bgcolor="#e0e7ff"
-    data-align="center"></div>
-  <!-- <div
+
+    <!-- LOADER TEST -->
+    <div data-pp-loader data-text="Loading..." data-size="50px" data-color="#2563eb" data-bgcolor="#e0e7ff"
+      data-align="center"></div>
+    <!-- <div
   data-pp-loader
   data-color="#16a34a"
   data-bgcolor="#dcfce7"
   data-text="Processing...">
 </div> -->
-  <br /><br />
-  <div data-pp-alert data-type="secondary">Secondary alert</div>
-  <div data-pp-alert data-type="warning">Warning alert</div>
-  <div data-pp-alert data-type="info">Info alert</div>
+    <br /><br />
+    <div data-pp-alert data-type="secondary">Secondary alert</div>
+    <div data-pp-alert data-type="warning">Warning alert</div>
+    <div data-pp-alert data-type="info">Info alert</div>
 
-  <!-- PRIMARY ALERT -->
-  <div data-pp-alert data-type="primary">
-    Primary alert — check it out!
-  </div>
+    <!-- PRIMARY ALERT -->
+    <div data-pp-alert data-type="primary">
+      Primary alert — check it out!
+    </div>
 
-  <!-- SUCCESS ALERT -->
-  <div data-pp-alert data-type="success">
-    Success alert — operation completed!
-  </div>
+    <!-- SUCCESS ALERT -->
+    <div data-pp-alert data-type="success">
+      Success alert — operation completed!
+    </div>
 
-  <!-- LIGHT ALERT -->
-  <div data-pp-alert data-type="light">
-    Light alert
-  </div>
+    <!-- LIGHT ALERT -->
+    <div data-pp-alert data-type="light">
+      Light alert
+    </div>
 
-  <!-- DARK ALERT (OVERRIDDEN BACKGROUND FOR TESTING) -->
-  <div data-pp-alert data-type="dark" style="
+    <!-- DARK ALERT (OVERRIDDEN BACKGROUND FOR TESTING) -->
+    <div data-pp-alert data-type="dark" style="
     background-color:#18dd18;
     color:#115598;
   ">
-    Dark alert (custom overridden background)
-  </div>
-  <div style="
+      Dark alert (custom overridden background)
+    </div>
+    <div style="
     display: flex;
     width: 100%;
   ">
-    <div>
+      <div>
 
-      <input data-pp-datepicker data-width="80%" data-format="MM/DD/YYYY" data-onchange="onDateChange" />
+        <input data-pp-datepicker data-width="80%" data-format="MM/DD/YYYY" data-onchange="onDateChange" />
+      </div>
+      <div data-pp-radio-group data-layout="row" data-options='["Minimum date","Maximum date"]'
+        data-onchange="onFileModeChange">
+      </div>
     </div>
-    <div data-pp-radio-group data-layout="row" data-options='["Minimum date","Maximum date"]'
-      data-onchange="onFileModeChange">
+    <br /><br />
+
+
+    <header data-pp-header data-logo="SipNSee" data-sticky="true" data-cta-label="Get Started"
+      data-cta-onclick="onHeaderCtaClick">
+
+      <!-- LEFT / CENTER / RIGHT / ANY STRUCTURE -->
+      <div class="custom-left">
+        <span>Surendra</span>
+      </div>
+
+
+
+
+      <div class="custom-center">
+        <a data-pp-nav-item data-label="Services" data-href="#services"></a>
+        <a data-pp-nav-item data-label="Pricing" data-href="#pricing"></a>
+        <a data-pp-nav-item data-label="Contact" data-href="#contact"></a>
+      </div>
+
+      <div class="custom-right">
+        <button data-pp-button data-label="Login"></button>
+      </div>
+
+    </header>
+    <div data-pp-pdf-wrapper data-id="invoicePdf" data-title="Invoice" data-orientation="portrait" data-pagesize="a4"
+      data-download-label="Download PDF">
+
+      <h2>Invoice #1023 sample for html to pdf fomat </h2>
+      <p>Customer: testing pdf format including below table</p>
+
+      <div data-pp-table data-datasource="usersData"></div>
+
     </div>
-  </div>
-  <br /><br />
+    <div data-pp-container data-layout="column" data-gap="8px">
 
+      <div data-pp-accordion data-title="Section 1">
+        <p>Content for section 1</p>
+      </div>
 
-  <header data-pp-header data-logo="SipNSee" data-sticky="true" data-cta-label="Get Started"
-    data-cta-onclick="onHeaderCtaClick">
+      <div data-pp-accordion data-title="Section 2" data-open="true">
+        <h1>test 1</h1>
+        <p>Content for section 2</p>
+      </div>
 
-    <!-- LEFT / CENTER / RIGHT / ANY STRUCTURE -->
-    <div class="custom-left">
-      <span>Surendra</span>
-    </div>
+      <div data-pp-accordion data-title="Section 3">
+        <p>Content for section 3</p>
+      </div>
 
-
-
-
-    <div class="custom-center">
-      <a data-pp-nav-item data-label="Services" data-href="#services"></a>
-      <a data-pp-nav-item data-label="Pricing" data-href="#pricing"></a>
-      <a data-pp-nav-item data-label="Contact" data-href="#contact"></a>
-    </div>
-
-    <div class="custom-right">
-      <button data-pp-button data-label="Login"></button>
-    </div>
-
-  </header>
-  <div data-pp-pdf-wrapper data-id="invoicePdf" data-title="Invoice" data-orientation="portrait" data-pagesize="a4"
-    data-download-label="Download PDF">
-
-    <h2>Invoice #1023 sample for html to pdf fomat </h2>
-    <p>Customer: testing pdf format including below table</p>
-
-    <div data-pp-table data-datasource="usersData"></div>
-
-  </div>
-  <div data-pp-container data-layout="column" data-gap="8px">
-
-    <div data-pp-accordion data-title="Section 1">
-      <p>Content for section 1</p>
-    </div>
-
-    <div data-pp-accordion data-title="Section 2" data-open="true">
-      <h1>test 1</h1>
-      <p>Content for section 2</p>
-    </div>
-
-    <div data-pp-accordion data-title="Section 3">
-      <p>Content for section 3</p>
-    </div>
-
-  </div>
-
-
-
-  <footer data-pp-footer data-bg="#7c3aed" data-textColor="#7c3aed">
-    <div class="footer-left">
-      <span>© 2026 SipNSee</span>
     </div>
 
-    <div class="footer-center">
-      <a data-pp-footer-link data-href="#privacy">Privacy</a>
-      <a data-pp-footer-link data-href="#terms">Terms</a>
-      <a data-pp-footer-link data-href="#support">Support</a>
-    </div>
 
-    <div class="footer-right">
-      <span>Built by Surendra</span>
-    </div>
-  </footer>
-  <div style="
+
+    <footer data-pp-footer data-bg="#7c3aed" data-textColor="#7c3aed">
+      <div class="footer-left">
+        <span>© 2026 SipNSee</span>
+      </div>
+
+      <div class="footer-center">
+        <a data-pp-footer-link data-href="#privacy">Privacy</a>
+        <a data-pp-footer-link data-href="#terms">Terms</a>
+        <a data-pp-footer-link data-href="#support">Support</a>
+      </div>
+
+      <div class="footer-right">
+        <span>Built by Surendra</span>
+      </div>
+    </footer>
+    <div style="
     display: flex;
     width: 100%;
   ">
-    <div>
-      <!-- FILE INPUT -->
-      <input data-pp-file data-align="left" data-width="100%" data-max-size="5" data-multiple="false"
-        data-accept=".pdf,.doc,.docx" data-onchange="onFileUpload" />
+      <div>
+        <!-- FILE INPUT -->
+        <input data-pp-file data-align="left" data-width="100%" data-max-size="5" data-multiple="false"
+          data-accept=".pdf,.doc,.docx" data-onchange="onFileUpload" />
+      </div>
+      <!-- RADIO GROUP -->
+      <div data-pp-radio-group data-layout="row" data-options='["Allowed Multiple files","Single file"]'
+        data-onchange="onFileModeChange">
+      </div>
     </div>
-    <!-- RADIO GROUP -->
-    <div data-pp-radio-group data-layout="row" data-options='["Allowed Multiple files","Single file"]'
-      data-onchange="onFileModeChange">
+    <br /><br />
+    <!-- BUTTONS -->
+    <button data-pp-button data-label="Save" data-type="primary">
+    </button>
+
+    <button data-pp-button data-label="Cancel" data-type="secondary" data-onclick="handleSave">
+    </button>
+
+    <!-- Load the UI component library bundle -->
+    <script type="module" src="./dist/pp-ui-core.min.js"></script>
+
+    <script>
+      function onProgramChange(value) {
+        alert("Selected: " + value);
+      }
+    </script>
+    <script>
+      function onDropdownChangeSelect(selectedOption) {
+        const selectContainer = document.querySelector("[data-pp-select]");
+        if (!selectContainer) return;
+
+        // Normalize value (radio group usually sends string)
+        const value = Array.isArray(selectedOption)
+          ? selectedOption[0]
+          : selectedOption;
+
+        if (value === "multiple select") {
+          // Enable multi select
+          selectContainer.dataset.multiple = "true";
+        } else {
+          // Enable single select
+          selectContainer.dataset.multiple = "false";
+        }
+
+        // Clear previous selection
+        selectContainer.innerHTML = "";
+
+        // Reinitialize select component
+        if (typeof initSelectMenus === "function") {
+          initSelectMenus();
+        }
+      }
+    </script>
+
+    <script>
+      function onFileModeChange(selectedOptions) {
+        const fileInput = document.querySelector("[data-pp-file]");
+        if (!fileInput) return;
+
+        // If "Allowed Multiple files" is selected → enable multiple
+        if (selectedOptions.includes("Allowed Multiple files")) {
+          fileInput.multiple = true;
+        } else {
+          fileInput.multiple = false;
+        }
+      }
+    </script>
+    <script>
+      function onGenderChange(value) {
+        alert("Selected Gender: " + value);
+      }
+
+    </script>
+    <script>
+      function onPreferenceChange(selectedOptions) {
+        alert("Selected Preferences: " + selectedOptions.join(", "));
+      }
+    </script>
+    <script>
+      function onFileUpload(files) {
+        for (let file of files) {
+          alert("File name: " + file.name);
+          alert("File size: " + file.size + " bytes");
+          alert("File type: " + file.type);
+        }
+      }
+    </script>
+
+    <div data-pp-table data-datasource="usersData" data-search="true" data-filter="true"
+      data-search-placeholder="Search" data-filter-placeholder="Select column" data-width="100%"
+      data-font-family="sans-serif" data-font-size="14px" data-border-color="#000" data-header-bg="#b7c9e6"
+      data-header-text-color="#03025f" data-row-hover-bg="#fafafa" data-text-color="#000" data-page-size="2"
+      data-sticky-header="true" data-column-toggle="true">
     </div>
-  </div>
-  <br /><br />
-  <!-- BUTTONS -->
-  <button data-pp-button data-label="Save" data-type="primary">
-  </button>
+    <div style="position:relative; display:inline-block; margin-top:20px;">
 
-  <button data-pp-button data-label="Cancel" data-type="secondary" data-onclick="handleSave">
-  </button>
-
-  <!-- Load the UI component library bundle -->
-  <script type="module" src="./dist/pp-ui-core.min.js"></script>
-
-  <script>
-    function onProgramChange(value) {
-      alert("Selected: " + value);
-    }
-  </script>
-  <script>
-    function onDropdownChangeSelect(selectedOption) {
-      const selectContainer = document.querySelector("[data-pp-select]");
-      if (!selectContainer) return;
-
-      // Normalize value (radio group usually sends string)
-      const value = Array.isArray(selectedOption)
-        ? selectedOption[0]
-        : selectedOption;
-
-      if (value === "multiple select") {
-        // Enable multi select
-        selectContainer.dataset.multiple = "true";
-      } else {
-        // Enable single select
-        selectContainer.dataset.multiple = "false";
-      }
-
-      // Clear previous selection
-      selectContainer.innerHTML = "";
-
-      // Reinitialize select component
-      if (typeof initSelectMenus === "function") {
-        initSelectMenus();
-      }
-    }
-  </script>
-
-  <script>
-    function onFileModeChange(selectedOptions) {
-      const fileInput = document.querySelector("[data-pp-file]");
-      if (!fileInput) return;
-
-      // If "Allowed Multiple files" is selected → enable multiple
-      if (selectedOptions.includes("Allowed Multiple files")) {
-        fileInput.multiple = true;
-      } else {
-        fileInput.multiple = false;
-      }
-    }
-  </script>
-  <script>
-    function onGenderChange(value) {
-      alert("Selected Gender: " + value);
-    }
-
-  </script>
-  <script>
-    function onPreferenceChange(selectedOptions) {
-      alert("Selected Preferences: " + selectedOptions.join(", "));
-    }
-  </script>
-  <script>
-    function onFileUpload(files) {
-      for (let file of files) {
-        alert("File name: " + file.name);
-        alert("File size: " + file.size + " bytes");
-        alert("File type: " + file.type);
-      }
-    }
-  </script>
-
-  <div data-pp-table data-datasource="usersData" data-search="true" data-filter="true" data-search-placeholder="Search"
-    data-filter-placeholder="Select column" data-width="100%" data-font-family="sans-serif" data-font-size="14px"
-    data-border-color="#000" data-header-bg="#b7c9e6" data-header-text-color="#03025f" data-row-hover-bg="#fafafa"
-    data-text-color="#000" data-page-size="2" data-sticky-header="true" data-column-toggle="true">
-  </div>
-  <div style="position:relative; display:inline-block; margin-top:20px;">
-
-    <button type="button" onclick="
+      <button type="button" onclick="
       const menu = this.nextElementSibling;
       menu.style.display =
         menu.style.display === 'block' ? 'none' : 'block';
     ">
-      Export ▾
-    </button>
+        Export ▾
+      </button>
 
-    <div style="
+      <div style="
       display:none;
       top:100%;
       right:0;
@@ -507,24 +491,24 @@
       min-width:120px;
       z-index:1000;
     ">
-      <div onclick="PPTableExport.export('csv')" style="padding:6px; cursor:pointer;">
-        Export CSV
+        <div onclick="PPTableExport.export('csv')" style="padding:6px; cursor:pointer;">
+          Export CSV
+        </div>
+
+        <div onclick="PPTableExport.export('excel')" style="padding:6px; cursor:pointer;">
+          Export Excel
+        </div>
+
+        <div onclick="PPTableExport.export('pdf')" style="padding:6px; cursor:pointer;">
+          Export PDF
+        </div>
       </div>
 
-      <div onclick="PPTableExport.export('excel')" style="padding:6px; cursor:pointer;">
-        Export Excel
-      </div>
-
-      <div onclick="PPTableExport.export('pdf')" style="padding:6px; cursor:pointer;">
-        Export PDF
-      </div>
     </div>
 
-  </div>
-
-  <div data-pp-tabs data-tabs="Details,Settings" data-active="0" data-text-color="#475569" data-active-bg="#2563eb"
-    data-active-color="#fff" data-hover-color="#1d4ed8" data-onselect="onTabSelect" data-active-bg-style="block">
-  </div>
+    <div data-pp-tabs data-tabs="Details,Settings" data-active="0" data-text-color="#475569" data-active-bg="#2563eb"
+      data-active-color="#fff" data-hover-color="#1d4ed8" data-onselect="onTabSelect" data-active-bg-style="block">
+    </div>
 
 
 

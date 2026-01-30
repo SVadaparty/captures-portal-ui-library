@@ -12,6 +12,7 @@ window.PP_UI = {
     if (typeof initModal === "function") initModal();
     if (typeof initToasts === "function") initToasts();
     if (typeof submitAddressForm === "function") submitAddressForm();
+    if (typeof submitPPForm === "function") submitPPForm();
     if(typeof initHeaders==="function") initHeaders();
     if(typeof initFooters==="function") initFooters();
     if(typeof initLoader==="function") initLoader();
