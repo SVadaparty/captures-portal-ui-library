@@ -119,7 +119,13 @@
     data-onchange="onGenderChange">
   </div>
   <br /><br />
+  <h3>Send Email</h3>
 
+<div
+  data-pp-email-form
+  data-on-submit="onSendEmail">
+</div>
+  <br /><br />
   <div data-pp-checkbox-group data-layout="column" data-options='["Option A","Option B","Option C"]'
     data-onchange="onPreferenceChange">
   </div>
@@ -576,6 +582,24 @@
       }
     ];
   </script>
+  <script>
+function onSendEmail(data) {
+  console.log("Email payload:", data);
+
+  alert(
+    "Sending email to: " +
+    data.to +
+    "\nAttachments: " +
+    data.attachments.length
+  );
+
+  // Here you would:
+  // • Call Power Automate
+  // • Call a Web API
+  // • Call Dataverse email activity
+}
+</script>
+
 </body>
 
 </html>

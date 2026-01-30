@@ -24,6 +24,7 @@ window.PP_UI = {
     if(typeof initAccordions==="function") initSidebars();
     if(typeof initSidebars==="function") initCards();
     if(typeof initKPIs==="function") initKPIs();
+    if(typeof initEmailForms==="function") initEmailForms();
   }
 };
 

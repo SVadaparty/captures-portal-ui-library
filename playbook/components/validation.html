@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>PP Validation – Playbook</title>
+
+<link rel="stylesheet" href="../../dist/pp-ui-core.min.css" />
+<script src="../../dist/pp-ui-core.min.js"></script>
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: Segoe UI, system-ui, sans-serif;
+  background: #f3f4f6;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  height: 100vh;
+}
+
+/* ========== CONTROLS ========== */
+.controls {
+  width: 360px;
+  padding: 20px;
+  background: #020617;
+  color: #ffffff;
+  overflow-y: auto;
+}
+
+.controls h2 {
+  margin-top: 0;
+  color: #38bdf8;
+}
+
+.controls label {
+  display: block;
+  margin-top: 12px;
+  font-size: 13px;
+  color: #cbd5f5;
+}
+
+.controls input,
+.controls select {
+  width: 100%;
+  padding: 8px;
+  border-radius: 6px;
+  border: none;
+  margin-top: 4px;
+}
+
+/* ========== PREVIEW ========== */
+.preview {
+  padding: 32px;
+  overflow-y: auto;
+}
+
+.playbook-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #2563eb;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: 16px;
+}
+
+.preview-box {
+  background: #ffffff;
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,.05);
+  margin-bottom: 24px;
+}
+
+.preview-box label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 500;
+}
+
+.preview-box input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #cbd5f5;
+  font-size: 14px;
+}
+
+.validation-message {
+  font-size: 13px;
+  color: #dc2626;
+  margin-top: 6px;
+  display: none;
+}
+
+pre {
+  background: #020617;
+  color: #38bdf8;
+  padding: 16px;
+  border-radius: 10px;
+  font-size: 13px;
+  overflow-x: auto;
+}
+</style>
+</head>
+
+<body>
+
+<div class="layout">
+<!-- ========== CONTROLS ========== -->
+<div class="controls">
+  <h2>Validation Settings</h2>
+
+  <label>Field Name</label>
+  <input id="pb-field" value="email"/>
+
+  <label>Label</label>
+  <input id="pb-label" value="Email Address"/>
+
+  <label>Validation Type</label>
+  <select id="pb-type">
+    <option value="">none</option>
+    <option value="email" selected>email</option>
+    <option value="password">password</option>
+    <option value="mobileNumber">mobileNumber</option>
+    <option value="pincode">pincode</option>
+  </select>
+
+  <label>Required</label>
+  <select id="pb-required">
+    <option value="false">false</option>
+    <option value="true" selected>true</option>
+  </select>
+
+  <label>Placeholder</label>
+  <input id="pb-placeholder" value="Enter email"/>
+
+  <label>Error Color</label>
+  <input type="color" id="pb-errorColor" value="#dc2626"/>
+
+  <hr style="margin: 16px 0; border: none; border-top: 1px solid #333;">
+  <h3 style="margin: 12px 0; color: #38bdf8; font-size: 14px;">Styles</h3>
+
+  <label>Background Color</label>
+  <input type="color" id="pb-bg" value="#ffffff"/>
+
+  <label>Font Color</label>
+  <input type="color" id="pb-color" value="#000000"/>
+
+  <label>Font Weight</label>
+  <input id="pb-weight" type="number" min="100" max="900" step="100" value="400"/>
+
+  <label>Text Alignment</label>
+  <select id="pb-align">
+    <option value="left">left</option>
+    <option value="center">center</option>
+    <option value="right">right</option>
+  </select>
+</div>
+
+<!-- ========== PREVIEW ========== -->
+<div class="preview">
+
+  <a href="../index.html" class="playbook-back">← Back to Playbook</a>
+
+  <h1>Validation</h1>
+
+  <div class="preview-box" id="preview"></div>
+
+  <div class="preview-box">
+    <h2>Generated HTML</h2>
+    <pre id="code"></pre>
+  </div>
+
+</div>
+
+</div>
+
+<script>
+function bindPlaybook() {
+  const preview = document.getElementById("preview");
+  const code = document.getElementById("code");
+
+  function sync() {
+    const field = v("pb-field");
+    const label = v("pb-label");
+    const type = v("pb-type");
+    const required = v("pb-required");
+    const placeholder = v("pb-placeholder");
+    const errorColor = v("pb-errorColor");
+    const bgColor = v("pb-bg");
+    const fontColor = v("pb-color");
+    const fontWeight = v("pb-weight");
+    const textAlign = v("pb-align");
+
+    /* ===== PREVIEW ===== */
+    preview.style.backgroundColor = bgColor;
+    preview.style.color = fontColor;
+    preview.style.fontWeight = fontWeight;
+    preview.style.textAlign = textAlign;
+
+    preview.innerHTML = `
+      <label>${label}</label>
+      <input
+        data-pp-input
+        data-field="${field}"
+        data-type="${type}"
+        data-required="${required}"
+        placeholder="${placeholder}"
+      />
+      <div
+        class="validation-message"
+        data-pp-validation
+        data-for="${field}"
+        style="color: ${errorColor};">
+      </div>
+    `;
+
+    // re-init validation - this will handle the validation message
+    if (typeof window.initInputs === "function") {
+      window.initInputs();
+    }
+
+    // Ensure placeholder is applied
+    const inputEl = preview.querySelector("input");
+    if (inputEl) {
+      inputEl.setAttribute("placeholder", placeholder);
+    }
+
+    // Update validation message color
+    const validationMsg = preview.querySelector("[data-pp-validation]");
+    if (validationMsg) {
+      validationMsg.style.color = errorColor;
+    }
+
+    /* ===== GENERATED CODE ===== */
+    code.textContent = `<label>${label}</label>
+<input
+  data-pp-input
+  data-field="${field}"
+  data-type="${type}"
+  data-required="${required}"
+  placeholder="${placeholder}"
+/>
+
+<div
+  data-pp-validation
+  data-for="${field}">
+</div>`;
+  }
+
+  const inputs = document.querySelectorAll(
+    ".controls input, .controls select"
+  );
+  inputs.forEach(el => el.addEventListener("input", sync));
+
+  sync();
+}
+
+function v(id) {
+  return document.getElementById(id).value;
+}
+
+setTimeout(() => {
+  bindPlaybook();
+}, 500);
+</script>
+
+</body>
+</html>

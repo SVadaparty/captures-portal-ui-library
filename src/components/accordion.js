@@ -4,9 +4,19 @@ function initAccordions() {
     const title = accordion.dataset.title || "Accordion";
     const isOpen = accordion.dataset.open === "true";
 
+    const bg = accordion.dataset.bg;
+    const color = accordion.dataset.color;
+    const fontSize = accordion.dataset.fontsize;
+    const fontWeight = accordion.dataset.fontweight;
+    const align = accordion.dataset.align;
+
+    const contentBg = accordion.dataset.contentBg;
+    const contentColor = accordion.dataset.contentColor;
+
     /* ========= STRUCTURE ========= */
     const wrapper = document.createElement("div");
     const header = document.createElement("div");
+    const titleSpan = document.createElement("span");
     const icon = document.createElement("span");
     const content = document.createElement("div");
 
@@ -16,7 +26,10 @@ function initAccordions() {
     }
 
     /* ========= HEADER ========= */
-    header.textContent = title;
+    titleSpan.textContent = title;
+    titleSpan.style.flex = "1";
+    
+    header.appendChild(titleSpan);
     header.appendChild(icon);
 
     header.style.display = "flex";
@@ -28,7 +41,7 @@ function initAccordions() {
     icon.textContent =
       isOpen ? DEFAULTS.accordionOpenIcon : DEFAULTS.accordionIcon;
 
-    /* ========= STYLES ========= */
+    /* ========= DEFAULT STYLES ========= */
     wrapper.style.border = `1px solid ${DEFAULTS.accordionBorderColor}`;
     wrapper.style.borderRadius = DEFAULTS.accordionBorderRadius;
     wrapper.style.backgroundColor = DEFAULTS.accordionBgColor;
@@ -39,12 +52,26 @@ function initAccordions() {
     header.style.fontFamily = DEFAULTS.accordionFontFamily;
     header.style.fontSize = DEFAULTS.accordionFontSize;
     header.style.fontWeight = DEFAULTS.accordionFontWeight;
+    
+    titleSpan.style.textAlign = "left";
 
+    /* ========= ✅ PLAYBOOK OVERRIDES ========= */
+    if (bg) header.style.backgroundColor = bg;
+    if (color) header.style.color = color;
+    if (fontSize) header.style.fontSize = fontSize;
+    if (fontWeight) header.style.fontWeight = fontWeight;
+    if (align) titleSpan.style.textAlign = align;
+
+    /* ========= CONTENT ========= */
     content.style.padding = DEFAULTS.accordionPadding;
     content.style.backgroundColor = DEFAULTS.accordionContentBg;
     content.style.color = DEFAULTS.accordionTextColor;
     content.style.display = isOpen ? "block" : "none";
     content.style.transition = DEFAULTS.accordionTransition;
+
+    /* ========= ✅ CONTENT PLAYBOOK OVERRIDES ========= */
+    if (contentBg) content.style.backgroundColor = contentBg;
+    if (contentColor) content.style.color = contentColor;
 
     /* ========= TOGGLE ========= */
     header.addEventListener("click", () => {
@@ -59,6 +86,7 @@ function initAccordions() {
     wrapper.appendChild(header);
     wrapper.appendChild(content);
 
+    accordion.innerHTML = ""; // 🔑 important for re-init
     accordion.appendChild(wrapper);
   });
 }
