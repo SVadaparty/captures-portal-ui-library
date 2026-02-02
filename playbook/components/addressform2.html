@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>PP Address Form – Playbook</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: Inter, system-ui, sans-serif;
+  background: #f8fafc;
+}
+
+/* ===== LAYOUT ===== */
+.layout {
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  height: 100vh;
+}
+
+/* ===== LEFT PANEL ===== */
+.controls {
+  background: #020617;
+  color: white;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.controls h2 {
+  color: #38bdf8;
+  margin-top: 0;
+}
+
+.controls label {
+  display: block;
+  margin-top: 14px;
+  font-size: 13px;
+  color: #cbd5f5;
+}
+
+.controls input {
+  width: 100%;
+  padding: 8px;
+  border-radius: 6px;
+  border: none;
+  margin-top: 6px;
+}
+
+/* ===== PREVIEW ===== */
+.preview {
+  padding: 32px;
+  overflow-y: auto;
+}
+
+.preview-box {
+  background: white;
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,.05);
+  margin-bottom: 24px;
+}
+
+pre {
+  background: #020617;
+  color: #38bdf8;
+  padding: 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  overflow-x: auto;
+}
+
+/* ===== FORM ===== */
+.form-field {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-field label {
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.form-field input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #cbd5e1;
+}
+
+.req {
+  color: #dc2626;
+  margin-left: 4px;
+}
+
+.pp-error {
+  color: #dc2626;
+  font-size: 12px;
+  display: none;
+  margin-top: 4px;
+}
+
+.pp-invalid {
+  border-color: #dc2626 !important;
+}
+
+.back-btn {
+  display: inline-block;
+  margin-bottom: 16px;
+  color: #2563eb;
+  text-decoration: none;
+  font-weight: 600;
+}
+</style>
+</head>
+
+<body>
+
+<div class="layout">
+
+  <!-- ===== CONTROLS ===== -->
+  <div class="controls">
+    <h2>Address Form Settings</h2>
+
+    <label>Form ID</label>
+    <input id="pb-formid" value="addressForm"/>
+
+    <label>Address Line 1 (default)</label>
+    <input id="pb-address1" value="Plot 12, MG Road"/>
+
+    <label>Address Line 2 (default)</label>
+    <input id="pb-address2" value="Near Metro Station"/>
+
+    <label>City (default)</label>
+    <input id="pb-city" value="Hyderabad"/>
+
+    <label>State (default)</label>
+    <input id="pb-state" value="Telangana"/>
+
+    <label>Country (default)</label>
+    <input id="pb-country" value="India"/>
+
+    <label>Location (default)</label>
+    <input id="pb-location" value="Yusufguda"/>
+
+    <label>Pincode (default)</label>
+    <input id="pb-pincode" value="500001"/>
+  </div>
+
+  <!-- ===== PREVIEW ===== -->
+  <div class="preview">
+
+    <a href="#" class="back-btn">← Back</a>
+
+    <h1>Power Pages – Address Form</h1>
+
+    <div class="preview-box">
+      <div id="addressHost" data-pp-address-form data-on-submit="handleAddressSubmit"></div>
+    </div>
+
+    <div class="preview-box">
+      <h2>Generated HTML</h2>
+      <pre id="codeBlock"></pre>
+    </div>
+
+  </div>
+</div>
+
+<script>
+function handleAddressSubmit(payload) {
+  alert(JSON.stringify(payload, null, 2));
+}
+
+function v(id) {
+  return document.getElementById(id).value;
+}
+
+function initAddressForms() {
+  document.querySelectorAll("[data-pp-address-form]").forEach(container => {
+    if (container._initialized) return;
+    container._initialized = true;
+
+    const onSubmitFn = container.dataset.onSubmit;
+
+    const form = document.createElement("form");
+    form.style.display = "flex";
+    form.style.flexDirection = "column";
+    form.style.gap = "16px";
+    form.noValidate = true;
+
+    function field(label, value, required = false) {
+      const wrap = document.createElement("div");
+      wrap.className = "form-field";
+
+      const l = document.createElement("label");
+      l.innerHTML = label + (required ? '<span class="req">*</span>' : "");
+
+      const i = document.createElement("input");
+      i.value = value || "";
+      i.setAttribute("data-pp-input", "");
+      if (required) i.dataset.required = "true";
+
+      const err = document.createElement("div");
+      err.className = "pp-error";
+      err.textContent = `${label} is required`;
+
+      i.addEventListener("blur", () => {
+        if (required && !i.value.trim()) {
+          i.classList.add("pp-invalid");
+          err.style.display = "block";
+        } else {
+          i.classList.remove("pp-invalid");
+          err.style.display = "none";
+        }
+      });
+
+      wrap.append(l, i, err);
+      form.appendChild(wrap);
+      return i;
+    }
+
+    const addr1 = field("Address Line 1", v("pb-address1"), true);
+    const addr2 = field("Address Line 2", v("pb-address2"));
+    const city = field("City", v("pb-city"), true);
+    const state = field("State", v("pb-state"), true);
+    const country = field("Country", v("pb-country"), true);
+    const location = field("Location", v("pb-location"));
+    const pincode = field("Pincode", v("pb-pincode"), true);
+
+    const btn = document.createElement("button");
+    btn.type = "submit";
+    btn.textContent = "Save Address";
+    btn.style.padding = "10px";
+    btn.style.cursor = "pointer";
+
+    form.appendChild(btn);
+
+    form.addEventListener("submit", e => {
+      e.preventDefault();
+
+      let valid = true;
+      form.querySelectorAll("[data-required='true']").forEach(input => {
+        if (!input.value.trim()) {
+          input.classList.add("pp-invalid");
+          input.nextElementSibling.style.display = "block";
+          valid = false;
+        }
+      });
+
+      if (!valid) return;
+
+      const payload = {
+        addressLine1: addr1.value,
+        addressLine2: addr2.value,
+        city: city.value,
+        state: state.value,
+        country: country.value,
+        location: location.value,
+        pincode: pincode.value
+      };
+
+      if (onSubmitFn && typeof window[onSubmitFn] === "function") {
+        window[onSubmitFn](payload);
+      }
+    });
+
+    container.innerHTML = "";
+    container.appendChild(form);
+  });
+}
+
+function sync() {
+  const host = document.getElementById("addressHost");
+  host._initialized = false;
+  initAddressForms();
+
+  document.getElementById("codeBlock").textContent =
+`<div data-pp-address-form data-on-submit="handleAddressSubmit"></div>`;
+}
+
+document
+  .querySelectorAll(".controls input")
+  .forEach(el => el.addEventListener("input", sync));
+
+window.addEventListener("load", sync);
+</script>
+
+</body>
+</html>
