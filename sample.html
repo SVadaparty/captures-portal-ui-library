@@ -177,6 +177,20 @@
 </div>
 
   <br /><br />
+  <div class="pp-contact-split">
+    <div class="pp-contact-left">
+      <h2>How may I help you?</h2>
+      <p>Tell us briefly what you need and we'll reach out as soon as possible.</p>
+    </div>
+
+    <div class="pp-contact-right">
+      <h2>Contact Form</h2>
+      <!-- Use data-use-global-button="true" to render a standard data-pp-button (uses global button styles) -->
+      <div data-pp-contact-form data-on-submit="onSaveAddress" data-use-global-button="true" data-submit-label="Send Message" data-submit-type="primary"></div>
+    </div>
+  </div>
+
+  <br /><br />
 
 </div>
 
@@ -535,6 +549,13 @@ function onSendEmail(data) {
   // • Call Power Automate
   // • Call a Web API
   // • Call Dataverse email activity
+}
+</script>
+
+<script>
+function onSaveAddress(payload) {
+  console.log('Contact/Address payload:', payload);
+  alert('Submitted payload:\n' + JSON.stringify(payload, null, 2));
 }
 </script>
 

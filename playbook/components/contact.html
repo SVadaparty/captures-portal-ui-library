@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>PP Contact Form – Playbook</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<link rel="stylesheet" href="../../dist/pp-ui-core.min.css"/>
+<script src="../../dist/pp-ui-core.min.js"></script>
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: Inter, system-ui, sans-serif;
+  background: #f8fafc;
+}
+
+/* ===== LAYOUT ===== */
+.layout {
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  height: 100vh;
+}
+
+/* ===== CONTROLS ===== */
+.controls {
+  background: #020617;
+  color: white;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.controls h2 {
+  color: #38bdf8;
+  margin-top: 0;
+}
+
+.controls label {
+  display: block;
+  margin-top: 14px;
+  font-size: 13px;
+  color: #cbd5f5;
+}
+
+.controls input {
+  width: 100%;
+  padding: 8px;
+  border-radius: 6px;
+  border: none;
+  margin-top: 4px;
+}
+
+/* ===== PREVIEW ===== */
+.preview {
+  padding: 32px;
+  overflow-y: auto;
+}
+
+.preview-box {
+  background: white;
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,.05);
+  margin-bottom: 24px;
+}
+
+pre {
+  background: #020617;
+  color: #38bdf8;
+  padding: 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  overflow-x: auto;
+}
+
+.playbook-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #2563eb;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: 16px;
+}
+
+.pp-error {
+  color: #dc2626;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+.pp-required::after {
+  content: " *";
+  color: #dc2626;
+}
+</style>
+</head>
+
+<body>
+
+<div class="layout">
+
+  <!-- ===== CONTROLS ===== -->
+  <div class="controls">
+    <h2>Contact Form Settings</h2>
+
+    <label>onSubmit Function</label>
+    <input id="pb-onsubmit" value="handleContactSubmit"/>
+
+    <label>Default Name</label>
+    <input id="pb-name" value=""/>
+
+    <label>Default Mobile</label>
+    <input id="pb-mobile" value=""/>
+
+    <label>Default Email</label>
+    <input id="pb-email" value=""/>
+
+    <label>Default Message</label>
+    <input id="pb-message" value=""/>
+  </div>
+
+  <!-- ===== PREVIEW ===== -->
+  <div class="preview">
+
+    <a href="../index.html" class="playbook-back">← Back to Playbook</a>
+
+    <h1>Power Pages – Contact Form</h1>
+
+    <!-- LIVE PREVIEW -->
+    <div class="preview-box">
+      <div id="contactHost" data-pp-contact-form></div>
+    </div>
+
+    <!-- GENERATED HTML -->
+    <div class="preview-box">
+      <h2>Generated HTML</h2>
+      <pre id="codeBlock"></pre>
+    </div>
+
+    <!-- PAYLOAD -->
+    <div class="preview-box">
+      <h2>Payload</h2>
+      <pre>
+{
+  name: string,
+  mobile: string,
+  email: string,
+  message: string
+}
+      </pre>
+    </div>
+
+  </div>
+</div>
+
+<script>
+/* ===== DEMO HANDLER ===== */
+function handleContactSubmit(payload) {
+  alert(JSON.stringify(payload, null, 2));
+}
+
+/* ===== CONTACT FORM INIT ===== */
+function initContactForms() {
+  document.querySelectorAll("[data-pp-contact-form]").forEach(host => {
+    if (host._initialized) return;
+    host._initialized = true;
+
+    const onSubmitFn = host.dataset.onSubmit;
+
+    const form = document.createElement("form");
+    form.style.display = "flex";
+    form.style.flexDirection = "column";
+    form.style.gap = "14px";
+    form.noValidate = true;
+
+    function field(labelText, field, value, type="text") {
+      const wrap = document.createElement("div");
+
+      const label = document.createElement("label");
+      label.textContent = labelText;
+      label.className = "pp-required";
+
+      const input =
+        type === "textarea"
+          ? document.createElement("textarea")
+          : document.createElement("input");
+
+      input.setAttribute("data-pp-input","");
+      input.dataset.field = field;
+      input.dataset.required = "true";
+      input.value = value || "";
+      input.style.padding = "8px";
+      input.style.width = "100%";
+
+      const error = document.createElement("div");
+      error.className = "pp-error";
+      error.style.display = "none";
+      error.textContent = "This field is required";
+
+      wrap.append(label, input, error);
+      form.appendChild(wrap);
+
+      return { input, error };
+    }
+
+    const name = field("Name", "name", v("pb-name"));
+    const mobile = field("Mobile Number", "mobile", v("pb-mobile"));
+    const email = field("Email", "email", v("pb-email"));
+    const message = field("Message", "message", v("pb-message"), "textarea");
+
+    const submit = document.createElement("button");
+    submit.type = "submit";
+    submit.setAttribute("data-pp-button", "");
+    submit.dataset.label = "Send Message";
+    // Demo fallback label so the button is visible before initButtons runs
+    submit.textContent = submit.dataset.label;
+    form.appendChild(submit);
+
+    form.addEventListener("submit", e => {
+      e.preventDefault();
+      let valid = true;
+
+      [name, mobile, email, message].forEach(f => {
+        if (!f.input.value.trim()) {
+          f.error.style.display = "block";
+          valid = false;
+        } else {
+          f.error.style.display = "none";
+        }
+      });
+
+      if (!valid) return;
+
+      const payload = {
+        name: name.input.value,
+        mobile: mobile.input.value,
+        email: email.input.value,
+        message: message.input.value
+      };
+
+      if (onSubmitFn && typeof window[onSubmitFn] === "function") {
+        window[onSubmitFn](payload);
+      }
+    });
+
+    host.innerHTML = "";
+    host.appendChild(form);
+    // Ensure global button initialization runs so [data-pp-button] is styled
+    if (typeof initButtons === 'function') initButtons();
+  });
+}
+
+/* ===== PLAYBOOK SYNC ===== */
+function v(id) {
+  return document.getElementById(id).value;
+}
+
+function sync() {
+  const host = document.getElementById("contactHost");
+  const code = document.getElementById("codeBlock");
+
+  host.innerHTML = "";
+  delete host._initialized;
+  host.dataset.onSubmit = v("pb-onsubmit");
+
+  initContactForms();
+
+  code.textContent =
+`<div
+  data-pp-contact-form
+  data-on-submit="${v("pb-onsubmit")}">
+</div>`;
+}
+
+document
+  .querySelectorAll(".controls input")
+  .forEach(el => el.addEventListener("input", sync));
+
+window.addEventListener("load", sync);
+</script>
+
+</body>
+</html>
