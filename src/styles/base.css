@@ -199,6 +199,85 @@ body {
   }
 }
 
+/* ==== Contact form overrides (appended) ==== */
+.pp-contact-form {
+  max-width: 560px;
+  padding: 16px;
+  border-radius: 8px;
+  border: 1px solid var(--pp-input-border);
+  background: #fff;
+  box-sizing: border-box;
+}
+
+.pp-contact-form label {
+  font-weight: 600;
+  margin-bottom: 6px;
+  display: block;
+}
+
+/* Use a contact-specific input class to avoid affecting other components */
+.pp-contact-form .pp-contact-input {
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid var(--pp-input-border);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.pp-contact-form .pp-error {
+  color: #dc2626;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+/* Scoped submit button for contact form - does not use global .pp-btn */
+.pp-contact-form .pp-contact-submit {
+  display: inline-block;
+  min-width: 120px;
+  padding: 8px 14px;
+  border-radius: 6px;
+  border: none;
+  background: var(--pp-primary);
+  color: #fff;
+  cursor: pointer;
+  font-weight: 600;
+  margin-top: 8px;
+}
+
+.pp-contact-form .pp-contact-submit:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Split layout for contact section */
+.pp-contact-split {
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+  margin-bottom: 16px;
+}
+.pp-contact-left {
+  flex: 1 1 40%;
+  padding: 16px;
+}
+.pp-contact-left h2 { margin-top: 36px; }
+.pp-contact-left p { margin: 8px 0 0; color: #475569; }
+.pp-contact-right {
+  flex: 1 1 60%;
+}
+
+@media (max-width: 768px) {
+  .pp-contact-split { flex-direction: column; }
+  .pp-contact-left, .pp-contact-right { padding: 8px; }
+}
+
+@media (max-width: 640px) {
+  .pp-contact-form {
+    padding: 12px;
+    width: 100%;
+  }
+}
+
 
 
 /* tabs css  */

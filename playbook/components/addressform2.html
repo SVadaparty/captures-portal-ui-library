@@ -5,6 +5,10 @@
 <title>PP Address Form – Playbook</title>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
+<!-- CORE UI -->
+<link rel="stylesheet" href="../../dist/pp-ui-core.min.css"/>
+<script src="../../dist/pp-ui-core.min.js"></script>
+
 <style>
 * { box-sizing: border-box; }
 
@@ -128,22 +132,22 @@ pre {
     <input id="pb-formid" value="addressForm"/>
 
     <label>Address Line 1 (default)</label>
-    <input id="pb-address1" value="Plot 12, MG Road"/>
+    <input id="pb-address1" value="Give your address"/>
 
     <label>Address Line 2 (default)</label>
-    <input id="pb-address2" value="Near Metro Station"/>
+    <input id="pb-address2" value="Give your address line 2"/>
 
     <label>City (default)</label>
-    <input id="pb-city" value="Hyderabad"/>
+    <input id="pb-city" value="City name"/>
 
     <label>State (default)</label>
-    <input id="pb-state" value="Telangana"/>
+    <input id="pb-state" value="State name"/>
 
     <label>Country (default)</label>
-    <input id="pb-country" value="India"/>
+    <input id="pb-country" value="US"/>
 
     <label>Location (default)</label>
-    <input id="pb-location" value="Yusufguda"/>
+    <input id="pb-location" value="location"/>
 
     <label>Pincode (default)</label>
     <input id="pb-pincode" value="500001"/>
@@ -198,7 +202,9 @@ function initAddressForms() {
       l.innerHTML = label + (required ? '<span class="req">*</span>' : "");
 
       const i = document.createElement("input");
-      i.value = value || "";
+      // Use the field label as placeholder; do not pre-fill exact/demo values
+      i.value = "";
+      i.placeholder = label;
       i.setAttribute("data-pp-input", "");
       if (required) i.dataset.required = "true";
 
@@ -225,17 +231,57 @@ function initAddressForms() {
     const addr2 = field("Address Line 2", v("pb-address2"));
     const city = field("City", v("pb-city"), true);
     const state = field("State", v("pb-state"), true);
-    const country = field("Country", v("pb-country"), true);
+    const country = field("US", v("pb-country"), true);
     const location = field("Location", v("pb-location"));
+    // Show US lat/lon as placeholder example
+    location.placeholder = 'US (37.0902, -95.7129)';
     const pincode = field("Pincode", v("pb-pincode"), true);
 
-    const btn = document.createElement("button");
-    btn.type = "submit";
-    btn.textContent = "Save Address";
-    btn.style.padding = "10px";
-    btn.style.cursor = "pointer";
+    const submit = document.createElement("button");
+    submit.type = "submit";
+    submit.setAttribute("data-pp-button", "");
+    submit.dataset.label = "Save Address";
+    // Use primary variant like Email playbook and show fallback label immediately
+    submit.dataset.type = "primary";
+    submit.textContent = submit.dataset.label;
+    submit.setAttribute('aria-label', submit.dataset.label);
 
-    form.appendChild(btn);
+    // Email-playbook visual: full-width, themed color, and typography
+    submit.style.display = 'block';
+    submit.style.width = '100%';
+    submit.style.boxSizing = 'border-box';
+    submit.style.setProperty('min-width', '0', 'important');
+    submit.style.setProperty('padding', '12px 16px', 'important');
+    submit.style.setProperty('border', 'none', 'important');
+    submit.style.setProperty('border-radius', '6px', 'important');
+    submit.style.setProperty('font-size', '16px', 'important');
+    submit.style.setProperty('font-weight', '600', 'important');
+    submit.style.setProperty('font-style', 'normal', 'important');
+    try {
+      const theme = getComputedStyle(document.documentElement).getPropertyValue('--pp-primary').trim();
+      // Use requested primary color fallback rgb(184, 56, 9) when theme var isn't available
+      const btnColor = theme || 'rgb(184, 56, 9)';
+      submit.style.setProperty('background-color', btnColor, 'important');
+      submit.style.setProperty('color', '#fff', 'important');
+    } catch (e) {}
+
+    form.appendChild(submit);
+
+    // Re-init internal components (initInputs, initButtons) to style the newly added button
+    if (typeof initInputs === 'function') initInputs();
+    if (typeof initButtons === 'function') initButtons();
+
+    // Post-init assurance: re-apply label and ensure styling persists
+    setTimeout(() => {
+      submit.textContent = submit.dataset.label;
+      submit.setAttribute('aria-label', submit.dataset.label);
+      try {
+        const theme = getComputedStyle(document.documentElement).getPropertyValue('--pp-primary').trim();
+        const btnColor = theme || 'rgb(184, 56, 9)';
+        submit.style.setProperty('background-color', btnColor, 'important');
+        submit.style.setProperty('color', '#fff', 'important');
+      } catch (e) {}
+    }, 20);
 
     form.addEventListener("submit", e => {
       e.preventDefault();
@@ -251,6 +297,16 @@ function initAddressForms() {
 
       if (!valid) return;
 
+      // Parse latitude and longitude from the Location field if the user included them (e.g. "Somewhere (12.34, 56.78)")
+      const locVal = (location.value || "").trim();
+      let parsedLat;
+      let parsedLon;
+      const coordsMatch = locVal.match(/(-?\d+(?:\.\d+)?)[,\s]+(-?\d+(?:\.\d+)?)/);
+      if (coordsMatch) {
+        parsedLat = coordsMatch[1];
+        parsedLon = coordsMatch[2];
+      }
+
       const payload = {
         addressLine1: addr1.value,
         addressLine2: addr2.value,
@@ -258,7 +314,9 @@ function initAddressForms() {
         state: state.value,
         country: country.value,
         location: location.value,
-        pincode: pincode.value
+        pincode: pincode.value,
+        latitude: parsedLat,
+        longitude: parsedLon
       };
 
       if (onSubmitFn && typeof window[onSubmitFn] === "function") {
