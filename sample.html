@@ -125,6 +125,7 @@
   data-on-submit="onSendEmail">
 </div>
   <br /><br />
+  
   <div data-pp-checkbox-group data-layout="column" data-options='["Option A","Option B","Option C"]'
     data-onchange="onPreferenceChange">
   </div>
@@ -168,6 +169,14 @@
 
   </div>
   </div>
+<br /><br />
+<h2>Address Form</h2>
+  <div
+  data-pp-address-form
+  data-on-submit="onSaveAddress">
+</div>
+
+  <br /><br />
 
 </div>
 
@@ -189,93 +198,6 @@
   </div>
 
   <br /><br />
-<div
-  data-pp-card
-  data-pp-form="address"
-  data-title="Address Details"
-  data-subtitle="Please enter your address"
-  data-padding="24px"
-  data-radius="12px"
-  data-bgcolor="#ffffff"
-  data-bordercolor="#e5e7eb"
-  data-shadow="md"
-  id="addressFormCard"
->
-
-  <!-- Address Line 1 -->
-  <label>Address Line 1</label>
-  <input
-    data-pp-input
-    data-name="Address Line 1"
-    data-placeholder="House no, Street, Area"
-    data-required="true"
-    data-requiredmessage="Address Line 1 is required"
-    data-width="100%"
-  />
-
-  <!-- Address Line 2 -->
-  <label>Address Line 2</label>
-  <input
-    data-pp-input
-    data-name="Address Line 2"
-    data-placeholder="Apartment, Landmark (optional)"
-    data-width="100%"
-  />
-
-  <!-- City -->
-  <label>City</label>
-  <input
-    data-pp-input
-    data-name="City"
-    data-placeholder="City"
-    data-required="true"
-    data-width="100%"
-  />
-
-  <!-- State -->
-  <label>State</label>
-  <input
-    data-pp-input
-    data-name="State"
-    data-placeholder="State"
-    data-required="true"
-    data-width="100%"
-  />
-
-  <!-- Pincode -->
-  <label>Pincode</label>
-  <input
-    data-pp-input
-    data-name="Pincode"
-    data-type="pincode"
-    data-placeholder="Enter pincode"
-    data-length="6"
-    data-required="true"
-    data-width="100%"
-    data-errormessage="Enter a valid 6-digit pincode"
-  />
-
-  <!-- Country -->
-  <label>Country</label>
-  <input
-    data-pp-input
-    data-name="Country"
-    data-placeholder="Country"
-    data-value="India"
-    data-width="100%"
-  />
-
-  <!-- Submit Button -->
-  <div style="margin-top: 20px; text-align: right;">
-   <button
-  type="button"
-  onclick="submitAddressForm('addressFormCard')"
->
-  Submit
-</button>
-  </div>
-
-</div>
 
   <br /><br />
 
