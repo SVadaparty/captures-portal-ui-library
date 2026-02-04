@@ -125,6 +125,25 @@
   data-on-submit="onSendEmail">
 </div>
   <br /><br />
+  <h2>External Link</h2>
+
+<div
+  data-pp-href-link
+  data-href="https://www.w3schools.com/tags/att_a_href.asp"
+  data-text="Visit W3Schools"
+  data-target="_blank"
+  data-color="#2563eb"
+  data-underline="false">
+</div>
+<br />
+
+<!-- Use the href component to render an image directly (supports data-img-src) -->
+<div
+  data-pp-href-link
+  data-href="https://example.org"
+  data-img-src="./playbook/assets/hreflink.jpg"
+  data-target="_blank">
+</div>  <br /><br />
   
   <div data-pp-checkbox-group data-layout="column" data-options='["Option A","Option B","Option C"]'
     data-onchange="onPreferenceChange">
@@ -199,23 +218,17 @@
     data-separator="/" data-font-size="10px">
   </nav>
 
-
-
-
   <br /><br />
-  <div data-pp-toast-form>
-    <input type="text" data-pp-toast-input placeholder="Checking for toast message"
-      style="padding:8px; font-size:14px; margin-right:6px;" />
-    <button data-pp-toast-submit style="padding:8px 12px;">
-      Submit
-    </button>
-  </div>
+<div
+  data-pp-input-form
+  data-placeholder="Enter value"
+  data-on-submit="onSaveInput">
+</div>
 
-  <br /><br />
-
-  <br /><br />
+<div data-pp-toast data-position="top-right"></div>
 
 
+  <br></br>
 
   <!-- LOADER TEST -->
   <div data-pp-loader data-text="Loading..." data-size="50px" data-color="#2563eb" data-bgcolor="#e0e7ff"

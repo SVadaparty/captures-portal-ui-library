@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>PP Href – Playbook</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: Inter, system-ui, sans-serif;
+  background: #f8fafc;
+}
+
+/* ===== LAYOUT ===== */
+.layout {
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  height: 100vh;
+}
+
+/* ===== CONTROLS ===== */
+.controls {
+  background: #020617;
+  color: white;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.controls h2 {
+  color: #38bdf8;
+  margin-top: 0;
+}
+
+.controls label {
+  display: block;
+  margin-top: 14px;
+  font-size: 13px;
+  color: #cbd5f5;
+}
+
+.controls input,
+.controls select {
+  width: 100%;
+  padding: 8px;
+  border-radius: 6px;
+  border: none;
+  margin-top: 4px;
+}
+
+/* ===== PREVIEW ===== */
+.preview {
+  padding: 32px;
+  overflow-y: auto;
+}
+
+.preview-box {
+  background: white;
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,.05);
+  margin-bottom: 24px;
+}
+
+pre {
+  background: #020617;
+  color: #38bdf8;
+  padding: 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  overflow-x: auto;
+}
+
+.playbook-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #2563eb;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: 16px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="layout">
+
+  <!-- ===== CONTROLS ===== -->
+  <div class="controls">
+    <h2>Href Settings</h2>
+
+    <label>Link Text</label>
+    <input id="pb-text" value="Visit W3Schools" />
+
+    <label>Redirect URL</label>
+    <input id="pb-href" value="https://www.w3schools.com/tags/att_a_href.asp" />
+
+    <label>Target</label>
+    <select id="pb-target">
+      <option value="_self">Same Tab</option>
+      <option value="_blank">New Tab</option>
+    </select>
+
+    <hr style="margin:16px 0;border-top:1px solid #334155;">
+
+    <h3 style="color:#38bdf8;font-size:14px;">Text Styles</h3>
+
+    <label>Text Color</label>
+    <input type="color" id="pb-color" value="#2563eb" />
+
+    <label>Underline</label>
+    <select id="pb-underline">
+      <option value="true">Yes</option>
+      <option value="false">No</option>
+    </select>
+
+    <hr style="margin:16px 0;border-top:1px solid #334155;">
+
+    <h3 style="color:#38bdf8;font-size:14px;">Image (Optional)</h3>
+
+    <label>Image Source URL</label>
+    <input id="pb-img" placeholder="https://example.com/image.png" />
+
+    <label>Image Alt Text</label>
+    <input id="pb-alt" value="Link image" />
+
+    <label>Image Width (px)</label>
+    <input id="pb-img-width" type="number" value="150" />
+  </div>
+
+  <!-- ===== PREVIEW ===== -->
+  <div class="preview">
+
+    <a href="../index.html" class="playbook-back">← Back to Playbook</a>
+
+    <h1>Power Pages – Href</h1>
+
+    <!-- LIVE PREVIEW -->
+    <div class="preview-box">
+      <div id="hrefHost"></div>
+    </div>
+
+    <!-- GENERATED HTML -->
+    <div class="preview-box">
+      <h2>Generated HTML</h2>
+      <pre id="codeBlock"></pre>
+    </div>
+
+  </div>
+</div>
+
+<script>
+function v(id) {
+  return document.getElementById(id).value;
+}
+
+function sync() {
+  const host = document.getElementById("hrefHost");
+  const code = document.getElementById("codeBlock");
+
+  const text = v("pb-text");
+  const href = v("pb-href");
+  const target = v("pb-target");
+  const color = v("pb-color");
+  const underline = v("pb-underline");
+  const img = v("pb-img");
+  const alt = v("pb-alt");
+  const imgWidth = v("pb-img-width");
+
+  host.innerHTML = "";
+
+  const wrapper = document.createElement("div");
+  wrapper.setAttribute("data-pp-href-link", "");
+  wrapper.dataset.href = href;
+  wrapper.dataset.text = text;
+  wrapper.dataset.target = target;
+  wrapper.dataset.color = color;
+  wrapper.dataset.underline = underline;
+
+  if (img) {
+    wrapper.dataset.imgSrc = img;
+    wrapper.dataset.alt = alt;
+    wrapper.dataset.imgWidth = imgWidth + "px";
+  }
+
+  host.appendChild(wrapper);
+
+  // Simulate runtime init
+  initHrefLinks();
+
+  code.textContent =
+`<div
+  data-pp-href-link
+  data-href="${href}"
+  data-text="${text}"
+  data-target="${target}"
+  data-color="${color}"
+  data-underline="${underline}"
+  ${img ? `data-img-src="${img}"` : ""}
+  ${img ? `data-alt="${alt}"` : ""}
+  ${img ? `data-img-width="${imgWidth}px"` : ""}>
+</div>`;
+}
+
+/* ===== YOUR COMPONENT JS ===== */
+function initHrefLinks() {
+  document.querySelectorAll("[data-pp-href-link]").forEach(container => {
+    if (container._initialized) return;
+    container._initialized = true;
+
+    const url = container.dataset.href || "#";
+    const text = container.dataset.text || "Click here";
+    const imgSrc = container.dataset.imgSrc;
+    const imgAlt = container.dataset.alt || text;
+    const target = container.dataset.target || "_self";
+    const color = container.dataset.color || "#2563eb";
+    const underline = container.dataset.underline !== "false";
+
+    container.innerHTML = "";
+
+    const link = document.createElement("a");
+    link.href = url;
+    link.target = target;
+
+    if (imgSrc) {
+      const img = document.createElement("img");
+      img.src = imgSrc;
+      img.alt = imgAlt;
+      img.style.maxWidth = container.dataset.imgWidth || "150px";
+      img.style.borderRadius = "6px";
+      img.style.border = "1px solid rgba(0,0,0,0.06)";
+      link.appendChild(img);
+    } else {
+      link.textContent = text;
+      link.style.color = color;
+      link.style.fontWeight = "600";
+      link.style.textDecoration = underline ? "underline" : "none";
+    }
+
+    container.appendChild(link);
+  });
+}
+
+document
+  .querySelectorAll(".controls input, .controls select")
+  .forEach(el => el.addEventListener("input", sync));
+
+window.addEventListener("load", sync);
+</script>
+
+</body>
+</html>
