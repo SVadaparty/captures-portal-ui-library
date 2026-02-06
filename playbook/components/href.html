@@ -130,7 +130,11 @@ pre {
     <input id="pb-alt" value="Link image" />
 
     <label>Image Width (px)</label>
-    <input id="pb-img-width" type="number" value="150" />
+    <input id="pb-img-width" type="number" value="500" />
+
+    <label>Image Height (px)</label>
+    <input id="pb-img-height" type="number" value="300" />
+
   </div>
 
   <!-- ===== PREVIEW ===== -->
@@ -138,7 +142,7 @@ pre {
 
     <a href="../index.html" class="playbook-back">← Back to Playbook</a>
 
-    <h1>Power Pages – Href</h1>
+    <h1>Power Pages – Hypertext</h1>
 
     <!-- LIVE PREVIEW -->
     <div class="preview-box">
@@ -171,6 +175,7 @@ function sync() {
   const img = v("pb-img");
   const alt = v("pb-alt");
   const imgWidth = v("pb-img-width");
+  const imgHeight = v("pb-img-height");
 
   host.innerHTML = "";
 
@@ -186,6 +191,7 @@ function sync() {
     wrapper.dataset.imgSrc = img;
     wrapper.dataset.alt = alt;
     wrapper.dataset.imgWidth = imgWidth + "px";
+    wrapper.dataset.imgHeight = imgHeight + "px";
   }
 
   host.appendChild(wrapper);
@@ -203,7 +209,8 @@ function sync() {
   data-underline="${underline}"
   ${img ? `data-img-src="${img}"` : ""}
   ${img ? `data-alt="${alt}"` : ""}
-  ${img ? `data-img-width="${imgWidth}px"` : ""}>
+  ${img ? `data-img-width="${imgWidth}px"` : ""}
+  ${img ? `data-img-height="${imgHeight}px"` : ""}>
 </div>`;
 }
 
@@ -231,7 +238,10 @@ function initHrefLinks() {
       const img = document.createElement("img");
       img.src = imgSrc;
       img.alt = imgAlt;
-      img.style.maxWidth = container.dataset.imgWidth || "150px";
+      img.style.width = container.dataset.imgWidth || "550px";
+      img.style.height = container.dataset.imgHeight || "300px";
+      img.style.objectFit = "cover";
+
       img.style.borderRadius = "6px";
       img.style.border = "1px solid rgba(0,0,0,0.06)";
       link.appendChild(img);
@@ -248,7 +258,10 @@ function initHrefLinks() {
 
 document
   .querySelectorAll(".controls input, .controls select")
-  .forEach(el => el.addEventListener("input", sync));
+  .forEach(el => {
+    el.addEventListener("input", sync);
+    el.addEventListener("change", sync);
+  });
 
 window.addEventListener("load", sync);
 </script>
