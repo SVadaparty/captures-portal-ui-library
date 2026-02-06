@@ -24,7 +24,13 @@ function initHrefLinks() {
       const img = document.createElement("img");
       img.src = imgSrc;
       img.alt = imgAlt;
-      img.style.maxWidth = container.dataset.imgWidth || '150px';
+      if (container.dataset.imgWidth) {
+        img.style.width = container.dataset.imgWidth;
+      }
+      if (container.dataset.imgHeight) {
+        img.style.height = container.dataset.imgHeight;
+      }
+      // img.style.maxWidth = container.dataset.imgWidth || '150px';
       img.style.display = 'block';
       img.style.borderRadius = '6px';
       img.style.border = '1px solid rgba(0,0,0,0.06)';
